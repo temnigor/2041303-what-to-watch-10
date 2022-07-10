@@ -1,4 +1,4 @@
-import SmallFilm from '../components/film-card-small';
+import SmallFilm from '../components/small-film';
 
 function MoviePage () {
   return (

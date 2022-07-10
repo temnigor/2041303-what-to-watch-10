@@ -1,11 +1,11 @@
 import React from 'react';
-import SmallFilm from '../components/film-card-small';
-type TitleFilm = {
+import SmallFilm from '../components/small-film';
+type MainProps = {
   name:string,
   genre: string,
   year: number
 }
-function Main (titleInfo:TitleFilm):JSX.Element {
+function Main (titleInfo:MainProps):JSX.Element {
   return (
     <div>
       <div className ="visually-hidden">

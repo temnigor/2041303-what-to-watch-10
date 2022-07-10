@@ -1,12 +1,13 @@
 import Main from '../../pages/main';
-type TitleFilm = {
-  name:string,
-  genre: string,
-  year: number
-}
-function App(titleInfo: TitleFilm): JSX.Element {
+
+const TitleFilmModel = {
+  name: 'The Grand Budapest Hotel',
+  genre: 'Drama',
+  year:  2014
+};
+function App( ): JSX.Element {
   return (
-    <Main {...titleInfo} />
+    <Main {...TitleFilmModel} />
   );
 }
 
