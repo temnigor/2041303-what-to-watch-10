@@ -1,17 +1,23 @@
 import ArtBoard from '../components/art-board';
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../const';
 import Logo from '../components/logo/logo';
-import SmallFilm from '../components/small-film';
 
-function MyList () {
+function Error404 ():JSX.Element {
   return (
     <div>
       <ArtBoard/>
 
-      <div className ="user-page">
-        <header className ="page-header user-page__head">
+      <section className ="film-card">
+        <div className ="film-card__bg">
+          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+        </div>
+
+        <h1 className ="visually-hidden">WTW</h1>
+
+        <header className ="page-header film-card__head">
           <Logo/>
 
-          <h1 className ="page-title user-page__title">My list <span className ="user-page__film-count">9</span></h1>
           <ul className ="user-block">
             <li className ="user-block__item">
               <div className ="user-block__avatar">
@@ -19,30 +25,26 @@ function MyList () {
               </div>
             </li>
             <li className ="user-block__item">
-              <a href = "#top" className ="user-block__link">Sign out</a>
+              <a className ="user-block__link" href = "#top">Sign out</a>
             </li>
           </ul>
         </header>
 
-        <section className ="catalog">
-          <h2 className ="catalog__title visually-hidden">Catalog</h2>
+        <div className ="film-card__wrap">
+          <div className ="film-card__info">
+            <h1>404 Not Found</h1>
+            <Link to = {AppRoute.Main} className ="logo__link" > <p className ="film-card__info">Main Page</p></Link>
+            <div className ="film-card__desc">
 
-          <div className ="catalog__films-list">
-            < SmallFilm />
-            < SmallFilm />
-            < SmallFilm />
-            < SmallFilm />
-            < SmallFilm />
-            < SmallFilm />
-            < SmallFilm />
-            < SmallFilm />
-            < SmallFilm />
+            </div>
           </div>
-        </section>
+        </div>
+      </section>
 
+      <div className ="page-content">
         <footer className ="page-footer">
           <div className ="logo">
-            <a href="main.html" className ="logo__link logo__link--light">
+            <a className ="logo__link logo__link--light" href = '#top'>
               <span className ="logo__letter logo__letter--1">W</span>
               <span className ="logo__letter logo__letter--2">T</span>
               <span className ="logo__letter logo__letter--3">W</span>
@@ -57,4 +59,5 @@ function MyList () {
     </div>
   );
 }
-export default MyList;
+
+export default Error404;
