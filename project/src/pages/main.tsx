@@ -19,7 +19,7 @@ function Main (titleInfo:MainProps):JSX.Element {
         <h1 className ="visually-hidden">WTW</h1>
 
         <header className ="page-header film-card__head">
-          <Logo/>
+          <Logo />
 
           <ul className ="user-block">
             <li className ="user-block__item">
