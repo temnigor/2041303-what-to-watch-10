@@ -1,9 +1,7 @@
 import { Link } from 'react-router-dom';
 import ArtBoard from '../components/art-board';
-type PlayerProps = {
-  videoLink?:string
-}
-function Player (props:PlayerProps) {
+
+function Player () {
   return (
     <div>
       <ArtBoard/>

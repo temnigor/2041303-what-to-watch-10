@@ -74,14 +74,16 @@ function Main (props:MainProps):JSX.Element {
           <div className ="catalog__more">
             {sliceEnd === props.films.length
               ? null
-              : <button className ="catalog__button" type="button" onClick={(evt:MouseEvent<HTMLButtonElement>)=>{
+              :
+              <button className ="catalog__button" type="button" onClick={(evt:MouseEvent<HTMLButtonElement>)=>{
                 const slice = FILM_CARD_COUNT + SLICE_STEP;
                 props.films.length < slice
                   ? setSliceEnd(props.films.length)
                   : setSliceEnd(slice);
-              }}>
+              }}
+              >
             Show more
-                </button>}
+              </button>}
 
           </div>
         </section>

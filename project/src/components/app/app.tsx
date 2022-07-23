@@ -9,7 +9,6 @@ import MoviePage from '../../pages/movie-page';
 import PrivateRoute from '../private-route/private-route';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Film } from '../../types/film';
-import { Review } from '../../types/review';
 type AppScreenProps = {
   films:Film[]
 }
