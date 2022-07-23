@@ -1,6 +1,5 @@
-import { link } from "fs";
-import { nanoid } from "nanoid";
-import { ReactNode } from "react";
+import { nanoid } from 'nanoid';
+
 
 type DetailsProps = {
   director:string,
@@ -13,42 +12,42 @@ type DetailsProps = {
 function Details (props:DetailsProps):JSX.Element {
   const isLastStarring = (actor:string) => actor === props.starring[props.starring.length - 1];
   const starringDetails = props.starring.map((actor,i) =>
-  isLastStarring(actor)
-  ? (<span key= {nanoid()}> {`${actor}`}</span>)
-  :(<span key= {nanoid()}> {`${actor},`}<br/> </span>));
+    isLastStarring(actor)
+      ? (<span key= {nanoid()}> {`${actor}`}</span>)
+      : (<span key= {nanoid()}> {`${actor},`}<br/> </span>));
   return (
     <>
-        <div className="film-card__text film-card__row">
+      <div className="film-card__text film-card__row">
         <div className="film-card__text-col">
           <p className="film-card__details-item">
             <strong className="film-card__details-name">Director</strong>
             <span className="film-card__details-value">{props.director}</span>
           </p>
           <p className="film-card__details-item">
-    <strong className="film-card__details-name">Starring</strong>
-    <span className="film-card__details-value">
-      {starringDetails}
-    </span>
-  </p>
+            <strong className="film-card__details-name">Starring</strong>
+            <span className="film-card__details-value">
+              {starringDetails}
+            </span>
+          </p>
 
         </div>
         <div className="film-card__text-col">
-                <p className="film-card__details-item">
-                  <strong className="film-card__details-name">Run Time</strong>
-                  <span className="film-card__details-value">{props.runTime}</span>
-                </p>
-                <p className="film-card__details-item">
-                  <strong className="film-card__details-name">Genre</strong>
-                  <span className="film-card__details-value"> {props.genre} </span>
-                </p>
-                <p className="film-card__details-item">
-                  <strong className="film-card__details-name">Released</strong>
-                  <span className="film-card__details-value">{props.yearCreation}</span>
-                </p>
-              </div>
-            </div>
-       <div/>
-       </>
-    )
-};
+          <p className="film-card__details-item">
+            <strong className="film-card__details-name">Run Time</strong>
+            <span className="film-card__details-value">{props.runTime}</span>
+          </p>
+          <p className="film-card__details-item">
+            <strong className="film-card__details-name">Genre</strong>
+            <span className="film-card__details-value"> {props.genre} </span>
+          </p>
+          <p className="film-card__details-item">
+            <strong className="film-card__details-name">Released</strong>
+            <span className="film-card__details-value">{props.yearCreation}</span>
+          </p>
+        </div>
+      </div>
+      <div/>
+    </>
+  );
+}
 export {Details};

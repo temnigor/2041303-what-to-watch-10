@@ -11,14 +11,12 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Film } from '../../types/film';
 import { Review } from '../../types/review';
 type AppScreenProps = {
-  films:Film[],
-  reviews:Review[],
-
+  films:Film[]
 }
 const AuthorizationStatusNow = {
   status: AuthorizationStatus.Auth,
   name:'Robin'
-}
+};
 
 
 function App( props:AppScreenProps ): JSX.Element {
@@ -28,7 +26,7 @@ function App( props:AppScreenProps ): JSX.Element {
         <Route
           path= {AppRoute.Main}
           element = {<Main films = {props.films} AuthorizationStatus = {AuthorizationStatusNow.status} />}
-          />
+        />
         <Route
           path= {AppRoute.SignIn}
           element = {<SignIn/>}

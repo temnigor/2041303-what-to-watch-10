@@ -1,6 +1,5 @@
-import { MainGenreFilter } from "../const"
-import { Film } from "../types/film"
-import SmallFilm from "./small-film"
+import { Film } from '../types/film';
+import SmallFilm from './small-film';
 
 type MainCatalogFilmCardsProps = {
   films:Film[]
@@ -10,7 +9,7 @@ type MainCatalogFilmCardsProps = {
 function MainCatalogFilmCards (props:MainCatalogFilmCardsProps):JSX.Element {
   return props.filterName === 'AllGenres' ? (
     <div className ="catalog__films-list">
-        {props.films.slice(0, props.sliceEnd).map((filmCard)=> <SmallFilm key={filmCard.id} film = {filmCard}/>)}
+      {props.films.slice(0, props.sliceEnd).map((filmCard)=> <SmallFilm key={filmCard.id} film = {filmCard}/>)}
     </div>
   ) : (
 
@@ -24,9 +23,9 @@ function CatalogFilmCardsFilter (props:MainCatalogFilmCardsProps):JSX.Element {
   const filmFilter = props.films.filter((film)=>film.genre === props.filterName);
   return filmFilter.length === 0 ? (<div className ="catalog__films-list"> No film Genre {props.filterName}</div>
   ) : (
-      <div className ="catalog__films-list">
-        {props.films.filter((film)=>film.genre === props.filterName).slice(0, props.sliceEnd).map((filmCard)=> <SmallFilm key={filmCard.id} film = {filmCard}/>)}
+    <div className ="catalog__films-list">
+      {props.films.filter((film)=>film.genre === props.filterName).slice(0, props.sliceEnd).map((filmCard)=> <SmallFilm key={filmCard.id} film = {filmCard}/>)}
     </div>
-  )
+  );
 }
-export {MainCatalogFilmCards}
+export {MainCatalogFilmCards};

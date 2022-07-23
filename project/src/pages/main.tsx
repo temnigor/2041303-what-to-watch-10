@@ -70,18 +70,18 @@ function Main (props:MainProps):JSX.Element {
         <section className ="catalog">
           <h2 className ="catalog__title visually-hidden">Catalog</h2>
           <MainGenreMenu filterName={MainGenreFilter.AllGenres} setFilterName = {setFilterName}/>
-            <MainCatalogFilmCards films = {props.films} sliceEnd = {sliceEnd} filterName={filterName}/>
+          <MainCatalogFilmCards films = {props.films} sliceEnd = {sliceEnd} filterName={filterName}/>
           <div className ="catalog__more">
             {sliceEnd === props.films.length
-            ? null
-            : <button className ="catalog__button" type="button" onClick={(evt:MouseEvent<HTMLButtonElement>)=>{
-              const slice = FILM_CARD_COUNT + SLICE_STEP;
-              props.films.length < slice
-              ? setSliceEnd(props.films.length)
-              : setSliceEnd(slice);
-            }}>
+              ? null
+              : <button className ="catalog__button" type="button" onClick={(evt:MouseEvent<HTMLButtonElement>)=>{
+                const slice = FILM_CARD_COUNT + SLICE_STEP;
+                props.films.length < slice
+                  ? setSliceEnd(props.films.length)
+                  : setSliceEnd(slice);
+              }}>
             Show more
-            </button>}
+                </button>}
 
           </div>
         </section>

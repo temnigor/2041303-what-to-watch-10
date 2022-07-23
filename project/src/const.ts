@@ -20,14 +20,14 @@ export enum NavMenuMoviePage {
 }
 
 export const MainGenreFilter = {
-    AllGenres : 'All genres',
-    Comedy: 'Comedies',
-    Crime : 'Crime',
-    Documental : 'Documentary',
-    Drama : 'Dramas',
-    Horror : 'Horror',
-    Kids: 'Kids & Family',
-    Romans : 'Romance',
-    SciFi : 'Sci-Fi',
-    Thriller : 'Thrillers'
-}
+  AllGenres : 'All genres',
+  Comedy: 'Comedies',
+  Crime : 'Crime',
+  Documental : 'Documentary',
+  Drama : 'Dramas',
+  Horror : 'Horror',
+  Kids: 'Kids & Family',
+  Romans : 'Romance',
+  SciFi : 'Sci-Fi',
+  Thriller : 'Thrillers'
+};

@@ -1,4 +1,4 @@
-import { FormEvent, FormEventHandler, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { AddReviewDetails } from '../components/add-review-detail';
 import ArtBoard from '../components/art-board';
@@ -15,16 +15,16 @@ type AddReviewProps = {
 }
 
 function AddReview (props:AddReviewProps):JSX.Element {
- const idFilm = useParams();
- const filmReview = props.films.find((film)=> film.id === idFilm.id);
- const date = new Date ();
- const dateReview = `${date.getDate()}, ${date.toLocaleString('en', { month: 'long' })} ${date.getFullYear()} Year`;
- const [comment, setComment] = useState('');
- const [isHideDetails, setIsHideDetails] = useState(true);
-const updateStateHandler = (evt:FormEvent<HTMLTextAreaElement>):void => {
-  evt.preventDefault();
-  setComment(evt.currentTarget.value);
-}
+  const idFilm = useParams();
+  const filmReview = props.films.find((film)=> film.id === idFilm.id);
+  const date = new Date ();
+  const dateReview = `${date.getDate()}, ${date.toLocaleString('en', { month: 'long' })} ${date.getFullYear()} Year`;
+  const [comment, setComment] = useState('');
+  const [isHideDetails, setIsHideDetails] = useState(true);
+  const updateStateHandler = (evt:FormEvent<HTMLTextAreaElement>):void => {
+    evt.preventDefault();
+    setComment(evt.currentTarget.value);
+  };
   return filmReview ? (
     <div>
       <ArtBoard/>
@@ -61,11 +61,12 @@ const updateStateHandler = (evt:FormEvent<HTMLTextAreaElement>):void => {
 
         <div className="add-review">
           <form action="#" onSubmit={(event:FormEvent<HTMLFormElement>)=>{
-                  event.preventDefault();
-                  comment.length > 0
-                  ? setIsHideDetails(false)
-                  : setIsHideDetails(true);
-                } } className="add-review__form">
+            event.preventDefault();
+            comment.length > 0
+              ? setIsHideDetails(false)
+              : setIsHideDetails(true);
+          } } className="add-review__form"
+          >
             <RatingStar ratingFilm = {filmReview.rating}/>
 
             <div className="add-review__text">
@@ -76,19 +77,19 @@ const updateStateHandler = (evt:FormEvent<HTMLTextAreaElement>):void => {
             </div>
           </form>
           <div>
-          {isHideDetails ?
+            {isHideDetails ?
               null
-              : <div className="add-review__text">
+              :
+              <div className="add-review__text">
                 <AddReviewDetails
-              name= {props.name}
-              comment = {comment}
-              rating = {filmReview.rating}
-              date = {dateReview}
-              />
-            </div>
-            }
-            </div>
-            </div>
+                  name= {props.name}
+                  comment = {comment}
+                  rating = {filmReview.rating}
+                  date = {dateReview}
+                />
+              </div>}
+          </div>
+        </div>
       </section>
     </div>
   ) : (

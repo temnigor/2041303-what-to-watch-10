@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import { Film } from "../types/film";
+import { Link } from 'react-router-dom';
+import { Film } from '../types/film';
 
 type SmallFilmProps = {
 film:Film

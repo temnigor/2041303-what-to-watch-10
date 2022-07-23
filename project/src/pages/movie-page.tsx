@@ -80,36 +80,39 @@ const MoviePage = (props:MoviePageProps):JSX.Element=>{
               <nav className ="film-nav film-card__nav">
                 <ul className ="film-nav__list">
                   <li className ="film-nav__item film-nav__item--active" onClick ={(event:MouseEvent<HTMLElement>)=> {
-                   event.preventDefault();
-                  document.querySelector('.film-nav__item--active')?.classList.remove('film-nav__item--active');
-                  event.currentTarget.classList.add('film-nav__item--active');
-                  setNavMenuButtonCount(NavMenuMoviePage.OVERVIEW);
-                }}>
+                    event.preventDefault();
+                    document.querySelector('.film-nav__item--active')?.classList.remove('film-nav__item--active');
+                    event.currentTarget.classList.add('film-nav__item--active');
+                    setNavMenuButtonCount(NavMenuMoviePage.OVERVIEW);
+                  }}
+                  >
                     <a href="#top" className ="film-nav__link">Overview</a>
                   </li>
                   <li className ="film-nav__item" onClick ={(event:MouseEvent<HTMLElement>)=> {
-                   event.preventDefault();
-                  document.querySelector('.film-nav__item--active')?.classList.remove('film-nav__item--active');
-                  event.currentTarget.classList.add('film-nav__item--active');
-                  setNavMenuButtonCount(NavMenuMoviePage.DETAILS);
-                }}>
+                    event.preventDefault();
+                    document.querySelector('.film-nav__item--active')?.classList.remove('film-nav__item--active');
+                    event.currentTarget.classList.add('film-nav__item--active');
+                    setNavMenuButtonCount(NavMenuMoviePage.DETAILS);
+                  }}
+                  >
                     <a href="#top" className ="film-nav__link">Details</a>
                   </li>
                   <li className ="film-nav__item" onClick ={(event:MouseEvent<HTMLElement>)=> {
-                   event.preventDefault();
-                  document.querySelector('.film-nav__item--active')?.classList.remove('film-nav__item--active');
-                  event.currentTarget.classList.add('film-nav__item--active');
-                  setNavMenuButtonCount(NavMenuMoviePage.REVIEWS);
-                }}>
+                    event.preventDefault();
+                    document.querySelector('.film-nav__item--active')?.classList.remove('film-nav__item--active');
+                    event.currentTarget.classList.add('film-nav__item--active');
+                    setNavMenuButtonCount(NavMenuMoviePage.REVIEWS);
+                  }}
+                  >
                     <a href="#top" className ="film-nav__link" >Reviews</a>
                   </li>
                 </ul>
               </nav>
-               <FilmAbout
-               filmForPage = {filmForPage}
-               nameButton = {navMenuButtonCount}
-               reviews = {getReviews()}
-               />
+              <FilmAbout
+                filmForPage = {filmForPage}
+                nameButton = {navMenuButtonCount}
+                reviews = {getReviews()}
+              />
             </div>
           </div>
         </div>
@@ -118,7 +121,7 @@ const MoviePage = (props:MoviePageProps):JSX.Element=>{
       <div className ="page-content">
         <section className ="catalog catalog--like-this">
           <h2 className ="catalog__title">More like this</h2>
-            <CatalogFilmCards films = {props.films} sliceEnd = {FILM_CARD_COUNT}/>
+          <CatalogFilmCards films = {props.films} sliceEnd = {FILM_CARD_COUNT}/>
         </section>
         <footer className ="page-footer">
           <Logo footer/>
@@ -130,7 +133,7 @@ const MoviePage = (props:MoviePageProps):JSX.Element=>{
     </>
   ) : (
     <Error404/>
-  )
-}
+  );
+};
 
 export default MoviePage;
