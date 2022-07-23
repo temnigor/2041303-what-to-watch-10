@@ -19,9 +19,7 @@ const MoviePage = (props:MoviePageProps):JSX.Element=>{
   const idFilm = useParams();
   const filmForPage = props.films.find((film) => film.id === idFilm.id);
   const myListFilmCount = props.films.filter((filmCard)=>filmCard.isFavorite === true).length;
-  const resultMenuButton = useState(`${NavMenuMoviePage.OVERVIEW}`);
-  const navMenuButtonCount = resultMenuButton[0];
-  const setNavMenuButtonCount = resultMenuButton[1];
+  const [navMenuButtonCount, setNavMenuButtonCount] = useState(NavMenuMoviePage.OVERVIEW);
 
   return filmForPage ? (
     <>
