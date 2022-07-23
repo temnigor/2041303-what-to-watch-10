@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import ArtBoard from '../components/art-board';
+import { AppRoute } from '../const';
 
 function Player () {
   return (
@@ -8,9 +9,7 @@ function Player () {
 
       <div className ="player">
         <video src="#" className ="player__video" poster="img/player-poster.jpg"></video>
-        <Link to = '/'>
-          <button type="button" className ="player__exit">Exit</button>
-        </Link>
+        <Link type="button" className ="player__exit" to={AppRoute.Main}>Exit</Link>
         <div className ="player__controls">
           <div className ="player__controls-row">
             <div className ="player__time">

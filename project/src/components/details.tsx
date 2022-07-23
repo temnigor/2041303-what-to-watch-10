@@ -11,10 +11,15 @@ type DetailsProps = {
 
 function Details (props:DetailsProps):JSX.Element {
   const isLastStarring = (actor:string) => actor === props.starring[props.starring.length - 1];
-  const starringDetails = props.starring.map((actor,i) =>
-    isLastStarring(actor)
-      ? (<span key= {nanoid()}> {`${actor}`}</span>)
-      : (<span key= {nanoid()}> {`${actor},`}<br/> </span>));
+  const starringDetails = props.starring.map((actor,i) => {
+    const keyId = `details-${i}`;
+    return (
+      isLastStarring(actor)
+        ? (<span key= {keyId}> {`${actor}`}</span>)
+        : (<span key= {nanoid()}> {`${actor},`}<br/> </span>)
+    );
+  }
+  );
   return (
     <>
       <div className="film-card__text film-card__row">
@@ -50,4 +55,5 @@ function Details (props:DetailsProps):JSX.Element {
     </>
   );
 }
+
 export {Details};

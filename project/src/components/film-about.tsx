@@ -1,10 +1,10 @@
-import { NavMenuMoviePage } from '../const';
+import { AppRoute, NavMenuMoviePage } from '../const';
 import { Review } from '../types/review';
 import { Film } from '../types/film';
 import { Details } from './details';
 import {Overview } from './overview';
 import { Reviews } from './reviews';
-import Error404 from '../pages/error-404';
+import { Navigate } from 'react-router-dom';
 
 type FilmAboutProps = {
   filmForPage:Film,
@@ -34,7 +34,7 @@ function FilmAbout (props:FilmAboutProps):JSX.Element{
     case NavMenuMoviePage.REVIEWS:
       return <Reviews reviews={props.reviews}/>;
     default:
-      return <Error404/>;
+      return <Navigate to = {AppRoute.Error} />;
   }
 
 }

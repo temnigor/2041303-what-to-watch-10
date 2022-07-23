@@ -9,8 +9,10 @@ import MoviePage from '../../pages/movie-page';
 import PrivateRoute from '../private-route/private-route';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Film } from '../../types/film';
+import { Review } from '../../types/review';
 type AppScreenProps = {
-  films:Film[]
+  films:Film[],
+  reviews:Review[]
 }
 const AuthorizationStatusNow = {
   status: AuthorizationStatus.Auth,
@@ -42,7 +44,7 @@ function App( props:AppScreenProps ): JSX.Element {
         />
         <Route
           path= {AppRoute.Film}
-          element = {<MoviePage authorizationStatus= {AuthorizationStatusNow.status} films = {props.films}/>}
+          element = {<MoviePage authorizationStatus= {AuthorizationStatusNow.status} films = {props.films} reviews = {props.reviews} />}
         />
         <Route
           path= {AppRoute.AddReview}
