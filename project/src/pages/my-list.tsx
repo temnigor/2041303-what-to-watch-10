@@ -1,16 +1,18 @@
 import ArtBoard from '../components/art-board';
+import { CatalogFilmCards } from '../components/catalog-film-cards';
 import Logo from '../components/logo/logo';
-import SmallFilm from '../components/small-film';
-
-function MyList () {
+import { Film } from '../types/film';
+const FILM_CARD_COUNT = 9;
+type MyListProps = {
+  films:Film[]
+}
+function MyList (props:MyListProps) {
   return (
     <div>
       <ArtBoard/>
-
       <div className ="user-page">
         <header className ="page-header user-page__head">
           <Logo/>
-
           <h1 className ="page-title user-page__title">My list <span className ="user-page__film-count">9</span></h1>
           <ul className ="user-block">
             <li className ="user-block__item">
@@ -26,29 +28,11 @@ function MyList () {
 
         <section className ="catalog">
           <h2 className ="catalog__title visually-hidden">Catalog</h2>
-
-          <div className ="catalog__films-list">
-            < SmallFilm />
-            < SmallFilm />
-            < SmallFilm />
-            < SmallFilm />
-            < SmallFilm />
-            < SmallFilm />
-            < SmallFilm />
-            < SmallFilm />
-            < SmallFilm />
-          </div>
+          <CatalogFilmCards films = {props.films} sliceEnd = {FILM_CARD_COUNT}/>
         </section>
 
         <footer className ="page-footer">
-          <div className ="logo">
-            <a href="main.html" className ="logo__link logo__link--light">
-              <span className ="logo__letter logo__letter--1">W</span>
-              <span className ="logo__letter logo__letter--2">T</span>
-              <span className ="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
-
+          <Logo footer/>
           <div className ="copyright">
             <p>© 2019 What to watch Ltd.</p>
           </div>

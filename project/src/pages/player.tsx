@@ -1,14 +1,18 @@
+import { Link } from 'react-router-dom';
 import ArtBoard from '../components/art-board';
-
-function Player () {
+type PlayerProps = {
+  videoLink?:string
+}
+function Player (props:PlayerProps) {
   return (
     <div>
       <ArtBoard/>
 
       <div className ="player">
         <video src="#" className ="player__video" poster="img/player-poster.jpg"></video>
-
+        <Link to = '/'>
         <button type="button" className ="player__exit">Exit</button>
+        </Link>
         <div className ="player__controls">
           <div className ="player__controls-row">
             <div className ="player__time">
