@@ -1,12 +1,12 @@
 import { FormEvent, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, Navigate, useParams } from 'react-router-dom';
 import { AddReviewDetails } from '../components/add-review-detail';
 import ArtBoard from '../components/art-board';
 import Logo from '../components/logo/logo';
 import { RatingStar } from '../components/rating-star';
 import { UserSing } from '../components/user-sing';
+import { AppRoute } from '../const';
 import { Film } from '../types/film';
-import Error404 from './error-404';
 
 type AddReviewProps = {
   authorizationStatus:string,
@@ -15,10 +15,10 @@ type AddReviewProps = {
 }
 
 function AddReview (props:AddReviewProps):JSX.Element {
-  const idFilm = useParams();
-  const filmReview = props.films.find((film)=> film.id === idFilm.id);
+  const param = useParams();
+  const filmReview = props.films.find((film)=> film.id === param.id);
   const date = new Date ();
-  const dateReview = `${date.getDate()}, ${date.toLocaleString('en', { month: 'long' })} ${date.getFullYear()} Year`;
+  const dateReview = `${date.getDate()} ${date.toLocaleString('en', { month: 'long' })} ${date.getFullYear()}`;
   const [comment, setComment] = useState('');
   const [isHideDetails, setIsHideDetails] = useState(true);
   const updateStateHandler = (evt:FormEvent<HTMLTextAreaElement>):void => {
@@ -43,7 +43,7 @@ function AddReview (props:AddReviewProps):JSX.Element {
             <nav className="breadcrumbs">
               <ul className="breadcrumbs__list">
                 <li className="breadcrumbs__item">
-                  <Link to= {`/films/${filmReview.id}`} className="breadcrumbs__link">{filmReview.filmName}</Link>
+                  <Link to= {AppRoute.Film.replace(':id', filmReview.id)} className="breadcrumbs__link">{filmReview.filmName}</Link>
                 </li>
                 <li className="breadcrumbs__item">
                   <a href="#top" className="breadcrumbs__link">Add review</a>
@@ -62,9 +62,7 @@ function AddReview (props:AddReviewProps):JSX.Element {
         <div className="add-review">
           <form action="#" onSubmit={(event:FormEvent<HTMLFormElement>)=>{
             event.preventDefault();
-            comment.length > 0
-              ? setIsHideDetails(false)
-              : setIsHideDetails(true);
+            setIsHideDetails( comment.length === 0);
           } } className="add-review__form"
           >
             <RatingStar ratingFilm = {filmReview.rating}/>
@@ -77,23 +75,21 @@ function AddReview (props:AddReviewProps):JSX.Element {
             </div>
           </form>
           <div>
-            {isHideDetails ?
-              null
-              :
-              <div className="add-review__text">
-                <AddReviewDetails
-                  name= {props.name}
-                  comment = {comment}
-                  rating = {filmReview.rating}
-                  date = {dateReview}
-                />
-              </div>}
+            {!isHideDetails &&
+            <div className="add-review__text">
+              <AddReviewDetails
+                name= {props.name}
+                comment = {comment}
+                rating = {filmReview.rating}
+                date = {dateReview}
+              />
+            </div>}
           </div>
         </div>
       </section>
     </div>
   ) : (
-    <Error404/>
+    <Navigate to = {AppRoute.Error}/>
   );
 }
 

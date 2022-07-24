@@ -6,13 +6,19 @@ type UserSingProps = {
 }
 function UserSing (props:UserSingProps):JSX.Element {
   if(props.status === AuthorizationStatus.Auth ) {
-    return singOut();
+    return(
+      <ul className ="user-block">
+        <li className ="user-block__item">
+          <div className ="user-block__avatar">
+            <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
+          </div>
+        </li>
+        <li className ="user-block__item">
+          <Link className ="user-block__link" to = {AppRoute.SignIn}>Sign out</Link>
+        </li>
+      </ul>
+    );
   }
-  return singIn();
-
-}
-
-function singIn ():JSX.Element {
   return (
     <div className="user-block">
       <Link to = {AppRoute.SignIn} className="user-block__link">Sign in</Link>
@@ -20,18 +26,4 @@ function singIn ():JSX.Element {
   );
 }
 
-function singOut ():JSX.Element {
-  return(
-    <ul className ="user-block">
-      <li className ="user-block__item">
-        <div className ="user-block__avatar">
-          <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-        </div>
-      </li>
-      <li className ="user-block__item">
-        <Link className ="user-block__link" to = {AppRoute.SignIn}>Sign out</Link>
-      </li>
-    </ul>
-  );
-}
 export {UserSing};

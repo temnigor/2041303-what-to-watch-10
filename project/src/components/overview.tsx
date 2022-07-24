@@ -1,4 +1,4 @@
-import { getRating } from '../mocks/films';
+import { getRating } from '../utils';
 type OverviewProps = {
   rating:number,
   ratingCount:number,
@@ -7,8 +7,16 @@ type OverviewProps = {
   description:string
 }
 function Overview (props:OverviewProps):JSX.Element{
-  const filmCardStarring = props.starring.slice(0, 5).map((actor:string) => `${actor}, `);
-  filmCardStarring[filmCardStarring.length - 1] = `${filmCardStarring[filmCardStarring.length - 1]} and other`;
+  const MAX_STARRING = 5;
+  let filmCardStarring:string[] = props.starring;
+  if (filmCardStarring.length > MAX_STARRING){
+    filmCardStarring = filmCardStarring.slice(0, 5).map((actor:string) => `${actor}, `);
+    filmCardStarring[filmCardStarring.length - 1] = `${props.starring[props.starring.length - 1]} and other`;
+  }else{
+    filmCardStarring = filmCardStarring.map((actor:string) => `${actor}, `);
+    filmCardStarring[filmCardStarring.length - 1] = `${props.starring[props.starring.length - 1]}`;
+  }
+
   return (
     <>
       <div className ="film-rating">

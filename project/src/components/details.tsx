@@ -1,6 +1,3 @@
-import { nanoid } from 'nanoid';
-
-
 type DetailsProps = {
   director:string,
   starring:string[],

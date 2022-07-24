@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom';
+import { Link, Navigate, useParams } from 'react-router-dom';
 import { useState, MouseEvent } from 'react';
 import ArtBoard from '../components/art-board';
 import { AppRoute, NavMenuMoviePage } from '../const';
@@ -6,7 +6,6 @@ import { CatalogFilmCards } from '../components/catalog-film-cards';
 import { FilmAbout } from '../components/film-about';
 import Logo from '../components/logo/logo';
 import { Film } from '../types/film';
-import Error404 from './error-404';
 import { UserSing } from '../components/user-sing';
 import { Review } from '../types/review';
 
@@ -17,8 +16,8 @@ type MoviePageProps = {
 };
 const FILM_CARD_COUNT = 4;
 const MoviePage = (props:MoviePageProps):JSX.Element=>{
-  const idFilm = useParams();
-  const filmForPage = props.films.find((film) => film.id === idFilm.id);
+  const param = useParams();
+  const filmForPage = props.films.find((film) => film.id === param.id);
   const myListFilmCount = props.films.filter((filmCard)=>filmCard.isFavorite === true).length;
   const [navMenuButtonCount, setNavMenuButtonCount] = useState(NavMenuMoviePage.OVERVIEW);
 
@@ -47,7 +46,7 @@ const MoviePage = (props:MoviePageProps):JSX.Element=>{
 
               <div className ="film-card__buttons">
 
-                <Link to = {`/player/${filmForPage.id}`} className ="btn btn--play film-card__button" type="button">
+                <Link to = {AppRoute.Player.replace(':id', filmForPage.id)} className ="btn btn--play film-card__button" type="button">
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
@@ -63,7 +62,7 @@ const MoviePage = (props:MoviePageProps):JSX.Element=>{
                   <span className ="film-card__count">{myListFilmCount}</span>
                 </Link>
 
-                <Link to = 'review' className ="btn film-card__button">Add review</Link>
+                <Link to = {AppRoute.AddReview.replace(':id', filmForPage.id)} className ="btn film-card__button">Add review</Link>
               </div>
             </div>
           </div>
@@ -128,7 +127,7 @@ const MoviePage = (props:MoviePageProps):JSX.Element=>{
       </div>
     </>
   ) : (
-    <Error404/>
+    <Navigate to = {AppRoute.Error}/>
   );
 };
 

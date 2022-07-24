@@ -5,7 +5,7 @@ export enum AppRoute {
   Film = '/films/:id',
   AddReview = '/films/:id/review',
   Player = '/player/:id',
-  Error = '*'
+  Error = '*',
 }
 export enum AuthorizationStatus {
   Auth = 'AUTH',
@@ -31,3 +31,10 @@ export const MainGenreFilter = {
   SciFi : 'Sci-Fi',
   Thriller : 'Thrillers'
 };
+export enum Rating {
+  BAD = 'Bad',
+  NORMAL = 'Normal',
+  GOOD = 'Good',
+  VERY = 'Very good',
+  AWESOME = 'Awesome'
+}

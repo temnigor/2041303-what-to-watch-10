@@ -11,27 +11,7 @@ const poster = [
   './img/johnny-english.jpg',
   './img/bohemian-rhapsody.jpg'
 ];
-enum Rating {
-  BAD = 'Bad',
-  NORMAL = 'Normal',
-  GOOD = 'Good',
-  VERY = 'Very good',
-  AWESOME = 'Awesome'
-}
-const getRating = (num:number) => {
-  switch(true){
-    case num < 3:
-      return Rating.BAD;
-    case num < 5:
-      return Rating.NORMAL;
-    case num < 8:
-      return Rating.GOOD;
-    case num < 10:
-      return Rating.VERY;
-    default:
-      return Rating.AWESOME;
-  }
-};
+
 const film = () => ({
   id: nanoid(5),
   bigPoster:'./img/bg-the-grand-budapest-hotel.jpg',
@@ -64,4 +44,4 @@ const film = () => ({
 });
 
 const getFilms = ():Film[]=> Array.from({length:25}, ()=>film());
-export {getRating, getFilms};
+export {getFilms};

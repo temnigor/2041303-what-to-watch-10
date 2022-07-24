@@ -1,3 +1,4 @@
+import { getDataTime } from '../utils';
 import { Review } from '../types/review';
 type ReviewsProps = {
   reviews: Review[]
@@ -6,6 +7,7 @@ type ReviewsProps = {
 const getReviewsJsx = (reviews:Review[]) =>
   reviews.map((review, i) => {
     const {name, date, rating, comment} = review;
+    const dateTime = getDataTime(date);
     const keyReview = `review${i}`;
     return (
       <div key={keyReview} className="review">
@@ -13,7 +15,7 @@ const getReviewsJsx = (reviews:Review[]) =>
           <p className="review__text">{comment}</p>
           <footer className="review__details">
             <cite className="review__author">{name}</cite>
-            <time className="review__date" dateTime="2016-12-24">{date}</time>
+            <time className="review__date" dateTime={dateTime}>{date}</time>
           </footer>
         </blockquote>
         <div className="review__rating">{rating}</div>
@@ -33,7 +35,7 @@ function Reviews (props:ReviewsProps):JSX.Element {
     );
   }
   const mostOfHalf = Math.ceil(Number(props.reviews.length / 2));
-  const reviewsPartOne = getReviewsJsx (props.reviews.slice(0,mostOfHalf));
+  const reviewsPartOne = getReviewsJsx (props.reviews.slice(0, mostOfHalf));
   const reviewsPartTwo = getReviewsJsx(props.reviews.slice(mostOfHalf, props.reviews.length));
   return(
     <div className="film-card__reviews film-card__row">
