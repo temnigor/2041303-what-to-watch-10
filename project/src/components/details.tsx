@@ -16,7 +16,7 @@ function Details (props:DetailsProps):JSX.Element {
     return (
       isLastStarring(actor)
         ? (<span key= {keyId}> {`${actor}`}</span>)
-        : (<span key= {nanoid()}> {`${actor},`}<br/> </span>)
+        : (<span key= {keyId}> {`${actor},`}<br/> </span>)
     );
   }
   );
