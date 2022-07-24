@@ -22,7 +22,7 @@ function Overview (props:OverviewProps):JSX.Element{
         {props.description}
         <p className ="film-card__director"><strong>Director: {props.director}</strong></p>
 
-        <p className ="film-card__starring"><strong>Starring: {filmCardStarring} and other</strong></p>
+        <p className ="film-card__starring"><strong>Starring: {filmCardStarring} </strong></p>
       </div>
     </>
   );
