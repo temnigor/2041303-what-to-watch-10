@@ -1,10 +1,11 @@
-import { AppRoute, NavMenuMoviePage } from '../const';
-import { Review } from '../types/review';
-import { Film } from '../types/film';
-import { Details } from './details';
-import {Overview } from './overview';
-import { Reviews } from './reviews';
+import { AppRoute, NavMenuMoviePage } from '../../const';
+import { Review } from '../../types/review';
+import { Film } from '../../types/film';
 import { Navigate } from 'react-router-dom';
+import { Overview } from './overview';
+import { Details } from './details';
+import { Reviews } from './reviews';
+
 
 type FilmAboutProps = {
   filmForPage:Film,
