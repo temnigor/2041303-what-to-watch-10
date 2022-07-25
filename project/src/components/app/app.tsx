@@ -1,6 +1,6 @@
 import { AppRoute, AuthorizationStatus } from '../../const';
 import Main from '../../pages/main';
-import Error404 from '../../pages/error';
+import Error404 from '../../pages/error-404';
 import AddReview from '../../pages/add-review';
 import SignIn from '../../pages/sign-in';
 import Player from '../../pages/player';
@@ -8,18 +8,25 @@ import MyList from '../../pages/my-list';
 import MoviePage from '../../pages/movie-page';
 import PrivateRoute from '../private-route/private-route';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-const TitleFilmModel = {
-  name: 'The Grand Budapest Hotel',
-  genre: 'Drama',
-  year:  2014
+import { Film } from '../../types/film';
+import { Review } from '../../types/review';
+type AppScreenProps = {
+  films:Film[],
+  reviews:Review[]
+}
+const AuthorizationStatusNow = {
+  status: AuthorizationStatus.Auth,
+  name:'Robin'
 };
-function App( ): JSX.Element {
+
+
+function App( props:AppScreenProps ): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path= {AppRoute.Main}
-          element = {<Main {...TitleFilmModel}/>}
+          element = {<Main films = {props.films} AuthorizationStatus = {AuthorizationStatusNow.status} />}
         />
         <Route
           path= {AppRoute.SignIn}
@@ -29,27 +36,27 @@ function App( ): JSX.Element {
           path= {AppRoute.MyList}
           element = {
             <PrivateRoute
-              authorizationStatus = {AuthorizationStatus.NoAuth}
+              authorizationStatus = {AuthorizationStatusNow.status}
             >
-              <MyList/>
+              <MyList films = {props.films}/>
             </PrivateRoute>
           }
         />
         <Route
           path= {AppRoute.Film}
-          element = {<MoviePage/>}
+          element = {<MoviePage authorizationStatus= {AuthorizationStatusNow.status} films = {props.films} reviews = {props.reviews} />}
         />
         <Route
           path= {AppRoute.AddReview}
           element = {
-            <PrivateRoute authorizationStatus= {AuthorizationStatus.NoAuth}>
-              <AddReview/>
+            <PrivateRoute authorizationStatus= {AuthorizationStatusNow.status}>
+              <AddReview authorizationStatus= {AuthorizationStatusNow.status} name={AuthorizationStatusNow.name} films = {props.films}/>
             </PrivateRoute>
           }
         />
         <Route
           path= {AppRoute.Player}
-          element = {<Player/>}
+          element = {<Player />}
         />
         <Route
           path= {AppRoute.Error}

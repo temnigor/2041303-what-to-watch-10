@@ -1,13 +1,25 @@
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../const';
+import { Film } from '../types/film';
 
-function SmallFilm ():JSX.Element {
+
+type SmallFilmProps = {
+film:Film
+}
+
+function SmallFilm (props:SmallFilmProps):JSX.Element {
+  const{id,filmName, previewImage} = props.film;
   return (
-    <article className ="small-film-card catalog__films-card">
-      <div className ="small-film-card__image">
-        <img src="img/johnny-english.jpg" alt="Johnny English" width="280" height="175" />
+    <article key={id} className ="small-film-card catalog__films-card">
+      <div className ="small-film-card__image" onMouseMove = {(e)=>e.preventDefault()} >
+        <img src= {previewImage} alt= {filmName} width="280" height="175" />
       </div>
       <h3 className ="small-film-card__title">
-        <a className ="small-film-card__link" href="film-page.html">Johnny English</a>
+
+        <Link className ="small-film-card__link" to={AppRoute.Film.replace(':id', id)} >{filmName}</Link>
+
       </h3>
+
     </article>
   );
 }
