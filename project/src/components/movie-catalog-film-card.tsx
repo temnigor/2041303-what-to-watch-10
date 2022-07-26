@@ -12,7 +12,7 @@ export function MovieCatalogFilmCards (props:MovieCatalogFilmCardsProps):JSX.Ele
   return (
     <div className ="catalog__films-list">
       {filteredFilm.length === 0 ? <div className ="catalog__films-list"> No more film like this </div>
-      : filteredFilm.slice(0, sliceCount).map((filmCard)=> <SmallFilm key={filmCard.id} film = {filmCard}/>)}
+        : filteredFilm.slice(0, sliceCount).map((filmCard)=> <SmallFilm key={filmCard.id} film = {filmCard}/>)}
     </div>
   );
 }

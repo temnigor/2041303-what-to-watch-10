@@ -3,7 +3,7 @@ import Logo from '../components/logo/logo';
 import { Film } from '../types/film';
 import { Link } from 'react-router-dom';
 import { UserSing } from '../components/user-sing';
-import { AppRoute, GenresFilter, MainGenreFilter } from '../const';
+import { AppRoute, GenresFilter} from '../const';
 import { MainGenreMenu } from '../components/main-genre-menu';
 import { MouseEvent, useState } from 'react';
 import { MainCatalogFilmCards } from '../components/main-catalog-film';
