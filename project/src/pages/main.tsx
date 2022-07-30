@@ -3,21 +3,22 @@ import Logo from '../components/logo/logo';
 import { Film } from '../types/film';
 import { Link } from 'react-router-dom';
 import { UserSing } from '../components/user-sing';
-import { AppRoute, FilterMainNavMenu, GenresFilter} from '../const';
+import { AppRoute} from '../const';
 import { MainGenreMenu } from '../components/main-genre-menu';
 import { MouseEvent, useState } from 'react';
 import { MainCatalogFilmCards } from '../components/main-catalog-film';
-const FILM_CARD_COUNT = 20;
+import { useAppSelector } from '../hooks';
+const FILM_CARD_COUNT = 8;
 const SLICE_STEP = 8;
 type MainProps = {
   films:Film[]
-  AuthorizationStatus:string
+  authorizationStatus:string
 }
 
 function Main (props:MainProps):JSX.Element {
   const{id,filmName,genre,yearCreation,bigPoster, poster} = props.films[0];
-  const [filterName, setFilterName] = useState(GenresFilter[FilterMainNavMenu.ALL_GENRES]);
   const [sliceEnd, setSliceEnd] = useState (FILM_CARD_COUNT);
+  const filmsFilteredLength = useAppSelector((state)=>state.filmsFiltered.length);
   return (
     <div>
       <ArtBoard/>
@@ -31,7 +32,7 @@ function Main (props:MainProps):JSX.Element {
 
         <header className ="page-header film-card__head">
           <Logo/>
-          <UserSing status = {props.AuthorizationStatus} />
+          <UserSing status = {props.authorizationStatus} />
         </header>
 
         <div className ="film-card__wrap">
@@ -69,16 +70,16 @@ function Main (props:MainProps):JSX.Element {
       <div className ="page-content">
         <section className ="catalog">
           <h2 className ="catalog__title visually-hidden">Catalog</h2>
-          <MainGenreMenu filterName={filterName} onFilterChanges = {(filter)=> setFilterName(filter)} />
-          <MainCatalogFilmCards films = {props.films} sliceEnd = {sliceEnd} filterName={filterName}/>
+          <MainGenreMenu />
+          <MainCatalogFilmCards sliceEnd = {sliceEnd}/>
           <div className ="catalog__more">
-            {sliceEnd === props.films.length
+            {sliceEnd === filmsFilteredLength || filmsFilteredLength === 0
               ? null
               :
               <button className ="catalog__button" type="button" onClick={(evt:MouseEvent<HTMLButtonElement>)=>{
-                const slice = FILM_CARD_COUNT + SLICE_STEP;
-                props.films.length < slice
-                  ? setSliceEnd(props.films.length)
+                const slice = sliceEnd + SLICE_STEP;
+                filmsFilteredLength < slice
+                  ? setSliceEnd(filmsFilteredLength)
                   : setSliceEnd(slice);
               }}
               >

@@ -26,7 +26,7 @@ function App( props:AppScreenProps ): JSX.Element {
       <Routes>
         <Route
           path= {AppRoute.Main}
-          element = {<Main films = {props.films} AuthorizationStatus = {AuthorizationStatusNow.status} />}
+          element = {<Main films = {props.films} authorizationStatus = {AuthorizationStatusNow.status} />}
         />
         <Route
           path= {AppRoute.SignIn}
@@ -38,7 +38,7 @@ function App( props:AppScreenProps ): JSX.Element {
             <PrivateRoute
               authorizationStatus = {AuthorizationStatusNow.status}
             >
-              <MyList films = {props.films}/>
+              <MyList authorizationStatus= {AuthorizationStatusNow.status} films = {props.films}/>
             </PrivateRoute>
           }
         />

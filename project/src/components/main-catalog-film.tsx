@@ -1,31 +1,20 @@
-import { FilterMainNavMenu, GenresFilter } from '../const';
+import {useAppSelector } from '../hooks';
+
 import { Film } from '../types/film';
 import SmallFilm from './small-film';
 
 type MainCatalogFilmCardsProps = {
-  films:Film[]
   sliceEnd: number
-  filterName:string
 }
 function MainCatalogFilmCards (props:MainCatalogFilmCardsProps):JSX.Element {
-  return props.filterName === GenresFilter[FilterMainNavMenu.ALL_GENRES] ? (
-    <div className ="catalog__films-list">
-      {props.films.slice(0, props.sliceEnd).map((filmCard)=> <SmallFilm key={filmCard.id} film = {filmCard}/>)}
-    </div>
-  ) : (
+  const genre = useAppSelector((state)=>state.filter);
+  const filmsFiltered:Film[] = useAppSelector((state)=>state.filmsFiltered);
 
-    <CatalogFilmCardsFilter films = {props.films} sliceEnd = {props.sliceEnd} filterName={props.filterName}/>
 
-  );
-
-}
-
-function CatalogFilmCardsFilter (props:MainCatalogFilmCardsProps):JSX.Element {
-  const filmFilter = props.films.filter((film)=>film.genre === props.filterName);
-  return filmFilter.length === 0 ? (<div className ="catalog__films-list"> No film Genre {props.filterName}</div>
+  return filmsFiltered.length === 0 ? (<div className ="catalog__films-list"> No film Genre {genre}</div>
   ) : (
     <div className ="catalog__films-list">
-      {props.films.filter((film)=>film.genre === props.filterName).slice(0, props.sliceEnd).map((filmCard)=> <SmallFilm key={filmCard.id} film = {filmCard}/>)}
+      {filmsFiltered.slice(0, props.sliceEnd).map((filmCard:Film)=> <SmallFilm key={filmCard.id} film = {filmCard}/>)}
     </div>
   );
 }

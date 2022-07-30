@@ -1,10 +1,12 @@
 import ArtBoard from '../components/art-board';
 import { CatalogFilmCards } from '../components/catalog-film-cards';
 import Logo from '../components/logo/logo';
+import { UserSing } from '../components/user-sing';
 import { Film } from '../types/film';
 const FILM_CARD_COUNT = 9;
 type MyListProps = {
   films:Film[]
+  authorizationStatus:string
 }
 function MyList (props:MyListProps) {
   return (
@@ -15,14 +17,7 @@ function MyList (props:MyListProps) {
           <Logo/>
           <h1 className ="page-title user-page__title">My list <span className ="user-page__film-count">9</span></h1>
           <ul className ="user-block">
-            <li className ="user-block__item">
-              <div className ="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-              </div>
-            </li>
-            <li className ="user-block__item">
-              <a href = "#top" className ="user-block__link">Sign out</a>
-            </li>
+            <UserSing status = {props.authorizationStatus} />
           </ul>
         </header>
 
