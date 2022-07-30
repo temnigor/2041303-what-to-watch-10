@@ -6,7 +6,7 @@ export enum AppRoute {
   AddReview = '/films/:id/review',
   Player = '/player/:id',
   Error = '/404',
-  OtherError = '*'
+  OtherRoute = '*'
 }
 export enum AuthorizationStatus {
   Auth = 'AUTH',
@@ -39,5 +39,3 @@ export enum Rating {
   VERY = 'Very good',
   AWESOME = 'Awesome'
 }
-
-export const TIME_VIDEO_LAG = 1000;
