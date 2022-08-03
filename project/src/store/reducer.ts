@@ -1,7 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { FilterMainNavMenu, GenresFilter } from '../const';
 import { getFilms } from '../mocks/films';
-import {mainFilterChang } from './action';
+import {getFilmsFromServer, mainFilterChang } from './action';
 
 const initialState = {
   filter:GenresFilter[FilterMainNavMenu.ALL_GENRES],
@@ -16,6 +16,9 @@ const reducerMainFilterFilm = createReducer(initialState, (builder) => {
       GenresFilter[FilterMainNavMenu.ALL_GENRES] === action.payload
         ? state.filmsFiltered = state.aLLFilms
         : state.filmsFiltered = state.aLLFilms.filter((film)=> film.genre === action.payload);
+    })
+    .addCase(getFilmsFromServer, (state, action) => {
+      state.aLLFilms = action.payload;
     });
 });
 
