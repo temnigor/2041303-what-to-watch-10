@@ -1,5 +1,5 @@
 import { MouseEvent, SetStateAction, useState } from 'react';
-import { MainGenreFilter } from '../const';
+import { GenresFilter, MainGenreFilter } from '../const';
 
 type MainGenreFilterProps = {
   filterName:string,
@@ -10,21 +10,23 @@ function MainGenreMenu (props:MainGenreFilterProps):JSX.Element {
   const [active, setActive] = useState(props.filterName);
   return(
     <ul className ="catalog__genres-list">
-      { Object.entries(MainGenreFilter).map(([key, filter]) => (
-        <li key={filter} className = {`catalog__genres-item ${ active === filter ? 'catalog__genres-item--active' : ''}`} >
-          <a href="#top" id={key}
-            onClick={(event:MouseEvent<HTMLAnchorElement>) => {
-              event.preventDefault();
-              setActive(filter);
-              event.currentTarget.textContent !== null
-                ? props.setFilterName(event.currentTarget.id)
-                : props.setFilterName(MainGenreFilter.AllGenres);
-            }}
-            className ="catalog__genres-link"
-          >
-            {filter}
-          </a>
-        </li>)
+      { Object.entries(MainGenreFilter).map(([key, filter]) => {
+        const keyValue:string = key;
+        return (
+          <li key={filter} className = {`catalog__genres-item ${ active === filter ? 'catalog__genres-item--active' : ''}`} >
+            <a href="#top" id= {GenresFilter[keyValue]}
+              onClick={(event:MouseEvent<HTMLAnchorElement>) => {
+                event.preventDefault();
+                setActive(filter);
+                event.currentTarget.textContent !== null
+                  ? props.setFilterName(event.currentTarget.id)
+                  : props.setFilterName(GenresFilter.ALL_GENRES);
+              }}
+              className ="catalog__genres-link"
+            >
+              {filter}
+            </a>
+          </li>);}
       )}
     </ul>
   );

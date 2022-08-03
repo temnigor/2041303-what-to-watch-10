@@ -1,4 +1,5 @@
-import { getRating } from '../utils';
+import { getRating } from '../../utils';
+
 type OverviewProps = {
   rating:number,
   ratingCount:number,

@@ -2,12 +2,12 @@ import { Link, Navigate, useParams } from 'react-router-dom';
 import { useState, MouseEvent } from 'react';
 import ArtBoard from '../components/art-board';
 import { AppRoute, NavMenuMoviePage } from '../const';
-import { CatalogFilmCards } from '../components/catalog-film-cards';
-import { FilmAbout } from '../components/film-about';
+import { FilmAbout } from '../components/movie-tabs/film-about';
 import Logo from '../components/logo/logo';
 import { Film } from '../types/film';
 import { UserSing } from '../components/user-sing';
 import { Review } from '../types/review';
+import { MovieCatalogFilmCards } from '../components/movie-catalog-film-card';
 
 type MoviePageProps = {
   films : Film[]
@@ -116,7 +116,7 @@ const MoviePage = (props:MoviePageProps):JSX.Element=>{
       <div className ="page-content">
         <section className ="catalog catalog--like-this">
           <h2 className ="catalog__title">More like this</h2>
-          <CatalogFilmCards films = {props.films} sliceEnd = {FILM_CARD_COUNT}/>
+          <MovieCatalogFilmCards films = {props.films} sliceEnd = {FILM_CARD_COUNT} filter = {filmForPage.genre}/>
         </section>
         <footer className ="page-footer">
           <Logo footer/>

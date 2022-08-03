@@ -3,7 +3,7 @@ import Logo from '../components/logo/logo';
 import { Film } from '../types/film';
 import { Link } from 'react-router-dom';
 import { UserSing } from '../components/user-sing';
-import { AppRoute, MainGenreFilter } from '../const';
+import { AppRoute, GenresFilter} from '../const';
 import { MainGenreMenu } from '../components/main-genre-menu';
 import { MouseEvent, useState } from 'react';
 import { MainCatalogFilmCards } from '../components/main-catalog-film';
@@ -16,7 +16,7 @@ type MainProps = {
 
 function Main (props:MainProps):JSX.Element {
   const{id,filmName,genre,yearCreation,bigPoster, poster} = props.films[0];
-  const [filterName, setFilterName] = useState('AllGenres');
+  const [filterName, setFilterName] = useState(GenresFilter.ALL_GENRES);
   const [sliceEnd, setSliceEnd] = useState (FILM_CARD_COUNT);
   return (
     <div>
@@ -69,7 +69,7 @@ function Main (props:MainProps):JSX.Element {
       <div className ="page-content">
         <section className ="catalog">
           <h2 className ="catalog__title visually-hidden">Catalog</h2>
-          <MainGenreMenu filterName={MainGenreFilter.AllGenres} setFilterName = {setFilterName}/>
+          <MainGenreMenu filterName={GenresFilter.ALL_GENRES} setFilterName = {setFilterName}/>
           <MainCatalogFilmCards films = {props.films} sliceEnd = {sliceEnd} filterName={filterName}/>
           <div className ="catalog__more">
             {sliceEnd === props.films.length

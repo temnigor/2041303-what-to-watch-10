@@ -1,3 +1,4 @@
+import { GenresFilter } from '../const';
 import { Film } from '../types/film';
 import SmallFilm from './small-film';
 
@@ -7,7 +8,7 @@ type MainCatalogFilmCardsProps = {
   filterName:string
 }
 function MainCatalogFilmCards (props:MainCatalogFilmCardsProps):JSX.Element {
-  return props.filterName === 'AllGenres' ? (
+  return props.filterName === GenresFilter.ALL_GENRES ? (
     <div className ="catalog__films-list">
       {props.films.slice(0, props.sliceEnd).map((filmCard)=> <SmallFilm key={filmCard.id} film = {filmCard}/>)}
     </div>

@@ -1,5 +1,7 @@
-import { getDataTime } from '../utils';
-import { Review } from '../types/review';
+import { Review } from '../../types/review';
+import { getDataTime } from '../../utils';
+
+
 type ReviewsProps = {
   reviews: Review[]
 }
