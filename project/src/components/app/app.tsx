@@ -63,7 +63,7 @@ function App( props:AppScreenProps ): JSX.Element {
           element= {<Error404/>}
         />
         <Route
-          path= {AppRoute.OtherError}
+          path= {AppRoute.OtherRoute}
           element= {<Error404/>}
         />
       </Routes>
