@@ -6,7 +6,7 @@ import {mainFilterChang } from './action';
 const initialState = {
   filter:GenresFilter[FilterMainNavMenu.ALL_GENRES],
   filmsFiltered:getFilms(),
-  aLLFilms:getFilms()
+  allFilms:getFilms()
 };
 
 const reducerMainFilterFilm = createReducer(initialState, (builder) => {
@@ -14,8 +14,8 @@ const reducerMainFilterFilm = createReducer(initialState, (builder) => {
     .addCase(mainFilterChang, (state, action) => {
       state.filter = action.payload;
       GenresFilter[FilterMainNavMenu.ALL_GENRES] === action.payload
-        ? state.filmsFiltered = state.aLLFilms
-        : state.filmsFiltered = state.aLLFilms.filter((film)=> film.genre === action.payload);
+        ? state.filmsFiltered = state.allFilms
+        : state.filmsFiltered = state.allFilms.filter((film)=> film.genre === action.payload);
     });
 });
 
