@@ -5,8 +5,8 @@ import {mainFilterChang } from './action';
 
 const initialState = {
   filter:GenresFilter[FilterMainNavMenu.ALL_GENRES],
-  filmsFiltered:getFilms(),
-  allFilms:getFilms()
+  filmsFiltered: getFilms(),
+  allFilms: getFilms()
 };
 
 const reducerMainFilterFilm = createReducer(initialState, (builder) => {
