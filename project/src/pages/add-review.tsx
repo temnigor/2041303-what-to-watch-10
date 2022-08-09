@@ -1,22 +1,19 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useState} from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { AddReviewDetails } from '../components/add-review-detail';
 import ArtBoard from '../components/art-board';
 import Logo from '../components/logo/logo';
 import { RatingStar } from '../components/rating-star';
-import { UserSing } from '../components/user-sing';
+import { UserSign } from '../components/user-sign';
 import { AppRoute } from '../const';
-import { Film } from '../types/film';
+import { useAppSelector } from '../hooks';
 
-type AddReviewProps = {
-  authorizationStatus:string,
-  name:string,
-  films:Film[]
-}
 
-function AddReview (props:AddReviewProps):JSX.Element {
+function AddReview ():JSX.Element {
   const param = useParams();
-  const filmReview = props.films.find((film)=> film.id === param.id);
+  const {allFilms} = useAppSelector((state)=>state);
+  const {userName} = useAppSelector((state)=>state);
+  const filmReview = allFilms.find((film)=> film.id === param.id);
   const date = new Date ();
   const dateReview = `${date.getDate()} ${date.toLocaleString('en', { month: 'long' })} ${date.getFullYear()}`;
   const [comment, setComment] = useState('');
@@ -28,7 +25,6 @@ function AddReview (props:AddReviewProps):JSX.Element {
   return filmReview ? (
     <div>
       <ArtBoard/>
-
       <section className="film-card film-card--full">
         <div className="film-card__header">
           <div className="film-card__bg">
@@ -51,7 +47,7 @@ function AddReview (props:AddReviewProps):JSX.Element {
               </ul>
             </nav>
 
-            <UserSing status= {props.authorizationStatus}/>
+            <UserSign/>
           </header>
 
           <div className="film-card__poster film-card__poster--small">
@@ -78,7 +74,7 @@ function AddReview (props:AddReviewProps):JSX.Element {
             {!isHideDetails &&
             <div className="add-review__text">
               <AddReviewDetails
-                name= {props.name}
+                name= {userName}
                 comment = {comment}
                 rating = {filmReview.rating}
                 date = {dateReview}

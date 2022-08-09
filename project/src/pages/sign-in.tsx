@@ -1,11 +1,12 @@
+import { UserSignErrorMassage } from '../components/user-sign-error-massage';
 import ArtBoard from '../components/art-board';
 import Logo from '../components/logo/logo';
+import { useAppSelector } from '../hooks';
 
 function SignIn () {
   return (
     <div>
       <ArtBoard/>
-
       <div className ="user-page">
         <header className ="page-header user-page__head">
           <Logo/>
@@ -19,6 +20,7 @@ function SignIn () {
                 <input className ="sign-in__input" type="email" placeholder="Email address" name="user-email" id="user-email" />
                 <label className ="sign-in__label visually-hidden" htmlFor = "user-email">Email address</label>
               </div>
+              <UserSignErrorMassage/>
               <div className ="sign-in__field">
                 <input className ="sign-in__input" type="password" placeholder="Password" name="user-password" id="user-password" />
                 <label className ="sign-in__label visually-hidden" htmlFor = "user-password">Password</label>

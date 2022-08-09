@@ -4,27 +4,26 @@ import ArtBoard from '../components/art-board';
 import { AppRoute, NavMenuMoviePage } from '../const';
 import { FilmAbout } from '../components/movie-tabs/film-about';
 import Logo from '../components/logo/logo';
-import { Film } from '../types/film';
-import { UserSing } from '../components/user-sing';
-import { Review } from '../types/review';
+import { UserSign } from '../components/user-sign';
 import { MovieCatalogFilmCards } from '../components/movie-catalog-film-card';
+import { useAppSelector } from '../hooks';
 
-type MoviePageProps = {
-  films : Film[]
-  authorizationStatus:string,
-  reviews:Review[]
-};
+
 const FILM_CARD_COUNT = 4;
-const MoviePage = (props:MoviePageProps):JSX.Element=>{
+const MoviePage = ():JSX.Element=>{
   const param = useParams();
-  const filmForPage = props.films.find((film) => film.id === param.id);
-  const myListFilmCount = props.films.filter((filmCard)=>filmCard.isFavorite === true).length;
+  const {allFilms} = useAppSelector((state)=>state);
+  const filmForPage = allFilms.find((film) => film.id === param.id);
+  const backgroundColor = {
+    background:filmForPage === undefined ? 'white' : filmForPage.backgroundColor
+  };
+  const myListFilmCount = allFilms.filter((filmCard)=>filmCard.isFavorite === true).length;
   const [navMenuButtonCount, setNavMenuButtonCount] = useState(NavMenuMoviePage.OVERVIEW);
 
   return filmForPage ? (
     <>
       <ArtBoard/>
-      <section className ="film-card film-card--full">
+      <section className ="film-card film-card--full" style={backgroundColor}>
         <div className ="film-card__hero">
           <div className ="film-card__bg">
             <img src={filmForPage.bigPoster} alt= {filmForPage.filmName} />
@@ -34,7 +33,7 @@ const MoviePage = (props:MoviePageProps):JSX.Element=>{
 
           <header className ="page-header film-card__head">
             <Logo />
-            <UserSing status = {props.authorizationStatus} />
+            <UserSign />
           </header>
           <div className ="film-card__wrap">
             <div className ="film-card__desc">
@@ -106,7 +105,6 @@ const MoviePage = (props:MoviePageProps):JSX.Element=>{
               <FilmAbout
                 filmForPage = {filmForPage}
                 nameButton = {navMenuButtonCount}
-                reviews = {props.reviews}
               />
             </div>
           </div>
@@ -116,7 +114,7 @@ const MoviePage = (props:MoviePageProps):JSX.Element=>{
       <div className ="page-content">
         <section className ="catalog catalog--like-this">
           <h2 className ="catalog__title">More like this</h2>
-          <MovieCatalogFilmCards films = {props.films} sliceEnd = {FILM_CARD_COUNT} filter = {filmForPage.genre}/>
+          <MovieCatalogFilmCards films = {allFilms} sliceEnd = {FILM_CARD_COUNT} filter = {filmForPage.genre}/>
         </section>
         <footer className ="page-footer">
           <Logo footer/>

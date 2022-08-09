@@ -1,14 +1,13 @@
 import ArtBoard from '../components/art-board';
 import { CatalogFilmCards } from '../components/catalog-film-cards';
 import Logo from '../components/logo/logo';
-import { UserSing } from '../components/user-sing';
-import { Film } from '../types/film';
+import { UserSign } from '../components/user-sign';
+import { useAppSelector } from '../hooks';
+
 const FILM_CARD_COUNT = 9;
-type MyListProps = {
-  films:Film[]
-  authorizationStatus:string
-}
-function MyList (props:MyListProps) {
+
+function MyList () {
+  const {allFilms} = useAppSelector((state)=>state);
   return (
     <div>
       <ArtBoard/>
@@ -17,13 +16,13 @@ function MyList (props:MyListProps) {
           <Logo/>
           <h1 className ="page-title user-page__title">My list <span className ="user-page__film-count">9</span></h1>
           <ul className ="user-block">
-            <UserSing status = {props.authorizationStatus} />
+            <UserSign />
           </ul>
         </header>
 
         <section className ="catalog">
           <h2 className ="catalog__title visually-hidden">Catalog</h2>
-          <CatalogFilmCards films = {props.films} sliceEnd = {FILM_CARD_COUNT}/>
+          <CatalogFilmCards films = {allFilms} sliceEnd = {FILM_CARD_COUNT}/>
         </section>
 
         <footer className ="page-footer">

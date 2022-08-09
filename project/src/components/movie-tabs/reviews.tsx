@@ -3,7 +3,7 @@ import { getDataTime } from '../../utils';
 
 
 type ReviewsProps = {
-  reviews: Review[]
+  reviews:Review[]
 }
 
 const getReviewsJsx = (reviews:Review[]) =>

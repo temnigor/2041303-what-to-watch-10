@@ -1,7 +1,7 @@
 type DetailsProps = {
   director:string,
   starring:string[],
-  runTime: string,
+  runTime: number,
   genre:string,
   yearCreation : string,
 }

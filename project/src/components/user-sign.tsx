@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
 import { AuthorizationStatus } from '../const';
 import { AppRoute } from '../const';
-type UserSingProps = {
-  status:string
-}
-function UserSing (props:UserSingProps):JSX.Element {
-  if(props.status === AuthorizationStatus.Auth ) {
+import { useAppSelector } from '../hooks';
+
+function UserSign ():JSX.Element {
+  const{authorizationStatus} = useAppSelector((state)=>state);
+  if(authorizationStatus === AuthorizationStatus.Auth ) {
     return(
       <ul className ="user-block">
         <li className ="user-block__item">
@@ -26,4 +26,4 @@ function UserSing (props:UserSingProps):JSX.Element {
   );
 }
 
-export {UserSing};
+export {UserSign};
