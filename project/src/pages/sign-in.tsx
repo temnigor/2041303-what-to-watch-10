@@ -7,9 +7,10 @@ import { AuthData } from '../types/store';
 import { loginAction } from '../store/api-action';
 import { UserSignErrorValidateMassage } from '../components/user-sign-error-validate-massage';
 import { Navigate } from 'react-router-dom';
-import { AppRoute } from '../const';
+import { AppRoute, AuthorizationStatus } from '../const';
 
 function SignIn () {
+  const {authorizationStatus} = useAppSelector((state)=>state)
   const dispatch = useAppDispatch();
   const refInputEmail = useRef<HTMLInputElement| null>(null);
   const refInputPassword = useRef<HTMLInputElement| null>(null);
@@ -26,11 +27,9 @@ function SignIn () {
         login: refInputEmail.current.value,
         password: refInputPassword.current.value
       });
-
-
     }
   }
-  return (
+  return authorizationStatus !== AuthorizationStatus.Auth ? (
     <div>
       <ArtBoard/>
       <div className ="user-page">
@@ -42,7 +41,7 @@ function SignIn () {
         <div className ="sign-in user-page__content">
           <form action="#" className ="sign-in__form" onSubmit={onSubmitHandler} noValidate>
             <div className ="sign-in__fields">
-             { !isValid && <UserSignErrorValidateMassage/>}
+             {!isValid && <UserSignErrorValidateMassage/>}
               <UserSignErrorMassage/>
               <div className ="sign-in__field">
                 <input ref = {refInputEmail} className ="sign-in__input" type="email" placeholder="Email address" name="user-email" id="user-email" />
@@ -67,6 +66,8 @@ function SignIn () {
         </footer>
       </div>
     </div>
+  ) : (
+    <Navigate to={AppRoute.Main}/>
   );
 }
 export default SignIn;

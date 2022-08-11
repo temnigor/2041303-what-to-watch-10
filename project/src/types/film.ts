@@ -11,9 +11,9 @@ export type ServerFilm = {
     scoresCount:number,
     director:string,
     starring: string[],
-    runTime: string,
+    runTime: number,
     previewVideoLink:string,
-    isFavorite:string,
+    isFavorite:boolean,
     backgroundColor:string
   };
 

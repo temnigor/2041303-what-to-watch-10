@@ -1,10 +1,10 @@
 import { AxiosInstance } from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { APIRoute, AuthorizationStatus } from "../const";
-import {  AppDispatch, AuthData, State, UserData } from "../types/store";
+import {  AppDispatch, AuthData, filmIdData, State, UserData } from "../types/store";
 import { Film, ServerFilm } from "../types/film";
-import { getUserNameAction, loadFilm, requireAuthorizationStatus, setErrorLoginAction, setLoadingFilmsAction } from "./action";
-import { api, store } from ".";
+import { loadOneFilm, getUserNameAction, loadFilms, requireAuthorizationStatus, setErrorLoginAction, loadingPageAction, loadSimilarFilms } from "./action";
+import { store } from ".";
 import { removeToken, saveToken } from "../services/token";
 const TIMEOUT_SHOW_ERROR = 10000;
 
@@ -33,12 +33,28 @@ export const fetchFilmsActions = createAsyncThunk<void, undefined, { dispatch: A
   state: State, extra:AxiosInstance}>(
   'data/fetchFilms',
    async (_arg, {dispatch, extra:api})=> {
-    dispatch(setLoadingFilmsAction(true));
+  //dispatch(loadingPageAction(true));
    const {data} = await api.get(APIRoute.Films);
    const films:Film[] = await data.map((film:ServerFilm)=>serverToFilms(film));
-   dispatch(loadFilm(films));
-   dispatch(setLoadingFilmsAction(false));
+   dispatch(loadFilms(films));
+   //dispatch(loadingPageAction(false));
   })
+
+  export const getDataMoviePageAction = createAsyncThunk<void, filmIdData, {dispatch:AppDispatch,
+  state: State, extra:AxiosInstance}>(
+    'film/fetchOneFilm',
+    async ({id}:filmIdData, {dispatch, extra:api}) => {
+    const route = APIRoute.OneFilm.replace('{filmId}', id);
+    dispatch(loadingPageAction(true));
+     const oneServerFilm = await api.get(route);
+     const similarServerFilms = await api.get(route);
+     const oneFilm:Film = await serverToFilms(oneServerFilm.data);
+     const similarFilms = await similarServerFilms.data.map((film:ServerFilm)=>serverToFilms(film));
+    dispatch(loadOneFilm(oneFilm));
+    dispatch(loadSimilarFilms(similarFilms));
+    dispatch(loadingPageAction(false));
+   }
+  )
 
 export const checkAutAction = createAsyncThunk<void, undefined, { dispatch:AppDispatch,
   state: State, extra:AxiosInstance}>(
@@ -89,4 +105,4 @@ export const logoutAction = createAsyncThunk<void, undefined, {
 export const clearErrorAction = createAsyncThunk(
   'user/errorLogin',
   () => setTimeout(()=> store.dispatch(setErrorLoginAction(false)), TIMEOUT_SHOW_ERROR)
-)
+);

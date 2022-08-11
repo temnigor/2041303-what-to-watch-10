@@ -1,24 +1,36 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { FilterMainNavMenu, GenresFilter } from '../const';
 import { Film } from '../types/film';
-import { getUserNameAction, loadFilm, mainFilterChang, requireAuthorizationStatus, setLoadingFilmsAction } from './action';
-import { setErrorLoginAction } from './action';
+import {
+  loadOneFilm,
+  getUserNameAction,
+  loadFilms,
+  mainFilterChang,
+  requireAuthorizationStatus,
+  setErrorLoginAction,
+  loadingPageAction,
+  loadSimilarFilms,
+} from './action';
 import { AuthorizationStatus } from '../const';
 
  type InitialState = {
   filter:string,
   filmsFiltered:Film[],
   allFilms:Film[],
+  oneFilm:Film[],
   authorizationStatus: string,
   error:boolean,
   loadingFilms:boolean,
-  userName:string
+  userName:string,
+  similarFilms:Film[],
 }
 
 const initialState:InitialState = {
   filter:GenresFilter[FilterMainNavMenu.ALL_GENRES],
   filmsFiltered:[],
   allFilms:[],
+  similarFilms:[],
+  oneFilm:[],
   userName:'',
   authorizationStatus: AuthorizationStatus.Unknown,
   error:false,
@@ -33,7 +45,7 @@ const reducerMainFilterFilm = createReducer(initialState, (builder) => {
         ? state.filmsFiltered = state.allFilms
         : state.filmsFiltered = state.allFilms.filter((film:Film)=> film.genre === action.payload);
     })
-    .addCase(loadFilm, (state, action) => {
+    .addCase(loadFilms, (state, action) => {
       state.allFilms = action.payload;
       state.filmsFiltered = action.payload;
      })
@@ -43,11 +55,17 @@ const reducerMainFilterFilm = createReducer(initialState, (builder) => {
      .addCase(setErrorLoginAction, (state, action)=> {
       state.error = action.payload;
      })
-     .addCase(setLoadingFilmsAction, (state, action) => {
+     .addCase(loadingPageAction, (state, action) => {
       state.loadingFilms = action.payload;
      })
      .addCase(getUserNameAction, (state, action)=>{
       state.userName = action.payload;
+     })
+     .addCase(loadOneFilm, (state, action)=>{
+      state.oneFilm[0] = action.payload;
+     })
+     .addCase(loadSimilarFilms, (state, action)=>{
+      state.similarFilms = action.payload;
      })
 });
 

@@ -8,6 +8,12 @@ type DetailsProps = {
 
 function Details (props:DetailsProps):JSX.Element {
   const isLastStarring = (actor:string) => actor === props.starring[props.starring.length - 1];
+  // const runTimeToString = (props.runTime) => {
+  //   let time = props.runTime;
+  //   ()=>{
+  //     if(time>60)
+  //   }
+  // }
   const starringDetails = props.starring.map((actor,i) => {
     const keyId = `details-${i}`;
     return (
@@ -36,7 +42,7 @@ function Details (props:DetailsProps):JSX.Element {
         <div className="film-card__text-col">
           <p className="film-card__details-item">
             <strong className="film-card__details-name">Run Time</strong>
-            <span className="film-card__details-value">{props.runTime}</span>
+            {/* <span className="film-card__details-value">{props.runTime}</span> */}
           </p>
           <p className="film-card__details-item">
             <strong className="film-card__details-name">Genre</strong>
