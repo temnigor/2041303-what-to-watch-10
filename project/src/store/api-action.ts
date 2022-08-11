@@ -33,28 +33,27 @@ export const fetchFilmsActions = createAsyncThunk<void, undefined, { dispatch: A
   state: State, extra:AxiosInstance}>(
   'data/fetchFilms',
    async (_arg, {dispatch, extra:api})=> {
-  //dispatch(loadingPageAction(true));
+  dispatch(loadingPageAction(true));
    const {data} = await api.get(APIRoute.Films);
    const films:Film[] = await data.map((film:ServerFilm)=>serverToFilms(film));
    dispatch(loadFilms(films));
-   //dispatch(loadingPageAction(false));
+   dispatch(loadingPageAction(false));
   })
 
   export const getDataMoviePageAction = createAsyncThunk<void, filmIdData, {dispatch:AppDispatch,
   state: State, extra:AxiosInstance}>(
     'film/fetchOneFilm',
     async ({id}:filmIdData, {dispatch, extra:api}) => {
-    const route = APIRoute.OneFilm.replace('{filmId}', id);
-    dispatch(loadingPageAction(true));
-     const oneServerFilm = await api.get(route);
-     const similarServerFilms = await api.get(route);
-     const oneFilm:Film = await serverToFilms(oneServerFilm.data);
+    const routeOnePage = APIRoute.OneFilm.replace('{filmId}', id);
+    const routeSimilarFilms = APIRoute.SimilarFilms.replace('{filmId}', id);
+    const oneServerFilm = await api.get(routeOnePage);
+    const similarServerFilms = await api.get(routeSimilarFilms);
+    const oneFilm:Film = serverToFilms(oneServerFilm.data);
      const similarFilms = await similarServerFilms.data.map((film:ServerFilm)=>serverToFilms(film));
     dispatch(loadOneFilm(oneFilm));
     dispatch(loadSimilarFilms(similarFilms));
-    dispatch(loadingPageAction(false));
    }
-  )
+  );
 
 export const checkAutAction = createAsyncThunk<void, undefined, { dispatch:AppDispatch,
   state: State, extra:AxiosInstance}>(

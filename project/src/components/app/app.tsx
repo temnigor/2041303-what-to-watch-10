@@ -10,13 +10,12 @@ import PrivateRoute from '../private-route/private-route';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { useAppSelector } from '../../hooks';
 import { LoadingScreen } from '../loading-screen/loading-screen';
-import { LoadingScreenPage } from '../loading-screen/loading-screen-page';
 
 function App(): JSX.Element {
-  const {authorizationStatus, loadingFilms, allFilms} = useAppSelector((state)=>state);
-  // if(authorizationStatus === AuthorizationStatus.Unknown || allFilms.length === 0 ) {
-  //   return <LoadingScreen/>;
-  // }
+  const {authorizationStatus, loadingFilms} = useAppSelector((state)=>state);
+      if(authorizationStatus === AuthorizationStatus.Unknown || loadingFilms ) {
+      return <LoadingScreen/>;
+    }
   return (
     <BrowserRouter>
       <Routes>
@@ -40,11 +39,7 @@ function App(): JSX.Element {
         />
         <Route
           path= {AppRoute.Film}
-          element = {
-            <LoadingScreenPage loadingFilms = {loadingFilms}>
-            <MoviePage />
-            </LoadingScreenPage>
-          }
+          element = {<MoviePage/>}
           />
 
         <Route

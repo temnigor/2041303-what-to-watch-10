@@ -8,19 +8,26 @@ import { UserSign } from '../components/user-sign';
 import { MovieCatalogFilmCards } from '../components/movie-catalog-film-card';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { getDataMoviePageAction } from '../store/api-action';
-import { store } from '../store';
 import { LoadingScreen } from '../components/loading-screen/loading-screen';
 
 const FILM_CARD_COUNT = 4;
 const MoviePage = ():JSX.Element=>{
-  const {oneFilm, similarFilms, allFilms, } = useAppSelector((state)=>state);
-  console.log(oneFilm)
-  const film = oneFilm[0];
+  const [navMenuButtonCount, setNavMenuButtonCount] = useState(NavMenuMoviePage.OVERVIEW);
+  const {oneFilm, similarFilms, allFilms} = useAppSelector((state)=>state);
+  const {id} = useParams();
+  const dispatch = useAppDispatch();
+  if(id !== undefined){
+    dispatch(getDataMoviePageAction({id}));
+  }
+  if(oneFilm === null ) {
+    return <LoadingScreen/>;
+  }
+  const film = oneFilm;
   const backgroundColor = {
     background:film.backgroundColor
   };
   const myListFilmCount = allFilms.filter((filmCard)=>filmCard.isFavorite === true).length;
-  const [navMenuButtonCount, setNavMenuButtonCount] = useState(NavMenuMoviePage.OVERVIEW);
+
 
   return (
     <>

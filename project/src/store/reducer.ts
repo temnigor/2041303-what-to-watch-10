@@ -17,7 +17,7 @@ import { AuthorizationStatus } from '../const';
   filter:string,
   filmsFiltered:Film[],
   allFilms:Film[],
-  oneFilm:Film[],
+  oneFilm:Film | null,
   authorizationStatus: string,
   error:boolean,
   loadingFilms:boolean,
@@ -30,7 +30,7 @@ const initialState:InitialState = {
   filmsFiltered:[],
   allFilms:[],
   similarFilms:[],
-  oneFilm:[],
+  oneFilm: null,
   userName:'',
   authorizationStatus: AuthorizationStatus.Unknown,
   error:false,
@@ -52,21 +52,21 @@ const reducerMainFilterFilm = createReducer(initialState, (builder) => {
      .addCase(requireAuthorizationStatus, (state, action) => {
       state.authorizationStatus = action.payload;
      })
-     .addCase(setErrorLoginAction, (state, action)=> {
+     .addCase(setErrorLoginAction, (state, action) => {
       state.error = action.payload;
      })
      .addCase(loadingPageAction, (state, action) => {
       state.loadingFilms = action.payload;
      })
-     .addCase(getUserNameAction, (state, action)=>{
+     .addCase(getUserNameAction, (state, action) => {
       state.userName = action.payload;
      })
-     .addCase(loadOneFilm, (state, action)=>{
-      state.oneFilm[0] = action.payload;
+     .addCase(loadOneFilm, (state, action) => {
+      state.oneFilm = action.payload;
      })
-     .addCase(loadSimilarFilms, (state, action)=>{
+     .addCase(loadSimilarFilms, (state, action) => {
       state.similarFilms = action.payload;
-     })
+     });
 });
 
 export {reducerMainFilterFilm};

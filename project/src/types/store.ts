@@ -13,7 +13,7 @@ export type AuthData = {
   password: string;
 };
 export type filmIdData = {
-  id:string
+  id:string,
 }
 
 export type State = ReturnType<typeof store.getState>;
