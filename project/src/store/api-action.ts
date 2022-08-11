@@ -36,7 +36,6 @@ export const fetchFilmsActions = createAsyncThunk<void, undefined, { dispatch: A
     dispatch(setLoadingFilmsAction(true));
    const {data} = await api.get(APIRoute.Films);
    const films:Film[] = await data.map((film:ServerFilm)=>serverToFilms(film));
-   films.map((film)=>console.log(film.genre))
    dispatch(loadFilm(films));
    dispatch(setLoadingFilmsAction(false));
   })
