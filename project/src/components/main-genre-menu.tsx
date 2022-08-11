@@ -1,32 +1,25 @@
-import { MouseEvent, SetStateAction, useState } from 'react';
-import { GenresFilter, MainGenreFilter } from '../const';
+import { MouseEvent } from 'react';
+import { FilterMainNavMenu, GenresFilter } from '../const';
+import { useAppDispatch, useAppSelector } from '../hooks';
+import { mainFilterChang } from '../store/action';
 
-type MainGenreFilterProps = {
-  filterName:string,
-  setFilterName: (value:SetStateAction<string>)=>void
-}
-
-function MainGenreMenu (props:MainGenreFilterProps):JSX.Element {
-  const [active, setActive] = useState(props.filterName);
+function MainGenreMenu ():JSX.Element {
+  const dispatch = useAppDispatch();
+  const genre = useAppSelector((state)=>state.filter);
   return(
     <ul className ="catalog__genres-list">
-      { Object.entries(MainGenreFilter).map(([key, filter]) => {
-        const keyValue:string = key;
-        return (
-          <li key={filter} className = {`catalog__genres-item ${ active === filter ? 'catalog__genres-item--active' : ''}`} >
-            <a href="#top" id= {GenresFilter[keyValue]}
-              onClick={(event:MouseEvent<HTMLAnchorElement>) => {
-                event.preventDefault();
-                setActive(filter);
-                event.currentTarget.textContent !== null
-                  ? props.setFilterName(event.currentTarget.id)
-                  : props.setFilterName(GenresFilter.ALL_GENRES);
-              }}
-              className ="catalog__genres-link"
-            >
-              {filter}
-            </a>
-          </li>);}
+      { Object.values(FilterMainNavMenu).map((filter) => (
+        <li key={filter} className = {`catalog__genres-item ${ genre === GenresFilter[filter] && 'catalog__genres-item--active'}`} >
+          <a href="#top"
+            onClick={(event:MouseEvent<HTMLAnchorElement>) => {
+              event.preventDefault();
+              dispatch(mainFilterChang(GenresFilter[filter]));
+            }}
+            className ="catalog__genres-link"
+          >
+            {filter}
+          </a>
+        </li>)
       )}
     </ul>
   );

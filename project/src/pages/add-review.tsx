@@ -35,7 +35,7 @@ function AddReview (props:AddReviewProps):JSX.Element {
             <img src= {filmReview.bigPoster} alt= {filmReview.filmName} />
           </div>
 
-          <h1 className="visually-hidden">WTW</h1>
+          <h1 className ="visually-hidden">WTW</h1>
 
           <header className="page-header">
             <Logo footer = {false}/>

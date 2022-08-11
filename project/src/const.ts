@@ -20,30 +20,30 @@ export enum NavMenuMoviePage {
   REVIEWS = 'Reviews'
 }
 
-export const MainGenreFilter = {
-  'ALL_GENRES' : 'All genres',
-  'COMEDY' : 'Comedies',
-  'CRIME' : 'Crime',
-  'DOCUMENTAL' : 'Documentary',
-  'DRAMA' : 'Dramas',
-  'HORROR' : 'Horror',
-  'KIDS' : 'Kids & Family',
-  'ROMANS' : 'Romance',
-  'SCI_FI' : 'Sci-Fi',
-  'THRILLER' : 'Thrillers'
-};
+export enum FilterMainNavMenu {
+  ALL_GENRES = 'All genres',
+  COMEDY = 'Comedies',
+  CRIME = 'Crime',
+  DOCUMENTAL = 'Documentary',
+  DRAMA = 'Dramas',
+  HORROR = 'Horror',
+  KIDS = 'Kids & Family',
+  ROMANS = 'Romance',
+  SCI_FI = 'Sci-Fi',
+  THRILLER = 'Thrillers'
+}
 
 export const GenresFilter = {
-  'ALL_GENRES' : 'All genres',
-  'COMEDY' : 'Comedy',
-  'CRIME' : 'Crime',
-  'DOCUMENTAL' : 'Documental',
-  'DRAMA' : 'Drama',
-  'HORROR' : 'Horror',
-  'KIDS' : 'Kids & Family',
-  'ROMANS' : 'Romance',
-  'SCI_FI' : 'Sci-Fi',
-  'THRILLER' : 'Thrillers'
+  [FilterMainNavMenu.ALL_GENRES] : 'All genres',
+  [FilterMainNavMenu.COMEDY] : 'Comedy',
+  [FilterMainNavMenu.CRIME] : 'Crime',
+  [FilterMainNavMenu.DOCUMENTAL] : 'Documental',
+  [FilterMainNavMenu.DRAMA] : 'Drama',
+  [FilterMainNavMenu.HORROR] : 'Horror',
+  [FilterMainNavMenu.KIDS] : 'Kids & Family',
+  [FilterMainNavMenu.ROMANS] : 'Romance',
+  [FilterMainNavMenu.SCI_FI] : 'Sci-Fi',
+  [FilterMainNavMenu.THRILLER] : 'Thrillers'
 };
 
 export enum Rating {
