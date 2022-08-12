@@ -1,12 +1,13 @@
 import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { APIRoute, AuthorizationStatus } from '../const';
+import { APIRoute, AppRoute, AuthorizationStatus } from '../const';
 import { AppDispatch, AuthData, FilmIdData, State, ToPostReviveData, UserData } from '../types/store';
 import { Film, ServerFilm } from '../types/film';
 import { loadOpenFilm, getUserNameAction, loadFilms, requireAuthorizationStatus, setErrorLoginAction, loadingPageAction, loadSimilarFilms, loadReviews, isErrorResponseAction } from './action';
 import { store } from '.';
 import { removeToken, saveToken } from '../services/token';
 import { Reviews } from '../types/review';
+import { useNavigate } from 'react-router-dom';
 const TIMEOUT_SHOW_ERROR = 10000;
 
 const serverToFilms = (serverFilm:ServerFilm) =>{
@@ -45,10 +46,15 @@ export const getDataOpenFilmAction = createAsyncThunk<void, FilmIdData, {dispatc
   state: State, extra:AxiosInstance}>(
     'film/fetchOneFilm',
     async ({id}:FilmIdData, {dispatch, extra:api}) => {
-      const routeOnePage = APIRoute.OneFilm.replace('{filmId}', id);
-      const oneServerFilm = await api.get<ServerFilm>(routeOnePage);
-      const openFilm:Film = serverToFilms(oneServerFilm.data);
-      dispatch(loadOpenFilm(openFilm));
+      const navigate = useNavigate();
+      try{
+        const routeOnePage = APIRoute.OneFilm.replace('{filmId}', id);
+        const oneServerFilm = await api.get<ServerFilm>(routeOnePage);
+        const openFilm:Film = serverToFilms(oneServerFilm.data);
+        dispatch(loadOpenFilm(openFilm));
+      } catch {
+        navigate(AppRoute.Error);
+      }
     }
   );
 
