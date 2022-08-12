@@ -13,10 +13,10 @@ export const createApi = ():AxiosInstance => {
   api.interceptors.request.use(
     (config:AxiosRequestConfig) => {
       const token = getToken();
-        if(token) {
-          config.headers['x-token'] = token;
-        }
-        return config;
+      if(token) {
+        config.headers['x-token'] = token;
+      }
+      return config;
     }
   );
   return api;

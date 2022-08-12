@@ -1,4 +1,3 @@
-import { Params } from 'react-router-dom';
 import { store } from '../store';
 export type UserData = {
 avatarUrl: string
@@ -8,11 +7,16 @@ name: string
 token: string
 }
 
+export type ToPostReviveData = {
+   comment: string,
+    rating: number,
+    id:string
+}
 export type AuthData = {
-  login: string;
-  password: string;
+  login: string,
+  password: string,
 };
-export type filmIdData = {
+export type FilmIdData = {
   id:string,
 }
 

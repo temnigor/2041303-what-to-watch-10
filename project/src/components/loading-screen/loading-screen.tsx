@@ -1,7 +1,7 @@
 export function LoadingScreen(): JSX.Element {
-    return (
-      <div className="sign-in__message">
+  return (
+    <div className="sign-in__message">
       <p>Loading ...</p>
-      </div>
-    );
-  }
+    </div>
+  );
+}

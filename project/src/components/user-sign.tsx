@@ -20,8 +20,8 @@ function UserSign ():JSX.Element {
         <li className ="user-block__item">
           <a href='#top' onClick={(evt:MouseEvent<HTMLAnchorElement>)=>{
             evt.preventDefault();
-            dispatch(logoutAction())}}
-            className="user-block__link"
+            dispatch(logoutAction());}}
+          className="user-block__link"
           >
               Sign out
           </a>

@@ -1,23 +1,24 @@
-import { Review } from '../../types/review';
-import { getDataTime } from '../../utils';
+import { Reviews } from '../../types/review';
+import { getCommentTime, getDataTime } from '../../utils';
 
 
 type ReviewsProps = {
-  reviews:Review[]
+  reviews:Reviews[]
 }
 
-const getReviewsJsx = (reviews:Review[]) =>
+const getReviewsJsx = (reviews:Reviews[]) =>
   reviews.map((review, i) => {
-    const {name, date, rating, comment} = review;
+    const {user, date, rating, comment} = review;
     const dateTime = getDataTime(date);
+    const commentsTime = getCommentTime(date);
     const keyReview = `review${i}`;
     return (
       <div key={keyReview} className="review">
         <blockquote className="review__quote">
           <p className="review__text">{comment}</p>
           <footer className="review__details">
-            <cite className="review__author">{name}</cite>
-            <time className="review__date" dateTime={dateTime}>{date}</time>
+            <cite className="review__author">{user.name}</cite>
+            <time className="review__date" dateTime={dateTime}>{commentsTime}</time>
           </footer>
         </blockquote>
         <div className="review__rating">{rating}</div>
@@ -26,7 +27,7 @@ const getReviewsJsx = (reviews:Review[]) =>
   }
   );
 
-function Reviews (props:ReviewsProps):JSX.Element {
+function Comments (props:ReviewsProps):JSX.Element {
   if(props.reviews.length === 1 ){
     return (
       <div className="film-card__reviews film-card__row">
@@ -51,4 +52,4 @@ function Reviews (props:ReviewsProps):JSX.Element {
   );
 }
 
-export {Reviews};
+export {Comments};

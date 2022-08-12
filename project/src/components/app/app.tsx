@@ -12,10 +12,10 @@ import { useAppSelector } from '../../hooks';
 import { LoadingScreen } from '../loading-screen/loading-screen';
 
 function App(): JSX.Element {
-  const {authorizationStatus, loadingFilms} = useAppSelector((state)=>state);
-      if(authorizationStatus === AuthorizationStatus.Unknown || loadingFilms ) {
-      return <LoadingScreen/>;
-    }
+  const {authorizationStatus, isLoadingFilms: loadingFilms} = useAppSelector((state)=>state);
+  if(authorizationStatus === AuthorizationStatus.Unknown || loadingFilms ) {
+    return <LoadingScreen/>;
+  }
   return (
     <BrowserRouter>
       <Routes>
@@ -40,7 +40,7 @@ function App(): JSX.Element {
         <Route
           path= {AppRoute.Film}
           element = {<MoviePage/>}
-          />
+        />
 
         <Route
           path= {AppRoute.AddReview}

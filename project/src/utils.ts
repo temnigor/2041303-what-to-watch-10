@@ -2,7 +2,12 @@ import { Rating } from './const';
 
 const getDataTime = (date:string):string => {
   const dateToDateTime = new Date(date);
-  const dateTime = `${dateToDateTime.getFullYear()}-${dateToDateTime.getMonth()}-${dateToDateTime.getDate()}`;
+  const dataTime = `${dateToDateTime.getFullYear()}-${dateToDateTime.getMonth()}-${dateToDateTime.getDate()}`;
+  return dataTime;
+};
+const getCommentTime = (date:string):string => {
+  const dateToDateTime = new Date(date).toString().split(' ');
+  const dateTime = `${dateToDateTime[1]} ${dateToDateTime[2]}, ${dateToDateTime[3]}`;
   return dateTime;
 };
 const getRating = (num:number) => {
@@ -20,4 +25,4 @@ const getRating = (num:number) => {
   }
 };
 
-export {getDataTime, getRating};
+export {getDataTime, getRating, getCommentTime};

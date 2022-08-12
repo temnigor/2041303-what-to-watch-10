@@ -7,27 +7,31 @@ import Logo from '../components/logo/logo';
 import { UserSign } from '../components/user-sign';
 import { MovieCatalogFilmCards } from '../components/movie-catalog-film-card';
 import { useAppDispatch, useAppSelector } from '../hooks';
-import { getDataMoviePageAction } from '../store/api-action';
+import { getDataOpenFilmAction, getDataReviewsOpenFilm, getDataSimilarFilmsAction } from '../store/api-action';
 import { LoadingScreen } from '../components/loading-screen/loading-screen';
+
 
 const FILM_CARD_COUNT = 4;
 const MoviePage = ():JSX.Element=>{
   const [navMenuButtonCount, setNavMenuButtonCount] = useState(NavMenuMoviePage.OVERVIEW);
-  const {oneFilm, similarFilms, allFilms} = useAppSelector((state)=>state);
+  const {openedFilm, similarFilms, allFilms, reviews} = useAppSelector((state)=>state);
   const {id} = useParams();
   const dispatch = useAppDispatch();
-  if(id !== undefined){
-    dispatch(getDataMoviePageAction({id}));
+  if(id === undefined) {
+    return < Navigate to={AppRoute.Error}/>;
   }
-  if(oneFilm === null ) {
+  if(openedFilm === undefined || openedFilm.id !== id){
+    dispatch(getDataOpenFilmAction({id:id}));
+    dispatch(getDataSimilarFilmsAction({id:id}));
+    dispatch(getDataReviewsOpenFilm({id:id}));
     return <LoadingScreen/>;
   }
-  const film = oneFilm;
+
+  const film = openedFilm;
   const backgroundColor = {
     background:film.backgroundColor
   };
   const myListFilmCount = allFilms.filter((filmCard)=>filmCard.isFavorite === true).length;
-
 
   return (
     <>
@@ -114,6 +118,7 @@ const MoviePage = ():JSX.Element=>{
               <FilmAbout
                 filmForPage = {film}
                 nameButton = {navMenuButtonCount}
+                reviews = {reviews}
               />
             </div>
           </div>
@@ -133,7 +138,7 @@ const MoviePage = ():JSX.Element=>{
         </footer>
       </div>
     </>
-  )
+  );
 };
 
 export default MoviePage;
