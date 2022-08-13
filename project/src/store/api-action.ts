@@ -47,14 +47,12 @@ export const getDataOpenFilmAction = createAsyncThunk<void, FilmIdData, {dispatc
     'film/fetchOneFilm',
     async ({id}:FilmIdData, {dispatch, extra:api}) => {
       const navigate = useNavigate();
-      try{
+
         const routeOnePage = APIRoute.OneFilm.replace('{filmId}', id);
         const oneServerFilm = await api.get<ServerFilm>(routeOnePage);
         const openFilm:Film = serverToFilms(oneServerFilm.data);
+        console.log(openFilm)
         dispatch(loadOpenFilm(openFilm));
-      } catch {
-        navigate(AppRoute.Error);
-      }
     }
   );
 

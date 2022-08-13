@@ -10,7 +10,7 @@ import { Navigate } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../const';
 
 function SignIn () {
-  const {authorizationStatus} = useAppSelector((state)=>state);
+  const auth = useAppSelector((state)=>state.authorizationStatus);
   const dispatch = useAppDispatch();
   const refInputEmail = useRef<HTMLInputElement| null>(null);
   const refInputPassword = useRef<HTMLInputElement| null>(null);
@@ -29,7 +29,7 @@ function SignIn () {
       });
     }
   };
-  return authorizationStatus !== AuthorizationStatus.Auth ? (
+  return auth !== AuthorizationStatus.Auth ? (
     <div>
       <ArtBoard/>
       <div className ="user-page">
