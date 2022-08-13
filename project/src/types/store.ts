@@ -11,17 +11,13 @@ token: string
 export type ToPostReviveData = {
    comment: string,
     rating: number,
-    id:string
+    id:number
 };
 
 export type AuthData = {
   login: string,
   password: string,
 };
-
-export type FilmIdData = {
-  id:string,
-}
 
 export type State = ReturnType<typeof store.getState>;
 

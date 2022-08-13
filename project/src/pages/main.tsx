@@ -5,25 +5,34 @@ import { useState } from 'react';
 import { MainCatalogFilmCards } from '../components/main-catalog-film';
 import { BigFilmCard } from '../components/big-film-card';
 import { MainShowMoreButton } from '../components/main-show-more-button';
-const FILM_CARD_COUNT = 8;
 
+const FILM_CARD_COUNT = 8;
+const FILM_COUNT = 25;
 
 function Main ():JSX.Element {
-  const [sliceEnd, setSliceEnd] = useState (FILM_CARD_COUNT);
+  const [sliceEnd, setSliceEnd] = useState(FILM_CARD_COUNT);
+  const [filmCount, setFilmCount] = useState(FILM_COUNT);
   return (
     <div>
       <ArtBoard/>
       <BigFilmCard />
-      <div className ="page-content">
-        <section className ="catalog">
-          <h2 className ="catalog__title visually-hidden">Catalog</h2>
+      <div className="page-content">
+        <section className="catalog">
+          <h2 className="catalog__title visually-hidden">Catalog</h2>
           <MainGenreMenu/>
-          <MainCatalogFilmCards sliceEnd = {sliceEnd}/>
-          <MainShowMoreButton sliceEnd = {sliceEnd} setSlice = {(slice:number)=>setSliceEnd(slice)}/>
+          <MainCatalogFilmCards
+            sliceEnd={sliceEnd}
+            setFilmCount={(slice:number)=>setFilmCount(slice)}
+          />
+          <MainShowMoreButton
+            sliceEnd={sliceEnd}
+            setSlice={(slice:number)=>setSliceEnd(slice)}
+            filmCount={filmCount}
+          />
         </section>
-        <footer className ="page-footer">
+        <footer className="page-footer">
           <Logo footer />
-          <div className ="copyright">
+          <div className="copyright">
             <p>© 2019 What to watch Ltd.</p>
           </div>
         </footer>

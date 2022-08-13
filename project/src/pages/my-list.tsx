@@ -19,12 +19,10 @@ function MyList () {
             <UserSign />
           </ul>
         </header>
-
         <section className ="catalog">
           <h2 className ="catalog__title visually-hidden">Catalog</h2>
           <CatalogFilmCards films = {allFilms} sliceEnd = {FILM_CARD_COUNT}/>
         </section>
-
         <footer className ="page-footer">
           <Logo footer/>
           <div className ="copyright">

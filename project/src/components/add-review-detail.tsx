@@ -1,5 +1,5 @@
-
 import { getCommentTime, getDataTime } from '../utils';
+
 type AddReviewDetailsProps = {
   name:string,
   date:string,
@@ -7,8 +7,7 @@ type AddReviewDetailsProps = {
   comment:string
 }
 
-function AddReviewDetails (props:AddReviewDetailsProps){
-  const {name, date, rating, comment} = props;
+function AddReviewDetails ({name, date, rating, comment}:AddReviewDetailsProps){
   const dateTime = getDataTime(date);
   const commentsTime = getCommentTime(date);
   return (

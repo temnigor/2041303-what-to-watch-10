@@ -1,18 +1,18 @@
 import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { APIRoute, AppRoute, AuthorizationStatus } from '../const';
-import { AppDispatch, AuthData, FilmIdData, State, ToPostReviveData, UserData } from '../types/store';
+import { APIRoute, AuthorizationStatus } from '../const';
+import { AppDispatch, AuthData, State, ToPostReviveData, UserData } from '../types/store';
 import { Film, ServerFilm } from '../types/film';
 import { loadOpenFilm, getUserNameAction, loadFilms, requireAuthorizationStatus, setErrorLoginAction, loadingPageAction, loadSimilarFilms, loadReviews, isErrorResponseAction } from './action';
 import { store } from '.';
 import { removeToken, saveToken } from '../services/token';
-import { Reviews } from '../types/review';
-import { useNavigate } from 'react-router-dom';
+import { Review } from '../types/review';
+
 const TIMEOUT_SHOW_ERROR = 10000;
 
 const serverToFilms = (serverFilm:ServerFilm) =>{
   const film = {
-    id:String(serverFilm.id),
+    id:serverFilm.id,
     bigPoster:serverFilm.backgroundImage,
     poster: serverFilm.posterImage,
     previewImage:serverFilm.previewImage,
@@ -31,6 +31,7 @@ const serverToFilms = (serverFilm:ServerFilm) =>{
   };
   return film;
 };
+
 export const fetchFilmsActions = createAsyncThunk<void, undefined, { dispatch: AppDispatch,
   state: State, extra:AxiosInstance}>(
     'data/fetchFilms',
@@ -42,37 +43,43 @@ export const fetchFilmsActions = createAsyncThunk<void, undefined, { dispatch: A
       dispatch(loadingPageAction(false));
     });
 
-export const getDataOpenFilmAction = createAsyncThunk<void, FilmIdData, {dispatch:AppDispatch,
+export const getDataOpenFilmAction = createAsyncThunk<void, number, {dispatch:AppDispatch,
   state: State, extra:AxiosInstance}>(
-    'film/fetchOneFilm',
-    async ({id}:FilmIdData, {dispatch, extra:api}) => {
-      const navigate = useNavigate();
-
-        const routeOnePage = APIRoute.OneFilm.replace('{filmId}', id);
+    'film/fetchOpenFilm',
+    async (id:number, {dispatch, extra:api}) => {
+      try{
+        if(isNaN(id)){
+          dispatch(isErrorResponseAction(true));
+          dispatch(clearResponseErrorAction());
+        }
+        const routeOnePage = APIRoute.OneFilm.replace('{filmId}', `${id}`);
         const oneServerFilm = await api.get<ServerFilm>(routeOnePage);
         const openFilm:Film = serverToFilms(oneServerFilm.data);
-        console.log(openFilm)
         dispatch(loadOpenFilm(openFilm));
+      } catch {
+        dispatch(isErrorResponseAction(true));
+        dispatch(clearResponseErrorAction());
+      }
     }
   );
 
-export const getDataSimilarFilmsAction = createAsyncThunk<void, FilmIdData, {dispatch:AppDispatch,
+export const getDataSimilarFilmsAction = createAsyncThunk<void, number, {dispatch:AppDispatch,
     state: State, extra:AxiosInstance}>(
       'film/fetchOpenFilm',
-      async ({id}:FilmIdData, {dispatch, extra:api}) => {
-        const routeSimilarFilms = APIRoute.SimilarFilms.replace('{filmId}', id);
+      async (id:number, {dispatch, extra:api}) => {
+        const routeSimilarFilms = APIRoute.SimilarFilms.replace('{filmId}', `${id}`);
         const similarServerFilms = await api.get<ServerFilm[]>(routeSimilarFilms);
         const similarFilms = await similarServerFilms.data.map((film:ServerFilm)=>serverToFilms(film));
         dispatch(loadSimilarFilms(similarFilms));
       }
     );
 
-export const getDataReviewsOpenFilm = createAsyncThunk<void, FilmIdData, {dispatch:AppDispatch,
+export const getDataReviewsOpenFilm = createAsyncThunk<void, number, {dispatch:AppDispatch,
   state: State, extra:AxiosInstance}>(
     'film/fetchReviews',
-    async ({id}:FilmIdData, {dispatch, extra:api}) => {
-      const routeReviews = APIRoute.Comments.replace('{filmId}', id);
-      const {data} = await api.get<Reviews[]>(routeReviews);
+    async (id:number, {dispatch, extra:api}) => {
+      const routeReviews = APIRoute.Comments.replace('{filmId}', `${id}`);
+      const {data} = await api.get<Review[]>(routeReviews);
       dispatch(loadReviews(data));
     }
   );
@@ -80,14 +87,12 @@ export const getDataReviewsOpenFilm = createAsyncThunk<void, FilmIdData, {dispat
 export const postReviveAction = createAsyncThunk<void, ToPostReviveData, {dispatch:AppDispatch,
     state: State, extra:AxiosInstance}> (
       'film/postRevive',
-
       async ({comment, rating, id}, {dispatch, extra:api}) => {
         try {
-          const route = APIRoute.Comments.replace('{filmId}', id);
+          const route = APIRoute.Comments.replace('{filmId}', `${id}`);
           await api.post(route, {'comment':comment, 'rating':rating});
-          dispatch(getDataReviewsOpenFilm({id}));
-        } catch (err) {
-          console.error(err)
+          dispatch(getDataReviewsOpenFilm(id));
+        } catch {
           dispatch(isErrorResponseAction(true));
           dispatch(clearResponseErrorAction());
         }

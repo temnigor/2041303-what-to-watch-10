@@ -20,47 +20,47 @@ function App(): JSX.Element {
     <BrowserRouter>
       <Routes>
         <Route
-          path= {AppRoute.Main}
-          element = {<Main />}
+          path={AppRoute.Main}
+          element ={<Main />}
         />
         <Route
           path= {AppRoute.SignIn}
-          element = {<SignIn/>}
+          element ={<SignIn/>}
         />
         <Route
           path= {AppRoute.MyList}
-          element = {
+          element ={
             <PrivateRoute
-              authorizationStatus = {authorizationStatus}
+              authorizationStatus={authorizationStatus}
             >
               <MyList/>
             </PrivateRoute>
           }
         />
         <Route
-          path= {AppRoute.Film}
-          element = {<MoviePage/>}
+          path={AppRoute.Film}
+          element={<MoviePage/>}
         />
 
         <Route
           path= {AppRoute.AddReview}
-          element = {
-            <PrivateRoute authorizationStatus= {authorizationStatus}>
-              <AddReview />
+          element ={
+            <PrivateRoute authorizationStatus={authorizationStatus}>
+              <AddReview/>
             </PrivateRoute>
           }
         />
         <Route
-          path= {AppRoute.Player}
-          element = {<Player />}
+          path={AppRoute.Player}
+          element ={<Player />}
         />
         <Route
-          path= {AppRoute.Error}
-          element= {<Error404/>}
+          path={AppRoute.Error}
+          element={<Error404/>}
         />
         <Route
-          path= {AppRoute.OtherRoute}
-          element= {<Error404/>}
+          path={AppRoute.OtherRoute}
+          element={<Error404/>}
         />
       </Routes>
     </BrowserRouter>

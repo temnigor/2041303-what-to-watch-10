@@ -1,3 +1,5 @@
+import { getRunTimeToString } from '../../utils';
+
 type DetailsProps = {
   director:string,
   starring:string[],
@@ -6,21 +8,10 @@ type DetailsProps = {
   yearCreation : string,
 }
 
-const ONE_HOUR = 60;
-
-
-function Details (props:DetailsProps):JSX.Element {
-  const isLastStarring = (actor:string) => actor === props.starring[props.starring.length - 1];
-  const getRunTimeToString = () => {
-    if(props.runTime > ONE_HOUR) {
-      const hour = Math.floor(props.runTime / ONE_HOUR);
-      const minute = props.runTime - hour * ONE_HOUR;
-      return `${hour}h ${minute}m`;
-    }
-    return `${props.runTime}m`;
-  };
-
-  const starringDetails = props.starring.map((actor,i) => {
+function DetailsTab ({director, genre, yearCreation, starring, runTime}:DetailsProps):JSX.Element {
+  const isLastStarring = (actor:string) => actor === starring[starring.length - 1];
+  const runTimeNormal = getRunTimeToString(runTime);
+  const starringDetails = starring.map((actor,i) => {
     const keyId = `details-${i}`;
     return (
       isLastStarring(actor)
@@ -35,7 +26,7 @@ function Details (props:DetailsProps):JSX.Element {
         <div className="film-card__text-col">
           <p className="film-card__details-item">
             <strong className="film-card__details-name">Director</strong>
-            <span className="film-card__details-value">{props.director}</span>
+            <span className="film-card__details-value">{director}</span>
           </p>
           <p className="film-card__details-item">
             <strong className="film-card__details-name">Starring</strong>
@@ -48,15 +39,15 @@ function Details (props:DetailsProps):JSX.Element {
         <div className="film-card__text-col">
           <p className="film-card__details-item">
             <strong className="film-card__details-name">Run Time</strong>
-            <span className="film-card__details-value">{getRunTimeToString()}</span>
+            <span className="film-card__details-value">{runTimeNormal}</span>
           </p>
           <p className="film-card__details-item">
             <strong className="film-card__details-name">Genre</strong>
-            <span className="film-card__details-value"> {props.genre} </span>
+            <span className="film-card__details-value"> {genre} </span>
           </p>
           <p className="film-card__details-item">
             <strong className="film-card__details-name">Released</strong>
-            <span className="film-card__details-value">{props.yearCreation}</span>
+            <span className="film-card__details-value">{yearCreation}</span>
           </p>
         </div>
       </div>
@@ -65,4 +56,4 @@ function Details (props:DetailsProps):JSX.Element {
   );
 }
 
-export {Details};
+export {DetailsTab};
