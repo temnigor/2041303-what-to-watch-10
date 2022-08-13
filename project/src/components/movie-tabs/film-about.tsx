@@ -1,16 +1,15 @@
 import { AppRoute, NavMenuMoviePage } from '../../const';
-import { Review } from '../../types/review';
 import { Film } from '../../types/film';
 import { Navigate } from 'react-router-dom';
 import { Overview } from './overview';
 import { Details } from './details';
-import { Reviews } from './reviews';
-
+import { Comments } from './comments';
+import { Reviews } from '../../types/review';
 
 type FilmAboutProps = {
   filmForPage:Film,
   nameButton:string,
-  reviews: Review[]
+  reviews:Reviews[]
 }
 
 function FilmAbout (props:FilmAboutProps):JSX.Element{
@@ -33,11 +32,10 @@ function FilmAbout (props:FilmAboutProps):JSX.Element{
           yearCreation = {props.filmForPage.yearCreation}
         />);
     case NavMenuMoviePage.REVIEWS:
-      return <Reviews reviews={props.reviews}/>;
+      return <Comments reviews={props.reviews} />;
     default:
       return <Navigate to = {AppRoute.Error} />;
   }
-
 }
 
 export {FilmAbout};

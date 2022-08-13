@@ -1,16 +1,23 @@
-import { Review } from '../types/review';
-import { getDataTime } from '../utils';
 
-function AddReviewDetails (props:Review){
+import { getCommentTime, getDataTime } from '../utils';
+type AddReviewDetailsProps = {
+  name:string,
+  date:string,
+  rating:number,
+  comment:string
+}
+
+function AddReviewDetails (props:AddReviewDetailsProps){
   const {name, date, rating, comment} = props;
   const dateTime = getDataTime(date);
+  const commentsTime = getCommentTime(date);
   return (
     <div className="review">
       <blockquote className="review__quote">
         <p className="review__text">{comment}</p>
         <footer className="review__details">
           <cite className="review__author">{name}</cite>
-          <time className="review__date" dateTime={dateTime}>{date}</time>
+          <time className="review__date" dateTime={dateTime}>{commentsTime}</time>
         </footer>
       </blockquote>
       <div className="review__rating">{rating}</div>

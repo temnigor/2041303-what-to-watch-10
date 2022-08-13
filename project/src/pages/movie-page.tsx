@@ -4,49 +4,61 @@ import ArtBoard from '../components/art-board';
 import { AppRoute, NavMenuMoviePage } from '../const';
 import { FilmAbout } from '../components/movie-tabs/film-about';
 import Logo from '../components/logo/logo';
-import { Film } from '../types/film';
-import { UserSing } from '../components/user-sing';
-import { Review } from '../types/review';
+import { UserSign } from '../components/user-sign';
 import { MovieCatalogFilmCards } from '../components/movie-catalog-film-card';
+import { useAppDispatch, useAppSelector } from '../hooks';
+import { getDataOpenFilmAction, getDataReviewsOpenFilm, getDataSimilarFilmsAction } from '../store/api-action';
+import { LoadingScreen } from '../components/loading-screen/loading-screen';
 
-type MoviePageProps = {
-  films : Film[]
-  authorizationStatus:string,
-  reviews:Review[]
-};
+
 const FILM_CARD_COUNT = 4;
-const MoviePage = (props:MoviePageProps):JSX.Element=>{
-  const param = useParams();
-  const filmForPage = props.films.find((film) => film.id === param.id);
-  const myListFilmCount = props.films.filter((filmCard)=>filmCard.isFavorite === true).length;
+const MoviePage = ():JSX.Element=>{
   const [navMenuButtonCount, setNavMenuButtonCount] = useState(NavMenuMoviePage.OVERVIEW);
+  const {openedFilm, similarFilms, allFilms, reviews} = useAppSelector((state)=>state);
+  const {id} = useParams();
+  const dispatch = useAppDispatch();
+  if(id === undefined) {
+    return < Navigate to={AppRoute.Error}/>;
+  }
+  if(openedFilm === undefined || openedFilm.id !== id){
+    dispatch(getDataOpenFilmAction({id:id}));
+    dispatch(getDataSimilarFilmsAction({id:id}));
+    dispatch(getDataReviewsOpenFilm({id:id}));
+    return <LoadingScreen/>;
+  }
 
-  return filmForPage ? (
+  const film = openedFilm;
+  const backgroundColor = {
+    background:film.backgroundColor
+  };
+  const myListFilmCount = allFilms.filter((filmCard)=>filmCard.isFavorite === true).length;
+
+  return (
     <>
       <ArtBoard/>
-      <section className ="film-card film-card--full">
+      <section className ="film-card film-card--full" style={backgroundColor}>
         <div className ="film-card__hero">
           <div className ="film-card__bg">
-            <img src={filmForPage.bigPoster} alt= {filmForPage.filmName} />
+            <img src={film.bigPoster} alt= {film.filmName} />
           </div>
 
           <h1 className ="visually-hidden">WTW</h1>
 
           <header className ="page-header film-card__head">
             <Logo />
-            <UserSing status = {props.authorizationStatus} />
+            <UserSign />
           </header>
           <div className ="film-card__wrap">
             <div className ="film-card__desc">
-              <h2 className ="film-card__title">{filmForPage.filmName}</h2>
+              <h2 className ="film-card__title">{film.filmName}</h2>
               <p className ="film-card__meta">
-                <span className ="film-card__genre">{filmForPage.genre}</span>
-                <span className ="film-card__year">{filmForPage.yearCreation}</span>
+                <span className ="film-card__genre">{film.genre}</span>
+                <span className ="film-card__year">{film.yearCreation}</span>
               </p>
 
               <div className ="film-card__buttons">
 
-                <Link to = {AppRoute.Player.replace(':id', filmForPage.id)} className ="btn btn--play film-card__button" type="button">
+                <Link to = {AppRoute.Player.replace(':id', film.id)} className ="btn btn--play film-card__button" type="button">
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
@@ -62,7 +74,7 @@ const MoviePage = (props:MoviePageProps):JSX.Element=>{
                   <span className ="film-card__count">{myListFilmCount}</span>
                 </Link>
 
-                <Link to = {AppRoute.AddReview.replace(':id', filmForPage.id)} className ="btn film-card__button">Add review</Link>
+                <Link to = {AppRoute.AddReview.replace(':id', film.id)} className ="btn film-card__button">Add review</Link>
               </div>
             </div>
           </div>
@@ -71,7 +83,7 @@ const MoviePage = (props:MoviePageProps):JSX.Element=>{
         <div className ="film-card__wrap film-card__translate-top">
           <div className ="film-card__info">
             <div className ="film-card__poster film-card__poster--big">
-              <img src={filmForPage.poster} alt= {filmForPage.filmName} width="218" height="327" />
+              <img src={film.poster} alt= {film.filmName} width="218" height="327" />
             </div>
 
             <div className ="film-card__desc">
@@ -104,9 +116,9 @@ const MoviePage = (props:MoviePageProps):JSX.Element=>{
                 </ul>
               </nav>
               <FilmAbout
-                filmForPage = {filmForPage}
+                filmForPage = {film}
                 nameButton = {navMenuButtonCount}
-                reviews = {props.reviews}
+                reviews = {reviews}
               />
             </div>
           </div>
@@ -116,7 +128,7 @@ const MoviePage = (props:MoviePageProps):JSX.Element=>{
       <div className ="page-content">
         <section className ="catalog catalog--like-this">
           <h2 className ="catalog__title">More like this</h2>
-          <MovieCatalogFilmCards films = {props.films} sliceEnd = {FILM_CARD_COUNT} filter = {filmForPage.genre}/>
+          <MovieCatalogFilmCards films = {similarFilms} sliceEnd = {FILM_CARD_COUNT}/>
         </section>
         <footer className ="page-footer">
           <Logo footer/>
@@ -126,8 +138,6 @@ const MoviePage = (props:MoviePageProps):JSX.Element=>{
         </footer>
       </div>
     </>
-  ) : (
-    <Navigate to = {AppRoute.Error}/>
   );
 };
 

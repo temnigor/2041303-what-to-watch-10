@@ -1,13 +1,25 @@
 type DetailsProps = {
   director:string,
   starring:string[],
-  runTime: string,
+  runTime: number,
   genre:string,
   yearCreation : string,
 }
 
+const ONE_HOUR = 60;
+
+
 function Details (props:DetailsProps):JSX.Element {
   const isLastStarring = (actor:string) => actor === props.starring[props.starring.length - 1];
+  const getRunTimeToString = () => {
+    if(props.runTime > ONE_HOUR) {
+      const hour = Math.floor(props.runTime / ONE_HOUR);
+      const minute = props.runTime - hour * ONE_HOUR;
+      return `${hour}h ${minute}m`;
+    }
+    return `${props.runTime}m`;
+  };
+
   const starringDetails = props.starring.map((actor,i) => {
     const keyId = `details-${i}`;
     return (
@@ -36,7 +48,7 @@ function Details (props:DetailsProps):JSX.Element {
         <div className="film-card__text-col">
           <p className="film-card__details-item">
             <strong className="film-card__details-name">Run Time</strong>
-            <span className="film-card__details-value">{props.runTime}</span>
+            <span className="film-card__details-value">{getRunTimeToString()}</span>
           </p>
           <p className="film-card__details-item">
             <strong className="film-card__details-name">Genre</strong>

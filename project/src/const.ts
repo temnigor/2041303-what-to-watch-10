@@ -8,6 +8,18 @@ export enum AppRoute {
   Error = '/404',
   OtherRoute = '*'
 }
+
+export enum APIRoute {
+  Films = '/films',
+  OneFilm = '/films/{filmId}',
+  SimilarFilms = 'films/{filmId}/similar',
+  PromoFilm = '/promo',
+  FavoriteFilms = '/favorite',
+  Comments = '/comments/{filmId}',
+  Login = '/login',
+  logout = '/logout'
+}
+
 export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
@@ -24,12 +36,12 @@ export enum FilterMainNavMenu {
   ALL_GENRES = 'All genres',
   COMEDY = 'Comedies',
   CRIME = 'Crime',
-  DOCUMENTAL = 'Documentary',
+  ADVENTURE = 'Adventurers',
   DRAMA = 'Dramas',
   HORROR = 'Horror',
   KIDS = 'Kids & Family',
-  ROMANS = 'Romance',
-  SCI_FI = 'Sci-Fi',
+  ACTIONS = 'Actions',
+  FANTASY = 'Fantasy',
   THRILLER = 'Thrillers'
 }
 
@@ -37,13 +49,13 @@ export const GenresFilter = {
   [FilterMainNavMenu.ALL_GENRES] : 'All genres',
   [FilterMainNavMenu.COMEDY] : 'Comedy',
   [FilterMainNavMenu.CRIME] : 'Crime',
-  [FilterMainNavMenu.DOCUMENTAL] : 'Documental',
+  [FilterMainNavMenu.ADVENTURE] : 'Adventure',
   [FilterMainNavMenu.DRAMA] : 'Drama',
   [FilterMainNavMenu.HORROR] : 'Horror',
   [FilterMainNavMenu.KIDS] : 'Kids & Family',
-  [FilterMainNavMenu.ROMANS] : 'Romance',
-  [FilterMainNavMenu.SCI_FI] : 'Sci-Fi',
-  [FilterMainNavMenu.THRILLER] : 'Thrillers'
+  [FilterMainNavMenu.ACTIONS] : 'Action',
+  [FilterMainNavMenu.FANTASY] : 'Fantasy',
+  [FilterMainNavMenu.THRILLER] : 'Thriller'
 };
 
 export enum Rating {

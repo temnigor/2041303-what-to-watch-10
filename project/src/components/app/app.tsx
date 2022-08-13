@@ -8,25 +8,20 @@ import MyList from '../../pages/my-list';
 import MoviePage from '../../pages/movie-page';
 import PrivateRoute from '../private-route/private-route';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Film } from '../../types/film';
-import { Review } from '../../types/review';
-type AppScreenProps = {
-  films:Film[],
-  reviews:Review[]
-}
-const AuthorizationStatusNow = {
-  status: AuthorizationStatus.Auth,
-  name:'Robin'
-};
+import { useAppSelector } from '../../hooks';
+import { LoadingScreen } from '../loading-screen/loading-screen';
 
-
-function App( props:AppScreenProps ): JSX.Element {
+function App(): JSX.Element {
+  const {authorizationStatus, isLoadingFilms: loadingFilms} = useAppSelector((state)=>state);
+  if(authorizationStatus === AuthorizationStatus.Unknown || loadingFilms ) {
+    return <LoadingScreen/>;
+  }
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path= {AppRoute.Main}
-          element = {<Main films = {props.films} authorizationStatus = {AuthorizationStatusNow.status} />}
+          element = {<Main />}
         />
         <Route
           path= {AppRoute.SignIn}
@@ -36,21 +31,22 @@ function App( props:AppScreenProps ): JSX.Element {
           path= {AppRoute.MyList}
           element = {
             <PrivateRoute
-              authorizationStatus = {AuthorizationStatusNow.status}
+              authorizationStatus = {authorizationStatus}
             >
-              <MyList authorizationStatus= {AuthorizationStatusNow.status} films = {props.films}/>
+              <MyList/>
             </PrivateRoute>
           }
         />
         <Route
           path= {AppRoute.Film}
-          element = {<MoviePage authorizationStatus= {AuthorizationStatusNow.status} films = {props.films} reviews = {props.reviews} />}
+          element = {<MoviePage/>}
         />
+
         <Route
           path= {AppRoute.AddReview}
           element = {
-            <PrivateRoute authorizationStatus= {AuthorizationStatusNow.status}>
-              <AddReview authorizationStatus= {AuthorizationStatusNow.status} name={AuthorizationStatusNow.name} films = {props.films}/>
+            <PrivateRoute authorizationStatus= {authorizationStatus}>
+              <AddReview />
             </PrivateRoute>
           }
         />
