@@ -11,7 +11,6 @@ function PlayerSmallFilm (props:PlayerSmallFilmProps):JSX.Element {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isReload, setIsReload] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const divRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if(videoRef.current === null) {
@@ -35,7 +34,6 @@ function PlayerSmallFilm (props:PlayerSmallFilmProps):JSX.Element {
 
   return (
     <div
-      ref={divRef}
       id = {props.id}
       className = "small-film-card__image"
       onMouseMove={(evt)=>setPlay(evt)}
