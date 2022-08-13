@@ -10,7 +10,7 @@ function MainShowMoreButton (props:MainShowMoreButtonProps) {
 
   return(
     <div className ="catalog__more">
-      {props.sliceEnd === filmsFiltered.length || filmsFiltered.length === 0
+      {props.sliceEnd >= filmsFiltered.length || filmsFiltered.length === 0
         ? null
         :
         <button className ="catalog__button" type="button" onClick={(evt:MouseEvent<HTMLButtonElement>)=>{

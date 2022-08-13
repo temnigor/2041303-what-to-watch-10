@@ -66,6 +66,7 @@ function AddReview ():JSX.Element {
             dispatch(postReviveAction({comment, rating, id}));
           } } className="add-review__form"
           >
+            {isErrorResponse && <div className="add-review__text"><p>Error Revive not post </p></div>}
             <RatingStar ratingFilm = {rating}/>
 
             <div className="add-review__text">
@@ -87,7 +88,6 @@ function AddReview ():JSX.Element {
                 date = {dateReview}
               />
             </div>}
-            {isErrorResponse && <div className="add-review__text"><p>Error Revive not post </p></div>}
           </div>
         </div>
       </section>
