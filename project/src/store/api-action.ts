@@ -89,6 +89,7 @@ export const postReviveAction = createAsyncThunk<void, ToPostReviveData, {dispat
           await api.post(route, {'comment':comment, 'rating':rating});
           dispatch(getDataReviewsOpenFilm({id}));
         } catch (err) {
+          console.error(err)
           dispatch(isErrorResponseAction(true));
           dispatch(clearResponseErrorAction());
         }

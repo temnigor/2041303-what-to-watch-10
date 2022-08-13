@@ -39,7 +39,6 @@ function AddReview ():JSX.Element {
 
           <header className="page-header">
             <Logo footer = {false}/>
-
             <nav className="breadcrumbs">
               <ul className="breadcrumbs__list">
                 <li className="breadcrumbs__item">
