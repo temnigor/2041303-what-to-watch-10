@@ -8,6 +8,7 @@ import { checkAutAction, fetchFilmsActions } from './store/api-action';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
+
 store.dispatch(fetchFilmsActions());
 store.dispatch(checkAutAction());
 

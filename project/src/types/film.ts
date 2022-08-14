@@ -1,6 +1,6 @@
 export type ServerFilm = {
-  id:number
-  backgroundImage:string,
+    id:number
+    backgroundImage:string,
     posterImage:string,
     previewImage:string,
     name:string,
@@ -18,7 +18,7 @@ export type ServerFilm = {
   };
 
 export type Film = {
-  id:string,
+  id:number,
   bigPoster:string,
   poster: string,
   previewImage:string,

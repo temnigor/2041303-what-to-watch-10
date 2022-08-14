@@ -20,30 +20,30 @@ function AddReview ():JSX.Element {
     return <Navigate to={AppRoute.Error}/>;
   }
   const {bigPoster, id, poster, filmName, rating} = openedFilm;
+  const ratingForServer = Math.floor(rating);
   const date = new Date ();
   const dateReview = `${date.getDate()} ${date.toLocaleString('en', { month: 'long' })} ${date.getFullYear()}`;
   const updateStateHandler = (evt:FormEvent<HTMLTextAreaElement>):void => {
     evt.preventDefault();
     setComment(evt.currentTarget.value);
   };
-  return openedFilm !== undefined ? (
+  return (
     <div>
       <ArtBoard/>
       <section className="film-card film-card--full">
         <div className="film-card__header">
           <div className="film-card__bg">
-            <img src= {bigPoster} alt= {filmName} />
+            <img src= {bigPoster} alt={filmName} />
           </div>
 
-          <h1 className ="visually-hidden">WTW</h1>
+          <h1 className="visually-hidden">WTW</h1>
 
           <header className="page-header">
-            <Logo footer = {false}/>
-
+            <Logo footer={false}/>
             <nav className="breadcrumbs">
               <ul className="breadcrumbs__list">
                 <li className="breadcrumbs__item">
-                  <Link to= {AppRoute.Film.replace(':id', id)} className="breadcrumbs__link">{filmName}</Link>
+                  <Link to={AppRoute.Film.replace(':id', `${id}`)} className="breadcrumbs__link">{filmName}</Link>
                 </li>
                 <li className="breadcrumbs__item">
                   <a href="#top" className="breadcrumbs__link">Add review</a>
@@ -55,7 +55,7 @@ function AddReview ():JSX.Element {
           </header>
 
           <div className="film-card__poster film-card__poster--small">
-            <img src= {poster} alt= {filmName} width="218" height="327" />
+            <img src={poster} alt={filmName} width="218" height="327" />
           </div>
         </div>
 
@@ -63,13 +63,14 @@ function AddReview ():JSX.Element {
           <form action="#" onSubmit={(event:FormEvent<HTMLFormElement>)=>{
             event.preventDefault();
             setIsHideDetails( comment.length === 0);
-            dispatch(postReviveAction({comment, rating, id}));
+            dispatch(postReviveAction({comment, rating:ratingForServer, id}));
           } } className="add-review__form"
           >
-            <RatingStar ratingFilm = {rating}/>
+            {isErrorResponse && <div className="add-review__text"><p>Error Revive not post </p></div>}
+            <RatingStar ratingFilm= {rating}/>
 
             <div className="add-review__text">
-              <textarea onChange={updateStateHandler} className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text" value = {comment} ></textarea>
+              <textarea onChange={updateStateHandler} className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text" value={comment} ></textarea>
               <div className="add-review__submit">
                 <button className="add-review__btn" type="submit" >
                     Post
@@ -81,19 +82,16 @@ function AddReview ():JSX.Element {
             {!isHideDetails &&
             <div className="add-review__text">
               <AddReviewDetails
-                name= {userName}
-                comment = {comment}
-                rating = {rating}
-                date = {dateReview}
+                name={userName}
+                comment={comment}
+                rating={rating}
+                date={dateReview}
               />
             </div>}
-            {isErrorResponse && <div className="add-review__text"><p>Error Revive not post </p></div>}
           </div>
         </div>
       </section>
     </div>
-  ) : (
-    <Navigate to = {AppRoute.Error}/>
   );
 }
 

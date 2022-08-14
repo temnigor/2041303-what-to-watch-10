@@ -5,10 +5,10 @@ type CatalogFilmCardsProps = {
   films:Film[]
   sliceEnd: number
 }
-export function CatalogFilmCards (props:CatalogFilmCardsProps):JSX.Element {
+export function CatalogFilmCards ({films, sliceEnd}:CatalogFilmCardsProps):JSX.Element {
   return (
     <div className ="catalog__films-list">
-      {props.films.slice(0, props.sliceEnd).map((filmCard)=> <SmallFilm key={filmCard.id} film = {filmCard}/>)}
+      {films.slice(0, sliceEnd).map((filmCard)=> <SmallFilm key={filmCard.id} film = {filmCard}/>)}
     </div>
   );
 }

@@ -3,8 +3,8 @@ import React from 'react';
 type RatingStarProps = {
   ratingFilm : number
 }
-function RatingStar (props:RatingStarProps):JSX.Element {
-  const ratingValue = Math.floor(props.ratingFilm);
+function RatingStar ({ratingFilm}:RatingStarProps):JSX.Element {
+  const ratingValue = Math.floor(ratingFilm);
   return (
     <div className="rating" >
       <div className="rating__stars">
@@ -18,11 +18,10 @@ function RatingStar (props:RatingStarProps):JSX.Element {
                 type="radio"
                 name="rating"
                 value={String(index)}
-                checked = {ratingValue === index}
+                checked={ratingValue === index}
                 readOnly
               />
-
-              <label className="rating__label" htmlFor= {star}> Rating {index} </label>
+              <label className="rating__label" htmlFor={star}> Rating {index} </label>
             </React.Fragment>
           );
         }

@@ -1,23 +1,20 @@
-import { MouseEvent } from 'react';
-import { useAppSelector } from '../hooks';
 const SLICE_STEP = 8;
 type MainShowMoreButtonProps = {
   setSlice: (slice: number) => void,
-  sliceEnd: number
+  sliceEnd: number,
+  filmCount:number
   }
-function MainShowMoreButton (props:MainShowMoreButtonProps) {
-  const {filmsFiltered} = useAppSelector((state)=>state);
-
+function MainShowMoreButton ({setSlice, sliceEnd, filmCount}:MainShowMoreButtonProps) {
   return(
-    <div className ="catalog__more">
-      {props.sliceEnd === filmsFiltered.length || filmsFiltered.length === 0
+    <div className="catalog__more">
+      {sliceEnd >= filmCount || filmCount === 0
         ? null
         :
-        <button className ="catalog__button" type="button" onClick={(evt:MouseEvent<HTMLButtonElement>)=>{
-          const slice = props.sliceEnd + SLICE_STEP;
-          filmsFiltered.length < slice
-            ? props.setSlice(filmsFiltered.length)
-            : props.setSlice(slice);
+        <button className="catalog__button" type="button" onClick={()=>{
+          const slice = sliceEnd + SLICE_STEP;
+          filmCount < slice
+            ? setSlice(filmCount)
+            : setSlice(slice);
         }}
         >
     Show more

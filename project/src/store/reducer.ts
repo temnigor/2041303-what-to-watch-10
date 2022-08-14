@@ -5,20 +5,21 @@ import {
   loadOpenFilm,
   getUserNameAction,
   loadFilms,
-  mainFilterChang,
+  mainFilterChangAction,
   requireAuthorizationStatus,
   setErrorLoginAction,
   loadingPageAction,
   loadSimilarFilms,
   loadReviews,
   isErrorResponseAction,
+  filmFilterCountAction,
 } from './action';
 import { AuthorizationStatus } from '../const';
-import { Reviews } from '../types/review';
+import { Review } from '../types/review';
 
  type InitialState = {
   filter:string,
-  filmsFiltered:Film[],
+  filmFilterCount:number,
   allFilms:Film[],
   openedFilm:Film | undefined,
   authorizationStatus: string,
@@ -27,12 +28,12 @@ import { Reviews } from '../types/review';
   isLoadingFilms:boolean,
   userName:string,
   similarFilms:Film[],
-  reviews:Reviews[]
+  reviews:Review[]
 }
 
 const initialState:InitialState = {
   filter:GenresFilter[FilterMainNavMenu.ALL_GENRES],
-  filmsFiltered:[],
+  filmFilterCount:0,
   allFilms:[],
   similarFilms:[],
   openedFilm: undefined,
@@ -46,15 +47,14 @@ const initialState:InitialState = {
 
 const reducerMainFilterFilm = createReducer(initialState, (builder) => {
   builder
-    .addCase(mainFilterChang, (state, action) => {
+    .addCase(mainFilterChangAction, (state, action) => {
       state.filter = action.payload;
-      GenresFilter[FilterMainNavMenu.ALL_GENRES] === action.payload
-        ? state.filmsFiltered = state.allFilms
-        : state.filmsFiltered = state.allFilms.filter((film:Film)=> film.genre === action.payload);
+    })
+    .addCase(filmFilterCountAction, (state, action) => {
+      state.filmFilterCount = action.payload;
     })
     .addCase(loadFilms, (state, action) => {
       state.allFilms = action.payload;
-      state.filmsFiltered = action.payload;
     })
     .addCase(requireAuthorizationStatus, (state, action) => {
       state.authorizationStatus = action.payload;

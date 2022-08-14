@@ -1,12 +1,7 @@
-import { Reviews } from '../../types/review';
+import { Review } from '../../types/review';
 import { getCommentTime, getDataTime } from '../../utils';
 
-
-type ReviewsProps = {
-  reviews:Reviews[]
-}
-
-const getReviewsJsx = (reviews:Reviews[]) =>
+const getReviewsJsx = (reviews:Review[]) =>
   reviews.map((review, i) => {
     const {user, date, rating, comment} = review;
     const dateTime = getDataTime(date);
@@ -27,19 +22,23 @@ const getReviewsJsx = (reviews:Reviews[]) =>
   }
   );
 
-function Comments (props:ReviewsProps):JSX.Element {
-  if(props.reviews.length === 1 ){
+  type ReviewsTabProps = {
+    reviews:Review[]
+  };
+
+function ReviewsTab ({reviews}:ReviewsTabProps):JSX.Element {
+  if(reviews.length === 1 ){
     return (
       <div className="film-card__reviews film-card__row">
         <div className="film-card__reviews-col">
-          {getReviewsJsx (props.reviews)}
+          {getReviewsJsx (reviews)}
         </div>
       </div>
     );
   }
-  const mostOfHalf = Math.ceil(Number(props.reviews.length / 2));
-  const reviewsPartOne = getReviewsJsx (props.reviews.slice(0, mostOfHalf));
-  const reviewsPartTwo = getReviewsJsx(props.reviews.slice(mostOfHalf, props.reviews.length));
+  const mostOfHalf = Math.ceil(Number(reviews.length / 2));
+  const reviewsPartOne = getReviewsJsx (reviews.slice(0, mostOfHalf));
+  const reviewsPartTwo = getReviewsJsx(reviews.slice(mostOfHalf, reviews.length));
   return(
     <div className="film-card__reviews film-card__row">
       <div className="film-card__reviews-col">
@@ -52,4 +51,4 @@ function Comments (props:ReviewsProps):JSX.Element {
   );
 }
 
-export {Comments};
+export {ReviewsTab};
