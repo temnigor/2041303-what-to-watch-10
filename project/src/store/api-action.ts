@@ -51,6 +51,7 @@ export const getDataOpenFilmAction = createAsyncThunk<void, number, {dispatch:Ap
         if(isNaN(id)){
           dispatch(isErrorResponseAction(true));
           dispatch(clearResponseErrorAction());
+          return;
         }
         const routeOnePage = APIRoute.OneFilm.replace('{filmId}', `${id}`);
         const oneServerFilm = await api.get<ServerFilm>(routeOnePage);
