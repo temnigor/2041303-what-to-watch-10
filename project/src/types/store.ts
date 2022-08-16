@@ -1,5 +1,6 @@
 import { store } from '../store';
 
+
 export type UserData = {
 avatarUrl: string
 email: string
@@ -7,6 +8,11 @@ id: number
 name: string
 token: string
 };
+
+export type favoriteDataPost = {
+  idFilm:number,
+  status:number
+}
 
 export type ToPostReviveData = {
    comment: string,

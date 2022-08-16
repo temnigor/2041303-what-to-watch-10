@@ -5,6 +5,7 @@ type MainShowMoreButtonProps = {
   filmCount:number
   }
 function MainShowMoreButton ({setSlice, sliceEnd, filmCount}:MainShowMoreButtonProps) {
+
   return(
     <div className="catalog__more">
       {sliceEnd >= filmCount || filmCount === 0

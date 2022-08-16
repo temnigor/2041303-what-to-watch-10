@@ -12,8 +12,8 @@ import { useAppSelector } from '../../hooks';
 import { LoadingScreen } from '../loading-screen/loading-screen';
 
 function App(): JSX.Element {
-  const {authorizationStatus, isLoadingFilms: loadingFilms} = useAppSelector((state)=>state);
-  if(authorizationStatus === AuthorizationStatus.Unknown || loadingFilms ) {
+  const {authorizationStatus, isLoadingFilms, } = useAppSelector((state)=>state);
+  if(isLoadingFilms) {
     return <LoadingScreen/>;
   }
   return (

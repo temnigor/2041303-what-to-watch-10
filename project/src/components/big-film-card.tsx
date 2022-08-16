@@ -1,16 +1,22 @@
 import { Film } from '../types/film';
-import { useAppSelector } from '../hooks';
+import { useAppDispatch, useAppSelector } from '../hooks';
 import Logo from './logo/logo';
 import { UserSign } from './user-sign';
-import { Link } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../const';
+import { Link} from 'react-router-dom';
+import { AppRoute } from '../const';
+import { AddFavoriteButton } from './add-favorite-button';
 
-function BigFilmCard ():JSX.Element {
-  const {allFilms, authorizationStatus} = useAppSelector((state)=>state);
-  const filmForPoster : Film | undefined = allFilms[0];
-  const{id, filmName, genre, yearCreation, bigPoster, poster} = filmForPoster;
+type BigFilmCardProps = {
+  film:Film
+  allFilms:Film[]
+  authorizationStatus:string
+}
+
+function BigFilmCard ({film, allFilms, authorizationStatus}:BigFilmCardProps):JSX.Element {
+  const{id, filmName, genre, yearCreation, bigPoster, poster, isFavorite} = film;
+  const dispatch = useAppDispatch();
   return (
-    <section className="film-card">
+    <>
       <div className="film-card__bg">
         <img src={bigPoster} alt={filmName} />
       </div>
@@ -41,21 +47,19 @@ function BigFilmCard ():JSX.Element {
                 </svg>
                 <span>Play</span>
               </Link>
-              { authorizationStatus === AuthorizationStatus.Auth
-                ?
                 <Link to={AppRoute.MyList} className ="btn btn--list film-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
+                  <AddFavoriteButton
+                  isFavorite={isFavorite}
+                  id={id}
+                  />
                   <span>My list</span>
                   <span className="film-card__count">{allFilms.filter((films)=>films.isFavorite).length}</span>
                 </Link>
-                : null}
             </div>
           </div>
         </div>
       </div>
-    </section>
+    </>
   );
 }
 

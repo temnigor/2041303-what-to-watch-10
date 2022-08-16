@@ -1,13 +1,24 @@
+import { useEffect } from 'react';
+import { Navigate } from 'react-router-dom';
 import ArtBoard from '../components/art-board';
-import { CatalogFilmCards } from '../components/catalog-film-cards';
+import { CatalogFilmCardsInterface } from '../components/catalog-film-card/catalog-film-cards-interface';
 import Logo from '../components/logo/logo';
 import { UserSign } from '../components/user-sign';
-import { useAppSelector } from '../hooks';
-
-const FILM_CARD_COUNT = 9;
+import { AppRoute, CatalogFilm } from '../const';
+import { useAppDispatch, useAppSelector } from '../hooks';
+import { fetchFavoriteFilmAction } from '../store/api-action';
 
 function MyList () {
-  const {allFilms} = useAppSelector((state)=>state);
+  const {favoriteFilms, isErrorResponse,} = useAppSelector((state)=>state);
+  const dispatch = useAppDispatch();
+  useEffect(()=>{
+    if(favoriteFilms === undefined){
+      dispatch(fetchFavoriteFilmAction());
+  }
+  }, [dispatch, favoriteFilms]);
+  if(isErrorResponse){
+    return <Navigate to={AppRoute.Error}/>;
+  }
   return (
     <div>
       <ArtBoard/>
@@ -21,7 +32,7 @@ function MyList () {
         </header>
         <section className ="catalog">
           <h2 className ="catalog__title visually-hidden">Catalog</h2>
-          <CatalogFilmCards films = {allFilms} sliceEnd = {FILM_CARD_COUNT}/>
+          <CatalogFilmCardsInterface catalogFilter={CatalogFilm.FAVORITE_FILTER}/>
         </section>
         <footer className ="page-footer">
           <Logo footer/>

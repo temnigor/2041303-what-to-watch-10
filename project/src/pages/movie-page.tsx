@@ -1,7 +1,7 @@
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { useState, MouseEvent, useEffect } from 'react';
 import ArtBoard from '../components/art-board';
-import { AppRoute, AuthorizationStatus, NavMenuMoviePage } from '../const';
+import { AppRoute, AuthorizationStatus, CatalogFilm, NavMenuMoviePage } from '../const';
 import { AllTabs } from '../components/all-tabs/all-tabs';
 import Logo from '../components/logo/logo';
 import { UserSign } from '../components/user-sign';
@@ -9,8 +9,8 @@ import { MovieCatalogFilmCards } from '../components/movie-catalog-film-card';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { getDataOpenFilmAction, getDataReviewsOpenFilm, getDataSimilarFilmsAction } from '../store/api-action';
 import { LoadingScreen } from '../components/loading-screen/loading-screen';
-
-const FILM_CARD_COUNT = 4;
+import { AddFavoriteButton } from '../components/add-favorite-button';
+import { CatalogFilmCardsInterface } from '../components/catalog-film-card/catalog-film-cards-interface';
 
 const MoviePage = ():JSX.Element=>{
   const [navMenuButtonCount, setNavMenuButtonCount] = useState(NavMenuMoviePage.OVERVIEW);
@@ -30,7 +30,7 @@ const MoviePage = ():JSX.Element=>{
   if(idParam === undefined || isErrorResponse) {
     return < Navigate to={AppRoute.Error}/>;
   }
-  if(openedFilm === undefined){
+  if(openedFilm === undefined || openedFilm.id !== +idParam){
     return <LoadingScreen/>;
   }
 
@@ -42,21 +42,20 @@ const MoviePage = ():JSX.Element=>{
     genre,
     yearCreation,
     poster,
+    isFavorite
   } = openedFilm;
-  const backgroundColorStyle = {
-    background:backgroundColor
-  };
+
   const myListFilmCount = allFilms.filter((filmCard)=>filmCard.isFavorite === true).length;
 
   return (
     <>
       <ArtBoard/>
-      <section className="film-card film-card--full" style={backgroundColorStyle}>
+      <section className="film-card film-card--full" style={{background:backgroundColor}}>
         <div className="film-card__hero">
           <div className="film-card__bg">
             <img src={bigPoster} alt= {filmName} />
           </div>
-          <h1 className="visually-hidden">WTW</h1>]
+          <h1 className="visually-hidden">WTW</h1>
           <header className="page-header film-card__head">
             <Logo />
             <UserSign/>
@@ -76,9 +75,10 @@ const MoviePage = ():JSX.Element=>{
                   <span>Play</span>
                 </Link>
                 <Link to={AppRoute.MyList} className="btn btn--list film-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
+                <AddFavoriteButton
+                  isFavorite={isFavorite}
+                  id={id}
+                  />
                   <span>My list</span>
                   <span className="film-card__count">{myListFilmCount}</span>
                 </Link>
@@ -137,7 +137,9 @@ const MoviePage = ():JSX.Element=>{
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <MovieCatalogFilmCards films={similarFilms} sliceEnd={FILM_CARD_COUNT}/>
+          <CatalogFilmCardsInterface
+            catalogFilter={CatalogFilm.SIMILAR_FILTER}
+          />
         </section>
         <footer className="page-footer">
           <Logo footer/>

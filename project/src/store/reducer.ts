@@ -13,6 +13,7 @@ import {
   loadReviews,
   isErrorResponseAction,
   filmFilterCountAction,
+  loadFavoriteFilms,
 } from './action';
 import { AuthorizationStatus } from '../const';
 import { Review } from '../types/review';
@@ -21,6 +22,7 @@ import { Review } from '../types/review';
   filter:string,
   filmFilterCount:number,
   allFilms:Film[],
+  favoriteFilms:Film[],
   openedFilm:Film | undefined,
   authorizationStatus: string,
   isErrorAuth:boolean,
@@ -36,6 +38,7 @@ const initialState:InitialState = {
   filmFilterCount:0,
   allFilms:[],
   similarFilms:[],
+  favoriteFilms:[],
   openedFilm: undefined,
   userName:'',
   authorizationStatus: AuthorizationStatus.Unknown,
@@ -73,6 +76,9 @@ const reducerMainFilterFilm = createReducer(initialState, (builder) => {
     })
     .addCase(loadSimilarFilms, (state, action) => {
       state.similarFilms = action.payload;
+    })
+    .addCase(loadFavoriteFilms, (state, action) => {
+      state.favoriteFilms = action.payload;
     })
     .addCase(loadReviews, (state, action) => {
       state.reviews = action.payload;

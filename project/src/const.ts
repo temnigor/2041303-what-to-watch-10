@@ -15,6 +15,7 @@ export enum APIRoute {
   SimilarFilms = 'films/{filmId}/similar',
   PromoFilm = '/promo',
   FavoriteFilms = '/favorite',
+  PostFavorite = '/favorite/{filmId}/{status}',
   Comments = '/comments/{filmId}',
   Login = '/login',
   logout = '/logout'
@@ -64,4 +65,15 @@ export enum Rating {
   GOOD = 'Good',
   VERY = 'Very good',
   AWESOME = 'Awesome'
+}
+
+export enum FavoriteStatus {
+FAVORITE = 1,
+HEATH = 0
+}
+
+export enum CatalogFilm {
+  GENRE_FILTER = 'GenreFilter',
+  SIMILAR_FILTER = 'SimilarFilter',
+  FAVORITE_FILTER = 'FavoriteFilter'
 }

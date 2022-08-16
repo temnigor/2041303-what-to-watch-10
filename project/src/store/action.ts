@@ -6,6 +6,7 @@ import { Review } from '../types/review';
 export const mainFilterChangAction = createAction<string>('main/changFilter');
 export const filmFilterCountAction = createAction<number>('main/FilmCount');
 export const loadFilms = createAction <Film[]> ('data/loadFilms');
+export const loadFavoriteFilms = createAction <Film[]> ('data/loadFavoriteFilm');
 export const requireAuthorizationStatus = createAction<AuthorizationStatus>('user/requireAuthorizationStatus');
 export const setErrorLoginAction = createAction<boolean>('user/AuthError');
 export const loadingPageAction = createAction<boolean>('data/loadSpinier');
