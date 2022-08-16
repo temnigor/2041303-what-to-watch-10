@@ -1,7 +1,7 @@
-import { MouseEvent } from "react";
-import { FavoriteStatus } from "../const";
-import { useAppDispatch } from "../hooks";
-import { postFavoriteFilmAction } from "../store/api-action";
+import { MouseEvent } from 'react';
+import { FavoriteStatus } from '../const';
+import { useAppDispatch } from '../hooks';
+import { postFavoriteFilmAction } from '../store/api-action';
 
 type AddFavoriteButtonProps = {
   isFavorite:boolean
@@ -29,8 +29,7 @@ export function AddFavoriteButton ({isFavorite, id}:AddFavoriteButtonProps){
         :
         <svg viewBox="0 0 19 20" width="19" height="20">
           <use xlinkHref="#add"></use>
-        </svg>
-      }
+        </svg>}
     </span>
   );
 }

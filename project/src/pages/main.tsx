@@ -2,7 +2,6 @@ import ArtBoard from '../components/art-board';
 import Logo from '../components/logo/logo';
 import { MainGenreMenu } from '../components/main-genre-menu';
 import { useEffect, useState } from 'react';
-import { MainCatalogFilmCards } from '../components/main-catalog-film';
 import { BigFilmCard } from '../components/big-film-card';
 import { MainShowMoreButton } from '../components/main-show-more-button';
 import { useAppDispatch, useAppSelector } from '../hooks';
@@ -15,7 +14,7 @@ const FILM_CARD_COUNT = 8;
 
 function Main ():JSX.Element {
   const [sliceEnd, setSliceEnd] = useState(FILM_CARD_COUNT);
-  const {allFilms, openedFilm, authorizationStatus} = useAppSelector((state)=>state)
+  const {allFilms, openedFilm} = useAppSelector((state)=>state);
   const [filmCount, setFilmCount] = useState(allFilms.length);
   const dispatch = useAppDispatch();
   useEffect(()=>{
@@ -24,18 +23,17 @@ function Main ():JSX.Element {
     }
   }, [dispatch, openedFilm, allFilms]);
   if(openedFilm === undefined || openedFilm.id !== allFilms[0].id){
-    return <LoadingScreen/>
+    return <LoadingScreen/>;
   }
 
   return (
     <div>
       <ArtBoard/>
       <section className="film-card">
-      <BigFilmCard
-        film={openedFilm}
-        allFilms = {allFilms}
-        authorizationStatus= {authorizationStatus}
-      />
+        <BigFilmCard
+          film={openedFilm}
+          allFilms = {allFilms}
+        />
       </section>
       <div className="page-content">
         <section className="catalog">

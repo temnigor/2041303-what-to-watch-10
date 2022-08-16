@@ -10,11 +10,11 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
 
-  store.dispatch(loadingPageAction(true));
-  store.dispatch(fetchFilmsActions());
-  store.dispatch(fetchFavoriteFilmAction());
-  store.dispatch(checkAutAction());
-  store.dispatch(loadingPageAction(false));
+store.dispatch(loadingPageAction(true));
+store.dispatch(fetchFilmsActions());
+store.dispatch(fetchFavoriteFilmAction());
+store.dispatch(checkAutAction());
+store.dispatch(loadingPageAction(false));
 
 root.render(
   <React.StrictMode>

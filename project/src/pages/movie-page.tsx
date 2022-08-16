@@ -5,7 +5,6 @@ import { AppRoute, AuthorizationStatus, CatalogFilm, NavMenuMoviePage } from '..
 import { AllTabs } from '../components/all-tabs/all-tabs';
 import Logo from '../components/logo/logo';
 import { UserSign } from '../components/user-sign';
-import { MovieCatalogFilmCards } from '../components/movie-catalog-film-card';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { getDataOpenFilmAction, getDataReviewsOpenFilm, getDataSimilarFilmsAction } from '../store/api-action';
 import { LoadingScreen } from '../components/loading-screen/loading-screen';
@@ -14,7 +13,7 @@ import { CatalogFilmCardsInterface } from '../components/catalog-film-card/catal
 
 const MoviePage = ():JSX.Element=>{
   const [navMenuButtonCount, setNavMenuButtonCount] = useState(NavMenuMoviePage.OVERVIEW);
-  const {openedFilm, similarFilms, allFilms, reviews, isErrorResponse, authorizationStatus} = useAppSelector((state)=>state);
+  const {openedFilm, allFilms, reviews, isErrorResponse, authorizationStatus} = useAppSelector((state)=>state);
   const dispatch = useAppDispatch();
   const {id:idParam} = useParams();
 
@@ -75,9 +74,9 @@ const MoviePage = ():JSX.Element=>{
                   <span>Play</span>
                 </Link>
                 <Link to={AppRoute.MyList} className="btn btn--list film-card__button" type="button">
-                <AddFavoriteButton
-                  isFavorite={isFavorite}
-                  id={id}
+                  <AddFavoriteButton
+                    isFavorite={isFavorite}
+                    id={id}
                   />
                   <span>My list</span>
                   <span className="film-card__count">{myListFilmCount}</span>

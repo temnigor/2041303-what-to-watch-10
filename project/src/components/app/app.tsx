@@ -1,4 +1,4 @@
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute} from '../../const';
 import Main from '../../pages/main';
 import Error404 from '../../pages/error-404';
 import AddReview from '../../pages/add-review';

@@ -1,8 +1,7 @@
-import { CatalogFilm, FilterMainNavMenu, GenresFilter } from "../../const";
-import { useAppSelector } from "../../hooks";
-import { Film } from "../../types/film";
-import SmallFilm from "../small-film";
-import { CatalogFilmCards } from "./catalog-film-cards";
+import { CatalogFilm, FilterMainNavMenu, GenresFilter } from '../../const';
+import { useAppSelector } from '../../hooks';
+import { Film } from '../../types/film';
+import { CatalogFilmCards } from './catalog-film-cards';
 const FILM_CARD_COUNT = 4;
 
 type CatalogFilmCardsInterfaceProps = {
@@ -37,6 +36,6 @@ export function CatalogFilmCardsInterface ({catalogFilter: CatalogFilter, sliceE
     case CatalogFilm.FAVORITE_FILTER:
       filmsFavoriteFiltered = filmsFavoriteFiltered.filter((film)=>film.isFavorite);
       return <CatalogFilmCards films={filmsFavoriteFiltered} sliceEnd={filmsFavoriteFiltered.length} />;
-}
+  }
   return <p>No film </p>;
 }

@@ -3,11 +3,10 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { APIRoute, AuthorizationStatus } from '../const';
 import { AppDispatch, AuthData, favoriteDataPost, State, ToPostReviveData, UserData } from '../types/store';
 import { Film, ServerFilm } from '../types/film';
-import { loadOpenFilm, getUserNameAction, loadFilms, requireAuthorizationStatus, setErrorLoginAction, loadingPageAction, loadSimilarFilms, loadReviews, isErrorResponseAction, loadFavoriteFilms } from './action';
+import { loadOpenFilm, getUserNameAction, loadFilms, requireAuthorizationStatus, setErrorLoginAction, loadSimilarFilms, loadReviews, isErrorResponseAction, loadFavoriteFilms } from './action';
 import { store } from '.';
 import { removeToken, saveToken } from '../services/token';
 import { Review } from '../types/review';
-import { useAppDispatch } from '../hooks';
 
 const TIMEOUT_SHOW_ERROR = 10000;
 
@@ -103,15 +102,14 @@ export const postReviveAction = createAsyncThunk<void, ToPostReviveData, {dispat
     );
 
 
-
-    export const fetchFavoriteFilmAction = createAsyncThunk<void, undefined, {dispatch:AppDispatch,
+export const fetchFavoriteFilmAction = createAsyncThunk<void, undefined, {dispatch:AppDispatch,
       state: State, extra:AxiosInstance}>(
         'film/fetchFavoriteFilms',
         async (_arg, {dispatch, extra:api}) => {
           try {
-          const {data} = await api.get<ServerFilm[]>(APIRoute.FavoriteFilms);
-          const favoriteFilms = await data.map((film:ServerFilm)=>serverToFilms(film));
-          dispatch(loadFavoriteFilms(favoriteFilms));
+            const {data} = await api.get<ServerFilm[]>(APIRoute.FavoriteFilms);
+            const favoriteFilms = await data.map((film:ServerFilm)=>serverToFilms(film));
+            dispatch(loadFavoriteFilms(favoriteFilms));
           } catch {
             dispatch(isErrorResponseAction(true));
             dispatch(clearResponseErrorAction());
@@ -119,23 +117,23 @@ export const postReviveAction = createAsyncThunk<void, ToPostReviveData, {dispat
         }
       );
 
-    export const postFavoriteFilmAction = createAsyncThunk<void, favoriteDataPost, { dispatch:AppDispatch,
+export const postFavoriteFilmAction = createAsyncThunk<void, favoriteDataPost, { dispatch:AppDispatch,
     state:State, extra:AxiosInstance}>(
-    'film/postFavorite',
-   async ({idFilm, status}:favoriteDataPost, {dispatch, extra:api} ) => {
-    if(isNaN(idFilm)){
-      dispatch(isErrorResponseAction(true));
-      dispatch(clearResponseErrorAction());
-      return;
-    }
-    const route = APIRoute.PostFavorite.replace('{filmId}/{status}', `${idFilm}/${status}`);
-    const {data} = await api.post(route);
-    dispatch(loadOpenFilm(serverToFilms(data)));
-    const filmsServer = await api.get<ServerFilm[]>(APIRoute.Films);
-    const films:Film[] = await filmsServer.data.map((film:ServerFilm)=>serverToFilms(film));
-    dispatch(loadFilms(films));
-   }
-  )
+      'film/postFavorite',
+      async ({idFilm, status}:favoriteDataPost, {dispatch, extra:api} ) => {
+        if(isNaN(idFilm)){
+          dispatch(isErrorResponseAction(true));
+          dispatch(clearResponseErrorAction());
+          return;
+        }
+        const route = APIRoute.PostFavorite.replace('{filmId}/{status}', `${idFilm}/${status}`);
+        const {data} = await api.post(route);
+        dispatch(loadOpenFilm(serverToFilms(data)));
+        const filmsServer = await api.get<ServerFilm[]>(APIRoute.Films);
+        const films:Film[] = await filmsServer.data.map((film:ServerFilm)=>serverToFilms(film));
+        dispatch(loadFilms(films));
+      }
+    );
 
 export const checkAutAction = createAsyncThunk<void, undefined, { dispatch:AppDispatch,
   state: State, extra:AxiosInstance}>(

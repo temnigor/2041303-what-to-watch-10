@@ -27,7 +27,7 @@ function Player () {
 
       if(!isGoingPlay){
         videoRef.current.play();
-        setInterval(()=>{if(videoRef.current !== null){setCurrentTime(videoRef.current.currentTime)}},100);
+        setInterval(()=>{if(videoRef.current !== null){setCurrentTime(videoRef.current.currentTime);}},100);
       }
       if(isGoingPlay){
         videoRef.current.pause();
@@ -48,7 +48,7 @@ function Player () {
   const vouchFilm = allFilms.find((film)=> film.id === idParamNum);
   if(vouchFilm === undefined){
     return <Navigate to={AppRoute.Error}/>;
-  };
+  }
   const {videoLinkPlayer, bigPoster, filmName} = vouchFilm;
   return (
     <div>
@@ -56,10 +56,11 @@ function Player () {
       <div className ="player" >
         {isLoading && <Spinier/>}
         <video ref={videoRef} src={videoLinkPlayer}
-        onCanPlay={()=>{if(isLoading === false){setIsLoading(true)}}}
-        onPlaying={()=>{if(isLoading === true){setIsLoading(false)}}}
-        onLoadedData={()=>{if(isLoading === true){setIsLoading(false)}}}
-        preload="metadata" className ="player__video" poster={bigPoster}>
+          onCanPlay={()=>{if(isLoading === false){setIsLoading(true);}}}
+          onPlaying={()=>{if(isLoading === true){setIsLoading(false);}}}
+          onLoadedData={()=>{if(isLoading === true){setIsLoading(false);}}}
+          preload="metadata" className ="player__video" poster={bigPoster}
+        >
         </video>
         <Link type="button" className ="player__exit" to={AppRoute.Film.replace(':id', `${idParamNum}`)}>Exit</Link>
         <div className ="player__controls">

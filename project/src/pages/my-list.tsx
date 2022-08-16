@@ -14,7 +14,7 @@ function MyList () {
   useEffect(()=>{
     if(favoriteFilms === undefined){
       dispatch(fetchFavoriteFilmAction());
-  }
+    }
   }, [dispatch, favoriteFilms]);
   if(isErrorResponse){
     return <Navigate to={AppRoute.Error}/>;

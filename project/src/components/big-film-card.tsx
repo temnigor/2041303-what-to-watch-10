@@ -1,5 +1,4 @@
 import { Film } from '../types/film';
-import { useAppDispatch, useAppSelector } from '../hooks';
 import Logo from './logo/logo';
 import { UserSign } from './user-sign';
 import { Link} from 'react-router-dom';
@@ -9,12 +8,11 @@ import { AddFavoriteButton } from './add-favorite-button';
 type BigFilmCardProps = {
   film:Film
   allFilms:Film[]
-  authorizationStatus:string
 }
 
-function BigFilmCard ({film, allFilms, authorizationStatus}:BigFilmCardProps):JSX.Element {
+function BigFilmCard ({film, allFilms}:BigFilmCardProps):JSX.Element {
   const{id, filmName, genre, yearCreation, bigPoster, poster, isFavorite} = film;
-  const dispatch = useAppDispatch();
+
   return (
     <>
       <div className="film-card__bg">
@@ -47,14 +45,14 @@ function BigFilmCard ({film, allFilms, authorizationStatus}:BigFilmCardProps):JS
                 </svg>
                 <span>Play</span>
               </Link>
-                <Link to={AppRoute.MyList} className ="btn btn--list film-card__button" type="button">
-                  <AddFavoriteButton
+              <Link to={AppRoute.MyList} className ="btn btn--list film-card__button" type="button">
+                <AddFavoriteButton
                   isFavorite={isFavorite}
                   id={id}
-                  />
-                  <span>My list</span>
-                  <span className="film-card__count">{allFilms.filter((films)=>films.isFavorite).length}</span>
-                </Link>
+                />
+                <span>My list</span>
+                <span className="film-card__count">{allFilms.filter((films)=>films.isFavorite).length}</span>
+              </Link>
             </div>
           </div>
         </div>
