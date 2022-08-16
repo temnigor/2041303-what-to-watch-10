@@ -10,7 +10,7 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
 
-  store.dispatch(loadingPageAction(true))
+  store.dispatch(loadingPageAction(true));
   store.dispatch(fetchFilmsActions());
   store.dispatch(fetchFavoriteFilmAction());
   store.dispatch(checkAutAction());
