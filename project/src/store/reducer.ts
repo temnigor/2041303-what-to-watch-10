@@ -3,11 +3,8 @@ import { FilterMainNavMenu, GenresFilter } from '../const';
 import { Film } from '../types/film';
 import {
   loadOpenFilm,
-  getUserNameAction,
   loadFilms,
   mainFilterChangAction,
-  requireAuthorizationStatus,
-  setErrorLoginAction,
   loadingPageAction,
   loadSimilarFilms,
   loadReviews,
@@ -15,7 +12,6 @@ import {
   filmFilterCountAction,
   loadFavoriteFilms,
 } from './action';
-import { AuthorizationStatus } from '../const';
 import { Review } from '../types/review';
 
  type InitialState = {
@@ -24,11 +20,8 @@ import { Review } from '../types/review';
   allFilms:Film[],
   favoriteFilms:Film[],
   openedFilm:Film | undefined,
-  authorizationStatus: string,
-  isErrorAuth:boolean,
   isErrorResponse:boolean,
   isLoadingFilms:boolean,
-  userName:string,
   similarFilms:Film[],
   reviews:Review[]
 }
@@ -40,9 +33,6 @@ const initialState:InitialState = {
   similarFilms:[],
   favoriteFilms:[],
   openedFilm: undefined,
-  userName:'',
-  authorizationStatus: AuthorizationStatus.Unknown,
-  isErrorAuth:false,
   isErrorResponse:false,
   isLoadingFilms:true,
   reviews:[]
@@ -59,17 +49,8 @@ const reducerMainFilterFilm = createReducer(initialState, (builder) => {
     .addCase(loadFilms, (state, action) => {
       state.allFilms = action.payload;
     })
-    .addCase(requireAuthorizationStatus, (state, action) => {
-      state.authorizationStatus = action.payload;
-    })
-    .addCase(setErrorLoginAction, (state, action) => {
-      state.isErrorAuth = action.payload;
-    })
     .addCase(loadingPageAction, (state, action) => {
       state.isLoadingFilms = action.payload;
-    })
-    .addCase(getUserNameAction, (state, action) => {
-      state.userName = action.payload;
     })
     .addCase(loadOpenFilm, (state, action) => {
       state.openedFilm = action.payload;

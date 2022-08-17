@@ -9,6 +9,7 @@ import { removeToken, saveToken } from '../services/token';
 import { Review } from '../types/review';
 
 const TIMEOUT_SHOW_ERROR = 10000;
+const NO_AUTH_NAME = 'Unknown';
 
 const serverToFilms = (serverFilm:ServerFilm) =>{
   const film = {
@@ -135,19 +136,17 @@ export const postFavoriteFilmAction = createAsyncThunk<void, favoriteDataPost, {
       }
     );
 
-export const checkAutAction = createAsyncThunk<void, undefined, { dispatch:AppDispatch,
+export const checkAutAction = createAsyncThunk<string, undefined, { dispatch:AppDispatch,
   state: State, extra:AxiosInstance}>(
     'user/checkAut',
-    async (_arg, {dispatch, extra:api}) => {
-      try{ await api.get(APIRoute.Login);
-        dispatch(requireAuthorizationStatus(AuthorizationStatus.Auth));
-      }catch {
-        dispatch(requireAuthorizationStatus(AuthorizationStatus.NoAuth));
-      }
-    }
+   async (_arg, {dispatch, extra:api}) => {
+    const {data:{name}} = await api.get(APIRoute.Login);
+    return name;
+  }
+
   );
 
-export const loginAction = createAsyncThunk<void, AuthData, {
+export const loginAction = createAsyncThunk<string, AuthData, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
@@ -157,13 +156,11 @@ export const loginAction = createAsyncThunk<void, AuthData, {
       try {
         const {data:{token, name}} = await api.post<UserData>(APIRoute.Login, {email, password});
         saveToken(token);
-        dispatch(getUserNameAction(name));
-        dispatch(requireAuthorizationStatus(AuthorizationStatus.Auth));
+        return name;
       }catch {
         dispatch(setErrorLoginAction(true));
-        dispatch(getUserNameAction(''));
-        dispatch(requireAuthorizationStatus(AuthorizationStatus.NoAuth));
         dispatch(clearErrorAction());
+        return NO_AUTH_NAME;
       }
     }
   );
@@ -176,7 +173,6 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   'user/logout',
   async ( _arg, {dispatch, extra: api}) => {
     await api.delete(APIRoute.logout);
-    dispatch(requireAuthorizationStatus(AuthorizationStatus.NoAuth));
     removeToken();
   }
 );

@@ -1,4 +1,5 @@
 import { store } from '../store';
+import { UserProcess } from '../store/user-process/user-process';
 
 
 export type UserData = {
@@ -24,6 +25,12 @@ export type AuthData = {
   login: string,
   password: string,
 };
+
+export type UserProcess = {
+  authorizationStatus: string,
+  userName:string,
+  isErrorAuth:boolean,
+}
 
 export type State = ReturnType<typeof store.getState>;
 

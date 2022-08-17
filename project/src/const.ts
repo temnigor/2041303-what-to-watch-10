@@ -77,3 +77,9 @@ export enum CatalogFilm {
   SIMILAR_FILTER = 'SimilarFilter',
   FAVORITE_FILTER = 'FavoriteFilter'
 }
+
+export enum NameSpace {
+  DATA = 'DATA',
+  USER = 'USER',
+  MAIN = 'MAIN'
+}
