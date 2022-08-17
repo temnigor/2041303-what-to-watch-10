@@ -1,4 +1,4 @@
-import { useAppSelector } from "../hooks";
+import { useAppSelector } from '../hooks';
 
 const SLICE_STEP = 8;
 type MainShowMoreButtonProps = {

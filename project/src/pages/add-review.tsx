@@ -38,7 +38,7 @@ function AddReview ():JSX.Element {
     }
     setIsHideDetails(false);
     dispatch(postReviveAction({comment, rating:ratingForServer, id}));
-  }
+  };
   return (
     <div>
       <ArtBoard/>

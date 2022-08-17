@@ -1,4 +1,4 @@
-import { FormEvent } from "react";
+import { FormEvent } from 'react';
 
 type ReviewTextareaProps = {
   updateStateHandler:(evt: FormEvent<HTMLTextAreaElement>) => void,
