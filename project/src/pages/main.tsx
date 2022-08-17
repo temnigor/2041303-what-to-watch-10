@@ -15,7 +15,6 @@ const FILM_CARD_COUNT = 8;
 function Main ():JSX.Element {
   const [sliceEnd, setSliceEnd] = useState(FILM_CARD_COUNT);
   const {allFilms, openedFilm} = useAppSelector((state)=>state);
-  const [filmCount, setFilmCount] = useState(allFilms.length);
   const dispatch = useAppDispatch();
   useEffect(()=>{
     if(openedFilm === undefined || openedFilm.id !== allFilms[0].id){
@@ -42,12 +41,11 @@ function Main ():JSX.Element {
           <CatalogFilmCardsInterface
             catalogFilter={CatalogFilm.GENRE_FILTER}
             sliceEnd={sliceEnd}
-            setFilmCount={(slice:number)=>setFilmCount(slice)}
           />
           <MainShowMoreButton
             sliceEnd={sliceEnd}
             setSlice={(slice:number)=>setSliceEnd(slice)}
-            filmCount={filmCount}
+
           />
         </section>
         <footer className="page-footer">

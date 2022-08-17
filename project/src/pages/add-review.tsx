@@ -4,6 +4,7 @@ import { AddReviewDetails } from '../components/add-review-detail';
 import ArtBoard from '../components/art-board';
 import Logo from '../components/logo/logo';
 import { RatingStar } from '../components/rating-star';
+import { ReviewTextarea } from '../components/review-textarea';
 import { UserSign } from '../components/user-sign';
 import { AppRoute } from '../const';
 import { useAppDispatch, useAppSelector } from '../hooks';
@@ -23,10 +24,21 @@ function AddReview ():JSX.Element {
   const ratingForServer = Math.floor(rating);
   const date = new Date ();
   const dateReview = `${date.getDate()} ${date.toLocaleString('en', { month: 'long' })} ${date.getFullYear()}`;
+
   const updateStateHandler = (evt:FormEvent<HTMLTextAreaElement>):void => {
     evt.preventDefault();
     setComment(evt.currentTarget.value);
   };
+
+  const postReviewHandler = (event:FormEvent<HTMLFormElement>)=>{
+    event.preventDefault();
+    if(comment.length === 0){
+      setIsHideDetails(true);
+      return;
+    }
+    setIsHideDetails(false);
+    dispatch(postReviveAction({comment, rating:ratingForServer, id}));
+  }
   return (
     <div>
       <ArtBoard/>
@@ -60,17 +72,11 @@ function AddReview ():JSX.Element {
         </div>
 
         <div className="add-review">
-          <form action="#" onSubmit={(event:FormEvent<HTMLFormElement>)=>{
-            event.preventDefault();
-            setIsHideDetails( comment.length === 0);
-            dispatch(postReviveAction({comment, rating:ratingForServer, id}));
-          } } className="add-review__form"
-          >
+          <form action="#" onSubmit={postReviewHandler} className="add-review__form">
             {isErrorResponse && <div className="add-review__text"><p>Error Revive not post </p></div>}
             <RatingStar ratingFilm= {rating}/>
-
             <div className="add-review__text">
-              <textarea onChange={updateStateHandler} className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text" value={comment} ></textarea>
+              <ReviewTextarea updateStateHandler={(evt)=>updateStateHandler(evt)} comment={comment}/>
               <div className="add-review__submit">
                 <button className="add-review__btn" type="submit" >
                     Post

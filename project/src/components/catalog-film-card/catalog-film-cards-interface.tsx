@@ -1,5 +1,7 @@
+import { useEffect } from 'react';
 import { CatalogFilm, FilterMainNavMenu, GenresFilter } from '../../const';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { filmFilterCountAction } from '../../store/action';
 import { Film } from '../../types/film';
 import { CatalogFilmCards } from './catalog-film-cards';
 const FILM_CARD_COUNT = 4;
@@ -7,24 +9,28 @@ const FILM_CARD_COUNT = 4;
 type CatalogFilmCardsInterfaceProps = {
   catalogFilter:string,
   sliceEnd?: number
-  setFilmCount?:(count:number)=>void
 }
 
-export function CatalogFilmCardsInterface ({catalogFilter: CatalogFilter, sliceEnd, setFilmCount}:CatalogFilmCardsInterfaceProps):JSX.Element {
-  const {filter, allFilms, similarFilms} = useAppSelector((state)=>state);
+export function CatalogFilmCardsInterface ({catalogFilter: CatalogFilter, sliceEnd}:CatalogFilmCardsInterfaceProps):JSX.Element {
+  const {filter, allFilms, similarFilms, filmFilterCount} = useAppSelector((state)=>state);
+  const dispatch = useAppDispatch();
   let filmsFiltered = allFilms;
   let filmsFavoriteFiltered = allFilms;
+  useEffect(()=>{
+    if(filmsFiltered.length !== filmFilterCount){
+      dispatch(filmFilterCountAction(filmsFiltered.length));
+    }
+  }, [dispatch,filter,filmsFiltered.length, filmFilterCount]
+  );
+
   switch(CatalogFilter) {
     case CatalogFilm.GENRE_FILTER:
-      if(filter !== GenresFilter[FilterMainNavMenu.ALL_GENRES] && setFilmCount !== undefined ){
+      if(sliceEnd === undefined){
+        return <p>No film</p>;
+      }
+      if(filter !== GenresFilter[FilterMainNavMenu.ALL_GENRES]){
         filmsFiltered = filmsFiltered.filter((film:Film)=>film.genre === filter);
-        setFilmCount(filmsFiltered.length);
       }
-      if(sliceEnd === undefined || setFilmCount === undefined){
-        return <p>No film </p>;
-      }
-      setFilmCount(filmsFiltered.length);
-
       return filmsFiltered.length === 0 ? (<div className ="catalog__films-list"> No film Genre {filter}</div>
       ) : (
         <CatalogFilmCards films={filmsFiltered} sliceEnd={sliceEnd}/>
