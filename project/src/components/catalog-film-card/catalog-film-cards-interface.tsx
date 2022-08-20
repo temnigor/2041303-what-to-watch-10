@@ -32,7 +32,7 @@ export function CatalogFilmCardsInterface ({catalogFilter: CatalogFilter, sliceE
   switch(CatalogFilter) {
     case CatalogFilm.GENRE_FILTER:
       if(sliceEnd === undefined){
-        return <p>No film</p>;
+       break;
       }
       if(filter !== GenresFilter[FilterMainNavMenu.ALL_GENRES]){
         filmsFiltered = filmsFiltered.filter((film:Film)=>film.genre === filter);
