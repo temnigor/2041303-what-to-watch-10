@@ -67,11 +67,6 @@ export enum Rating {
   AWESOME = 'Awesome'
 }
 
-export enum FavoriteStatus {
-FAVORITE = 1,
-HEATH = 0
-}
-
 export enum CatalogFilm {
   GENRE_FILTER = 'GenreFilter',
   SIMILAR_FILTER = 'SimilarFilter',

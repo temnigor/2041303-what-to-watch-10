@@ -1,5 +1,4 @@
 import { MouseEvent } from 'react';
-import { FavoriteStatus } from '../../const';
 import { useAppDispatch } from '../../hooks';
 import { postFavoriteFilmAction } from '../../store/api-action';
 
@@ -8,17 +7,12 @@ type AddFavoriteButtonProps = {
   id:number
 }
 
-export function AddFavoriteButton ({isFavorite, id}:AddFavoriteButtonProps){
+export function AddFavoriteButton ({isFavorite, id}:AddFavoriteButtonProps):JSX.Element{
   const dispatch = useAppDispatch();
   const changFavoriteHandler = (evt:MouseEvent<HTMLElement>)=>{
     evt.preventDefault();
-    if(isFavorite){
-      dispatch(postFavoriteFilmAction({idFilm:id, status:FavoriteStatus.HEATH}));
-      return;
+      dispatch(postFavoriteFilmAction({idFilm:id, status:!isFavorite}));
     }
-    dispatch(postFavoriteFilmAction({idFilm:id, status:FavoriteStatus.FAVORITE}));
-  };
-
   return(
     <span onClick={changFavoriteHandler}>
       {isFavorite
@@ -32,4 +26,4 @@ export function AddFavoriteButton ({isFavorite, id}:AddFavoriteButtonProps){
         </svg>}
     </span>
   );
-}
+};

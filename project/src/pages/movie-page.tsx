@@ -8,10 +8,10 @@ import { UserSign } from '../components/user-sign/user-sign';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { getDataOpenFilmAction, getDataReviewsOpenFilm, getDataSimilarFilmsAction } from '../store/api-action';
 import { LoadingScreen } from '../components/loading-screen/loading-screen';
-import { AddFavoriteButton } from '../components/add-favorite-button/add-favorite-button';
 import { CatalogFilmCardsInterface } from '../components/catalog-film-card/catalog-film-cards-interface';
 import { getAllFilms, getIsErrorResponse, getOpenedFilms, getReviews } from '../store/data-api-process/selectors';
 import { getAuthorizationStatus } from '../store/user-process/selectors';
+import { AddFavoriteButton } from '../components/add-favorite-button/add-favorite-button';
 
 const MoviePage = ():JSX.Element=>{
   const dispatch = useAppDispatch();

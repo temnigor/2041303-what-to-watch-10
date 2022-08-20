@@ -13,7 +13,7 @@ token: string
 
 export type favoriteDataPost = {
   idFilm:number,
-  status:number
+  status:boolean
 }
 
 export type ToPostReviveData = {
