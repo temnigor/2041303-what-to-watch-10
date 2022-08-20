@@ -1,9 +1,9 @@
-import { Film } from '../types/film';
-import Logo from './logo/logo';
-import { UserSign } from './user-sign';
+import { Film } from '../../types/film';
+import Logo from '../logo/logo';
+import { UserSign } from '../user-sign/user-sign';
 import { Link} from 'react-router-dom';
-import { AppRoute } from '../const';
-import { AddFavoriteButton } from './add-favorite-button';
+import { AppRoute } from '../../const';
+import { AddFavoriteButton } from '../add-favorite-button/add-favorite-button';
 
 type BigFilmCardProps = {
   film:Film

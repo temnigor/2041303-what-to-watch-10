@@ -24,9 +24,8 @@ export const dataAPIProcess = createSlice({
       state.isErrorResponse = action.payload;
     }
   },
-  extraReducers: (builder) => {
-    builder
-      .addCase(fetchFilmsActions.pending, (state) => {
+  extraReducers:(builder)=>{
+    builder.addCase(fetchFilmsActions.pending, (state) => {
         state.isLoadingFilms = true;
       })
       .addCase(fetchFilmsActions.fulfilled, (state, action) => {

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
-import ArtBoard from '../components/art-board';
-import { Spinier } from '../components/loading-screen/spinier';
+import ArtBoard from '../components/art-board/art-board';
+import { Spinier } from '../components/spinier/spinier';
 import { PlayPause } from '../components/player/play-pause';
 import { AppRoute } from '../const';
 import {useAppSelector } from '../hooks';

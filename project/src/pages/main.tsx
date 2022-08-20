@@ -1,15 +1,17 @@
-import ArtBoard from '../components/art-board';
+import ArtBoard from '../components/art-board/art-board';
 import Logo from '../components/logo/logo';
-import { MainGenreMenu } from '../components/main-genre-menu';
+
 import { useEffect, useState } from 'react';
-import { BigFilmCard } from '../components/big-film-card';
-import { MainShowMoreButton } from '../components/main-show-more-button';
+import { BigFilmCard } from '../components/big-film-card/big-film-card';
+
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { LoadingScreen } from '../components/loading-screen/loading-screen';
 import { CatalogFilmCardsInterface } from '../components/catalog-film-card/catalog-film-cards-interface';
 import { CatalogFilm } from '../const';
 import { getAllFilms, getOpenedFilms } from '../store/data-api-process/selectors';
 import { loadOpenFilm } from '../store/data-api-process/data-api-process';
+import { MainGenreMenu } from '../components/main-components/main-genre-menu';
+import { MainShowMoreButton } from '../components/main-components/main-show-more-button';
 
 const FILM_CARD_COUNT = 8;
 

@@ -1,3 +1,4 @@
+import './spinier.css';
 export function Spinier () {
   return (
     <div className="spinier-video">

@@ -1,11 +1,11 @@
 import { FormEvent, useState} from 'react';
 import { Link, Navigate} from 'react-router-dom';
-import { AddReviewDetails } from '../components/add-review-detail';
-import ArtBoard from '../components/art-board';
+import { AddReviewDetails } from '../components/add-review-detail/add-review-detail';
+import ArtBoard from '../components/art-board/art-board';
 import Logo from '../components/logo/logo';
-import { RatingStar } from '../components/rating-star';
-import { ReviewTextarea } from '../components/review-textarea';
-import { UserSign } from '../components/user-sign';
+import { RatingStar } from '../components/rating-star/rating-star';
+import { ReviewTextarea } from '../components/review-textarea/review-textarea';
+import { UserSign } from '../components/user-sign/user-sign';
 import { AppRoute } from '../const';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { postReviveAction } from '../store/api-action';

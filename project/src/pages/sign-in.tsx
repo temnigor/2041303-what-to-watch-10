@@ -1,14 +1,14 @@
-import { UserSignErrorMassage } from '../components/user-sign-error-massage';
-import ArtBoard from '../components/art-board';
+import ArtBoard from '../components/art-board/art-board';
 import Logo from '../components/logo/logo';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { FormEvent, useRef, useState } from 'react';
 import { AuthData } from '../types/store';
 import { loginAction } from '../store/api-action';
-import { UserSignErrorValidateMassage } from '../components/user-sign-error-validate-massage';
 import { Navigate } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../const';
 import { getAuthorizationStatus } from '../store/user-process/selectors';
+import { UserSignErrorValidateMassage } from '../components/user-sign-error/user-sign-error-validate-massage';
+import { UserSignErrorMassage } from '../components/user-sign-error/user-sign-error-massage';
 
 function SignIn () {
   const auth = useAppSelector(getAuthorizationStatus);

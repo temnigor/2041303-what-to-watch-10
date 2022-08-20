@@ -1,7 +1,7 @@
 import { MouseEvent } from 'react';
-import { FavoriteStatus } from '../const';
-import { useAppDispatch } from '../hooks';
-import { postFavoriteFilmAction } from '../store/api-action';
+import { FavoriteStatus } from '../../const';
+import { useAppDispatch } from '../../hooks';
+import { postFavoriteFilmAction } from '../../store/api-action';
 
 type AddFavoriteButtonProps = {
   isFavorite:boolean

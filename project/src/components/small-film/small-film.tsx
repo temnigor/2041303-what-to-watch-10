@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../const';
-import { Film } from '../types/film';
-import { PlayerSmallFilm } from './player-small-film';
+import { AppRoute } from '../../const';
+import { Film } from '../../types/film';
+import { PlayerSmallFilm } from '../player-small-film/player-small-film';
 
 type SmallFilmProps = {
 film:Film

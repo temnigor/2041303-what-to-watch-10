@@ -1,4 +1,4 @@
-import { getCommentTime, getDataTime } from '../utils';
+import { getCommentTime, getDataTime } from '../../utils';
 
 type AddReviewDetailsProps = {
   name:string,

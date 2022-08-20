@@ -1,4 +1,4 @@
-import ArtBoard from '../components/art-board';
+import ArtBoard from '../components/art-board/art-board';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../const';
 import Logo from '../components/logo/logo';

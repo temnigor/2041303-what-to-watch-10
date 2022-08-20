@@ -1,5 +1,5 @@
 import { Film } from '../../types/film';
-import SmallFilm from '../small-film';
+import SmallFilm from '../small-film/small-film';
 
 
 type CatalogFilmCardsProps = {

@@ -1,8 +1,9 @@
-import { MouseEvent } from 'react';
-import { FilterMainNavMenu, GenresFilter } from '../const';
-import { useAppDispatch, useAppSelector } from '../hooks';
-import { mainFilterChangAction } from '../store/main-genre-filter-process/main-genre-filter-process';
-import { getFilter } from '../store/main-genre-filter-process/selectors';
+import { MouseEvent } from "react";
+import { FilterMainNavMenu, GenresFilter } from "../../const";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { mainFilterChangAction } from "../../store/main-genre-filter-process/main-genre-filter-process";
+import { getFilter } from "../../store/main-genre-filter-process/selectors";
+
 
 function MainGenreMenu ():JSX.Element {
   const dispatch = useAppDispatch();
