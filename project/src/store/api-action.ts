@@ -107,8 +107,8 @@ export const fetchFavoriteFilmAction = createAsyncThunk<Film[], undefined, {disp
 export const postFavoriteFilmAction = createAsyncThunk<{ film: Film; films: Film[]; }, favoriteDataPost, { dispatch:AppDispatch,
     state:State, extra:AxiosInstance}>(
       'film/postFavorite',
-      async ({idFilm, status}:favoriteDataPost, {dispatch, extra:api} ) => {
-        const route = APIRoute.PostFavorite.replace('{filmId}/{status}', `${idFilm}/${Number(status)}`);
+      async ({filmId, status}:favoriteDataPost, {dispatch, extra:api} ) => {
+        const route = APIRoute.PostFavorite.replace('{filmId}/{status}', `${filmId}/${Number(status)}`);
         const {data} = await api.post(route);
         const filmChangFavorite:Film = serverToFilms(data);
         const filmsServer = await api.get<ServerFilm[]>(APIRoute.Films);

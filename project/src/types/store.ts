@@ -12,7 +12,7 @@ token: string
 };
 
 export type favoriteDataPost = {
-  idFilm:number,
+  filmId:number,
   status:boolean
 }
 

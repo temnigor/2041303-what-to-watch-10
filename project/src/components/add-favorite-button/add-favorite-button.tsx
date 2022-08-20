@@ -11,7 +11,7 @@ export function AddFavoriteButton ({isFavorite, id}:AddFavoriteButtonProps):JSX.
   const dispatch = useAppDispatch();
   const changFavoriteHandler = (evt:MouseEvent<HTMLElement>)=>{
     evt.preventDefault();
-      dispatch(postFavoriteFilmAction({idFilm:id, status:!isFavorite}));
+      dispatch(postFavoriteFilmAction({filmId:id, status:!isFavorite}));
     }
   return(
     <span onClick={changFavoriteHandler}>

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import ArtBoard from '../components/art-board/art-board';
 import { Spinier } from '../components/spinier/spinier';
-import { PlayPause } from '../components/player/play-pause';
+import { PlayPauseButton } from '../components/player/play-pause';
 import { AppRoute } from '../const';
 import {useAppSelector } from '../hooks';
 import { getAllFilms } from '../store/data-api-process/selectors';
@@ -74,7 +74,7 @@ function Player () {
           </div>
           <div className ="player__controls-row">
             <button type="button" className ="player__play" onClick={()=>setIsGoingPlay(!isGoingPlay)}>
-              <PlayPause isGoingPlay = {isGoingPlay} />
+              <PlayPauseButton isGoingPlay = {isGoingPlay} />
             </button>
             <div className ="player__name">{filmName}</div>
             <button type="button" className ="player__full-screen">
