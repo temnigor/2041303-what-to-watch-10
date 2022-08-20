@@ -52,15 +52,12 @@ export const getDataOpenFilmAction = createAsyncThunk<Film|undefined, number, {d
         dispatch(clearResponseErrorAction());
         return;
       }
-
       const routeOnePage = APIRoute.OneFilm.replace('{filmId}', `${id}`);
       const oneServerFilm = await api.get<ServerFilm>(routeOnePage);
       const openFilm:Film = serverToFilms(oneServerFilm.data);
       return openFilm;
-
     }
   );
-
 
 export const getDataSimilarFilmsAction = createAsyncThunk<Film[], number, {dispatch:AppDispatch,
     state: State, extra:AxiosInstance}>(
@@ -92,7 +89,6 @@ export const postReviveAction = createAsyncThunk<void, ToPostReviveData, {dispat
         dispatch(getDataReviewsOpenFilm(id));
       }
     );
-
 
 export const fetchFavoriteFilmAction = createAsyncThunk<Film[], undefined, {dispatch:AppDispatch,
       state: State, extra:AxiosInstance}>(
