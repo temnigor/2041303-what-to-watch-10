@@ -1,4 +1,5 @@
-import { store } from '../store';
+
+import { store } from '../store/index';
 import { Film } from './film';
 import { Review } from './review';
 
