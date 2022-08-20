@@ -81,7 +81,7 @@ export const dataAPIProcess = createSlice({
         const{film, films} = action.payload;
         state.openedFilm = film;
         state.allFilms = films;
-      })
+      });
   }
 });
 

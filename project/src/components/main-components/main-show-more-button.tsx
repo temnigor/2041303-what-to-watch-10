@@ -2,7 +2,6 @@ import { useAppSelector } from '../../hooks';
 import { getFilmFilterCount } from '../../store/main-genre-filter-process/selectors';
 
 
-
 const SLICE_STEP = 8;
 type MainShowMoreButtonProps = {
   setSlice: (slice: number) => void,

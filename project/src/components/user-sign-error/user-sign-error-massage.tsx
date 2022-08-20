@@ -1,5 +1,5 @@
-import { useAppSelector } from "../../hooks";
-import { getIsErrorAuth } from "../../store/user-process/selectors";
+import { useAppSelector } from '../../hooks';
+import { getIsErrorAuth } from '../../store/user-process/selectors';
 
 export function UserSignErrorMassage ():JSX.Element | null {
   const isErrorAuth = useAppSelector(getIsErrorAuth);
