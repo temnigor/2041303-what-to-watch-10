@@ -1,4 +1,4 @@
-import { AppRoute} from '../../const';
+import { AppRoute, AuthorizationStatus} from '../../const';
 import Main from '../../pages/main';
 import Error404 from '../../pages/error-404';
 import AddReview from '../../pages/add-review';
@@ -10,10 +10,14 @@ import PrivateRoute from '../private-route/private-route';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { useAppSelector } from '../../hooks';
 import { LoadingScreen } from '../loading-screen/loading-screen';
+import { getIsLoadingFilms } from '../../store/data-api-process/selectors';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 function App(): JSX.Element {
-  const {authorizationStatus, isLoadingFilms, } = useAppSelector((state)=>state);
-  if(isLoadingFilms) {
+  const isLoadingFilms = useAppSelector(getIsLoadingFilms);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+
+  if(isLoadingFilms || authorizationStatus === AuthorizationStatus.Unknown) {
     return <LoadingScreen/>;
   }
   return (

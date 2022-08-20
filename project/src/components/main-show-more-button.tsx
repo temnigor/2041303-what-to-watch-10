@@ -1,4 +1,5 @@
 import { useAppSelector } from '../hooks';
+import { getFilmFilterCount } from '../store/main-genre-filter-process/selectors';
 
 const SLICE_STEP = 8;
 type MainShowMoreButtonProps = {
@@ -6,7 +7,7 @@ type MainShowMoreButtonProps = {
   sliceEnd: number
   }
 function MainShowMoreButton ({setSlice, sliceEnd}:MainShowMoreButtonProps) {
-  const{filmFilterCount} = useAppSelector((state)=>state);
+  const filmFilterCount = useAppSelector(getFilmFilterCount);
   return(
     <div className="catalog__more">
       {sliceEnd >= filmFilterCount || filmFilterCount === 0

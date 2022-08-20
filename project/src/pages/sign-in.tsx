@@ -8,9 +8,10 @@ import { loginAction } from '../store/api-action';
 import { UserSignErrorValidateMassage } from '../components/user-sign-error-validate-massage';
 import { Navigate } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../const';
+import { getAuthorizationStatus } from '../store/user-process/selectors';
 
 function SignIn () {
-  const auth = useAppSelector((state)=>state.authorizationStatus);
+  const auth = useAppSelector(getAuthorizationStatus);
   const dispatch = useAppDispatch();
   const refInputEmail = useRef<HTMLInputElement| null>(null);
   const refInputPassword = useRef<HTMLInputElement| null>(null);

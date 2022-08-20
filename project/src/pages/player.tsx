@@ -5,11 +5,12 @@ import { Spinier } from '../components/loading-screen/spinier';
 import { PlayPause } from '../components/player/play-pause';
 import { AppRoute } from '../const';
 import {useAppSelector } from '../hooks';
+import { getAllFilms } from '../store/data-api-process/selectors';
 import { filmTogglePlayer, getFilmTime } from '../utils';
 
 function Player () {
   const {id:idParam} = useParams();
-  const{allFilms} = useAppSelector((state)=>state);
+  const allFilms = useAppSelector(getAllFilms);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [isGoingPlay, setIsGoingPlay] = useState(true);
   const [currentTime, setCurrentTime] = useState(0);

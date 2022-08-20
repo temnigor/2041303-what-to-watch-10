@@ -1,5 +1,6 @@
 import { store } from '../store';
-import { UserProcess } from '../store/user-process/user-process';
+import { Film } from './film';
+import { Review } from './review';
 
 
 export type UserData = {
@@ -30,6 +31,21 @@ export type UserProcess = {
   authorizationStatus: string,
   userName:string,
   isErrorAuth:boolean,
+}
+
+export type DataAPIProcess = {
+  allFilms:Film[],
+  favoriteFilms:Film[],
+  openedFilm:Film | undefined,
+  isErrorResponse:boolean,
+  isLoadingFilms:boolean,
+  similarFilms:Film[],
+  reviews:Review[]
+}
+
+export type MainGenreFilterProcess = {
+  filter:string,
+  filmFilterCount:number,
 }
 
 export type State = ReturnType<typeof store.getState>;

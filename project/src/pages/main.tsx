@@ -5,16 +5,18 @@ import { useEffect, useState } from 'react';
 import { BigFilmCard } from '../components/big-film-card';
 import { MainShowMoreButton } from '../components/main-show-more-button';
 import { useAppDispatch, useAppSelector } from '../hooks';
-import { loadOpenFilm } from '../store/action';
 import { LoadingScreen } from '../components/loading-screen/loading-screen';
 import { CatalogFilmCardsInterface } from '../components/catalog-film-card/catalog-film-cards-interface';
 import { CatalogFilm } from '../const';
+import { getAllFilms, getOpenedFilms } from '../store/data-api-process/selectors';
+import { loadOpenFilm } from '../store/data-api-process/data-api-process';
 
 const FILM_CARD_COUNT = 8;
 
 function Main ():JSX.Element {
   const [sliceEnd, setSliceEnd] = useState(FILM_CARD_COUNT);
-  const {allFilms, openedFilm} = useAppSelector((state)=>state);
+  const allFilms = useAppSelector(getAllFilms);
+  const openedFilm = useAppSelector(getOpenedFilms);
   const dispatch = useAppDispatch();
   useEffect(()=>{
     if(openedFilm === undefined || openedFilm.id !== allFilms[0].id){

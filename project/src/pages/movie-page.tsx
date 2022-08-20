@@ -10,11 +10,17 @@ import { getDataOpenFilmAction, getDataReviewsOpenFilm, getDataSimilarFilmsActio
 import { LoadingScreen } from '../components/loading-screen/loading-screen';
 import { AddFavoriteButton } from '../components/add-favorite-button';
 import { CatalogFilmCardsInterface } from '../components/catalog-film-card/catalog-film-cards-interface';
+import { getAllFilms, getIsErrorResponse, getOpenedFilms, getReviews } from '../store/data-api-process/selectors';
+import { getAuthorizationStatus } from '../store/user-process/selectors';
 
 const MoviePage = ():JSX.Element=>{
-  const [navMenuButtonCount, setNavMenuButtonCount] = useState(NavMenuMoviePage.OVERVIEW);
-  const {openedFilm, allFilms, reviews, isErrorResponse, authorizationStatus} = useAppSelector((state)=>state);
   const dispatch = useAppDispatch();
+  const [navMenuButtonCount, setNavMenuButtonCount] = useState(NavMenuMoviePage.OVERVIEW);
+  const openedFilm = useAppSelector(getOpenedFilms);
+  const allFilms = useAppSelector(getAllFilms);
+  const reviews = useAppSelector(getReviews);
+  const isErrorResponse = useAppSelector(getIsErrorResponse);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const {id:idParam} = useParams();
 
   useEffect(() => {

@@ -9,13 +9,16 @@ import { UserSign } from '../components/user-sign';
 import { AppRoute } from '../const';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { postReviveAction } from '../store/api-action';
+import { getIsErrorResponse, getOpenedFilms } from '../store/data-api-process/selectors';
+import { getUserName } from '../store/user-process/selectors';
 
 
 function AddReview ():JSX.Element {
-  const {openedFilm, isErrorResponse} = useAppSelector((state)=>state);
+  const openedFilm = useAppSelector(getOpenedFilms);
+  const isErrorResponse = useAppSelector(getIsErrorResponse);
+  const userName = useAppSelector(getUserName);
   const [comment, setComment] = useState('');
   const [isHideDetails, setIsHideDetails] = useState(true);
-  const {userName} = useAppSelector((state)=>state);
   const dispatch = useAppDispatch();
   if(openedFilm === undefined){
     return <Navigate to={AppRoute.Error}/>;

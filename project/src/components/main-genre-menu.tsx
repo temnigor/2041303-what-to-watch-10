@@ -1,11 +1,12 @@
 import { MouseEvent } from 'react';
 import { FilterMainNavMenu, GenresFilter } from '../const';
 import { useAppDispatch, useAppSelector } from '../hooks';
-import { mainFilterChangAction } from '../store/action';
+import { mainFilterChangAction } from '../store/main-genre-filter-process/main-genre-filter-process';
+import { getFilter } from '../store/main-genre-filter-process/selectors';
 
 function MainGenreMenu ():JSX.Element {
   const dispatch = useAppDispatch();
-  const genre = useAppSelector((state)=>state.filter);
+  const genre = useAppSelector(getFilter);
   return(
     <ul className ="catalog__genres-list">
       { Object.values(FilterMainNavMenu).map((filter) => (

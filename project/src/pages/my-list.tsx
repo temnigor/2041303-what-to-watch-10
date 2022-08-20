@@ -7,9 +7,11 @@ import { UserSign } from '../components/user-sign';
 import { AppRoute, CatalogFilm } from '../const';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { fetchFavoriteFilmAction } from '../store/api-action';
+import { getFavoriteFilms, getIsErrorResponse } from '../store/data-api-process/selectors';
 
 function MyList () {
-  const {favoriteFilms, isErrorResponse,} = useAppSelector((state)=>state);
+  const favoriteFilms = useAppSelector(getFavoriteFilms);
+  const isErrorResponse = useAppSelector(getIsErrorResponse);
   const dispatch = useAppDispatch();
   useEffect(()=>{
     if(favoriteFilms === undefined){
