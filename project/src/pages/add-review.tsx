@@ -10,13 +10,11 @@ import { AppRoute } from '../const';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { postReviveAction } from '../store/api-action';
 import { getIsErrorResponse, getOpenedFilms } from '../store/data-api-process/selectors';
-import { getUserName } from '../store/user-process/selectors';
 
 
 function AddReview ():JSX.Element {
   const openedFilm = useAppSelector(getOpenedFilms);
   const isErrorResponse = useAppSelector(getIsErrorResponse);
-  const userName = useAppSelector(getUserName);
   const [comment, setComment] = useState('');
   const dispatch = useAppDispatch();
   if(openedFilm === undefined){
@@ -24,9 +22,6 @@ function AddReview ():JSX.Element {
   }
   const {bigPoster, id, poster, filmName, rating} = openedFilm;
   const ratingForServer = Math.floor(rating);
-  const date = new Date ();
-  const dateReview = `${date.getDate()} ${date.toLocaleString('en', { month: 'long' })} ${date.getFullYear()}`;
-
   const updateStateHandler = (evt:FormEvent<HTMLTextAreaElement>):void => {
     evt.preventDefault();
     setComment(evt.currentTarget.value);

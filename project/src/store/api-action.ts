@@ -3,12 +3,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { APIRoute} from '../const';
 import { AppDispatch, AuthData, favoriteDataPost, State, ToPostReviveData, UserData } from '../types/store';
 import { Film, ServerFilm } from '../types/film';
-import { store } from '.';
 import { removeToken, saveToken } from '../services/token';
 import { Review } from '../types/review';
-
-const TIMEOUT_SHOW_ERROR = 10000;
-const NO_AUTH_NAME = 'Unknown';
 
 const serverToFilms = (serverFilm:ServerFilm) =>{
   const film = {
@@ -105,7 +101,7 @@ export const postFavoriteFilmAction = createAsyncThunk<{ film: Film; films: Film
         const filmsServer = await api.get<ServerFilm[]>(APIRoute.Films);
         const films:Film[] = await filmsServer.data.map((film:ServerFilm)=>serverToFilms(film));
         const favorite = await api.get<ServerFilm[]>(APIRoute.FavoriteFilms);
-        const favoriteFilms:Film[] = await favorite.data.map((film:ServerFilm)=>serverToFilms(film))
+        const favoriteFilms:Film[] = await favorite.data.map((film:ServerFilm)=>serverToFilms(film));
         return {film:filmChangFavorite, films, favoriteFilms};
       }
     );
