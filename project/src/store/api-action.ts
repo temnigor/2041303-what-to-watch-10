@@ -110,7 +110,7 @@ export const postFavoriteFilmAction = createAsyncThunk<{ film: Film; films: Film
       }
     );
 
-export const checkAutAction = createAsyncThunk<void, undefined, { dispatch:AppDispatch,
+export const checkAuthAction = createAsyncThunk<void, undefined, { dispatch:AppDispatch,
   state: State, extra:AxiosInstance}>(
     'user/checkAut',
     async (_arg, {dispatch, extra:api}) => {
