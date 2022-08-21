@@ -1,10 +1,9 @@
 import { useEffect } from 'react';
-import { Navigate } from 'react-router-dom';
 import ArtBoard from '../components/art-board/art-board';
 import { CatalogFilmCardsInterface } from '../components/catalog-film-card/catalog-film-cards-interface';
 import Logo from '../components/logo/logo';
 import { UserSign } from '../components/user-sign/user-sign';
-import { AppRoute, CatalogFilm } from '../const';
+import { CatalogFilm } from '../const';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { fetchFavoriteFilmAction } from '../store/api-action';
 import { getFavoriteFilms, getIsErrorResponse } from '../store/data-api-process/selectors';
@@ -14,26 +13,38 @@ function MyList () {
   const isErrorResponse = useAppSelector(getIsErrorResponse);
   const dispatch = useAppDispatch();
   useEffect(()=>{
-    if(favoriteFilms === undefined){
+    if(favoriteFilms === undefined && isErrorResponse === false){
       dispatch(fetchFavoriteFilmAction());
     }
-  }, [dispatch, favoriteFilms]);
-  if(isErrorResponse){
-    return <Navigate to={AppRoute.Error}/>;
-  }
+  }, [dispatch, favoriteFilms, isErrorResponse]);
+
   return (
     <div>
       <ArtBoard/>
       <div className ="user-page">
         <header className ="page-header user-page__head">
           <Logo/>
-          <h1 className ="page-title user-page__title">My list <span className ="user-page__film-count">9</span></h1>
+          <h1 className ="page-title user-page__title">My list <span className ="user-page__film-count">{favoriteFilms.length}</span></h1>
           <ul className ="user-block">
             <UserSign />
           </ul>
         </header>
         <section className ="catalog">
           <h2 className ="catalog__title visually-hidden">Catalog</h2>
+
+          {!isErrorResponse && favoriteFilms.length === 0
+            ?
+            <div className ="page-title user-page__title">
+              <h3>No Film in list</h3>
+            </div>
+            : null }
+
+          {isErrorResponse
+            ?
+            <div className ="page-title user-page__title">
+              <h3>Loading Error please Reload</h3>
+            </div>
+            : null }
           <CatalogFilmCardsInterface catalogFilter={CatalogFilm.FAVORITE_FILTER}/>
         </section>
         <footer className ="page-footer">

@@ -10,6 +10,7 @@ const getOpenedFilms = (state:State):Film|undefined => state[NameSpace.DATA].ope
 const getIsErrorResponse = (state:State):boolean => state[NameSpace.DATA].isErrorResponse;
 const getIsLoadingFilms = (state:State):boolean => state[NameSpace.DATA].isLoadingFilms;
 const getReviews = (state:State):Review[] => state[NameSpace.DATA].reviews;
+const getSentReview = (state:State):Review[] => state[NameSpace.DATA].sentReview;
 
 export {
   getAllFilms,
@@ -18,5 +19,6 @@ export {
   getOpenedFilms,
   getIsErrorResponse,
   getIsLoadingFilms,
-  getReviews
+  getReviews,
+  getSentReview
 };

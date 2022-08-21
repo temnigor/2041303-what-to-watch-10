@@ -17,7 +17,8 @@ const initialState:DataAPIProcess = {
   openedFilm: undefined,
   isErrorResponse:false,
   isLoadingFilms:true,
-  reviews:[]
+  reviews:[],
+  sentReview:[]
 };
 
 export const dataAPIProcess = createSlice({
@@ -66,7 +67,8 @@ export const dataAPIProcess = createSlice({
       .addCase(getDataReviewsOpenFilm.fulfilled, (state, action) => {
         state.reviews = action.payload;
       })
-      .addCase(postReviveAction.fulfilled, (state) => {
+      .addCase(postReviveAction.fulfilled, (state, action) => {
+        state.sentReview = action.payload;
         state.isErrorResponse = false;
       })
       .addCase(postReviveAction.rejected, (state) => {
@@ -85,9 +87,10 @@ export const dataAPIProcess = createSlice({
         state.isLoadingFilms = false;
       })
       .addCase(postFavoriteFilmAction.fulfilled, (state, action) => {
-        const{film, films} = action.payload;
+        const{film, films, favoriteFilms} = action.payload;
         state.openedFilm = film;
         state.allFilms = films;
+        state.favoriteFilms = favoriteFilms;
       });
   }
 });

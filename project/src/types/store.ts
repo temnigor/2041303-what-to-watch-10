@@ -30,7 +30,6 @@ export type AuthData = {
 
 export type UserProcess = {
   authorizationStatus: string,
-  userName:string,
   isErrorAuth:boolean,
 }
 
@@ -41,7 +40,8 @@ export type DataAPIProcess = {
   isErrorResponse:boolean,
   isLoadingFilms:boolean,
   similarFilms:Film[],
-  reviews:Review[]
+  reviews:Review[],
+  sentReview:Review[],
 }
 
 export type MainGenreFilterProcess = {

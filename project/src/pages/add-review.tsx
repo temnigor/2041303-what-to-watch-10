@@ -18,7 +18,6 @@ function AddReview ():JSX.Element {
   const isErrorResponse = useAppSelector(getIsErrorResponse);
   const userName = useAppSelector(getUserName);
   const [comment, setComment] = useState('');
-  const [isHideDetails, setIsHideDetails] = useState(true);
   const dispatch = useAppDispatch();
   if(openedFilm === undefined){
     return <Navigate to={AppRoute.Error}/>;
@@ -36,10 +35,8 @@ function AddReview ():JSX.Element {
   const postReviewHandler = (event:FormEvent<HTMLFormElement>)=>{
     event.preventDefault();
     if(comment.length === 0){
-      setIsHideDetails(true);
       return;
     }
-    setIsHideDetails(false);
     dispatch(postReviveAction({comment, rating:ratingForServer, id}));
   };
   return (
@@ -88,15 +85,7 @@ function AddReview ():JSX.Element {
             </div>
           </form>
           <div>
-            {!isHideDetails &&
-            <div className="add-review__text">
-              <AddReviewDetails
-                name={userName}
-                comment={comment}
-                rating={rating}
-                date={dateReview}
-              />
-            </div>}
+            <AddReviewDetails/>
           </div>
         </div>
       </section>
