@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import ArtBoard from '../components/art-board/art-board';
 import { Spinier } from '../components/spinier/spinier';
-import { PlayPauseButton } from '../components/player/play-pause';
+import { PlayPauseButton } from '../components/player/play-pause-button';
 import { AppRoute } from '../const';
 import {useAppSelector } from '../hooks';
 import { getAllFilms } from '../store/data-api-process/selectors';
@@ -60,6 +60,10 @@ function Player () {
           onCanPlay={()=>{if(isLoading === false){setIsLoading(true);}}}
           onPlaying={()=>{if(isLoading === true){setIsLoading(false);}}}
           onLoadedData={()=>{if(isLoading === true){setIsLoading(false);}}}
+          onDoubleClick ={()=>{
+            if(document.fullscreenElement !== null){
+              document.exitFullscreen();
+            }}}
           preload="metadata" className ="player__video" poster={bigPoster}
         >
         </video>
@@ -77,7 +81,12 @@ function Player () {
               <PlayPauseButton isGoingPlay = {isGoingPlay} />
             </button>
             <div className ="player__name">{filmName}</div>
-            <button type="button" className ="player__full-screen">
+            <button onClick={()=>{
+              if(document.fullscreenElement === null){
+                videoRef.current?.requestFullscreen();
+              }
+              console.log(document.fullscreenElement)
+            }} type="button" className ="player__full-screen">
               <svg viewBox="0 0 27 27" width="27" height="27">
                 <use xlinkHref="#full-screen"></use>
               </svg>

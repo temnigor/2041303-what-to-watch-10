@@ -1,7 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import { DataAPIProcess } from '../../types/store';
-import { fetchFavoriteFilmAction, fetchFilmsActions, getDataOpenFilmAction, getDataReviewsOpenFilm, getDataSimilarFilmsAction, postFavoriteFilmAction, postReviveAction } from '../api-action';
+import {
+  fetchFavoriteFilmAction,
+  fetchFilmsActions,
+  getDataOpenFilmAction,
+  getDataReviewsOpenFilm,
+  getDataSimilarFilmsAction,
+  postFavoriteFilmAction,
+  postReviveAction } from '../api-action';
 
 const initialState:DataAPIProcess = {
   allFilms:[],

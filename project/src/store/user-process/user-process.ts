@@ -14,10 +14,11 @@ export const userProcess = createSlice({
   initialState,
   reducers:{},
   extraReducers(builder) {
-    builder.addCase(checkAutAction.fulfilled, (state, action) => {
-      state.authorizationStatus = AuthorizationStatus.Auth;
-      state.userName = action.payload;
-    })
+    builder
+      .addCase(checkAutAction.fulfilled, (state, action) => {
+        state.authorizationStatus = AuthorizationStatus.Auth;
+        state.userName = action.payload;
+      })
       .addCase(checkAutAction.rejected, (state) => {
         state.authorizationStatus = AuthorizationStatus.NoAuth;
         state.userName = '';

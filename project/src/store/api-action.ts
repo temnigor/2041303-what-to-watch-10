@@ -6,7 +6,6 @@ import { Film, ServerFilm } from '../types/film';
 import { store } from '.';
 import { removeToken, saveToken } from '../services/token';
 import { Review } from '../types/review';
-import { isErrorResponseAction } from './data-api-process/data-api-process';
 
 const TIMEOUT_SHOW_ERROR = 10000;
 const NO_AUTH_NAME = 'Unknown';
@@ -47,11 +46,6 @@ export const getDataOpenFilmAction = createAsyncThunk<Film|undefined, number, {d
   state: State, extra:AxiosInstance}>(
     'film/fetchOpenFilm',
     async (id:number, {dispatch, extra:api}) => {
-      if(isNaN(id)){
-        dispatch(isErrorResponseAction(true));
-        dispatch(clearResponseErrorAction());
-        return;
-      }
       const routeOnePage = APIRoute.OneFilm.replace('{filmId}', `${id}`);
       const oneServerFilm = await api.get<ServerFilm>(routeOnePage);
       const openFilm:Film = serverToFilms(oneServerFilm.data);
@@ -61,7 +55,7 @@ export const getDataOpenFilmAction = createAsyncThunk<Film|undefined, number, {d
 
 export const getDataSimilarFilmsAction = createAsyncThunk<Film[], number, {dispatch:AppDispatch,
     state: State, extra:AxiosInstance}>(
-      'film/fetchOpenFilm',
+      'film/fetchSimilarFilm',
       async (id:number, {dispatch, extra:api}) => {
         const routeSimilarFilms = APIRoute.SimilarFilms.replace('{filmId}', `${id}`);
         const similarServerFilms = await api.get<ServerFilm[]>(routeSimilarFilms);
@@ -152,7 +146,3 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   }
 );
 
-export const clearResponseErrorAction = createAsyncThunk(
-  'user/errorLoading',
-  () => setTimeout(()=> store.dispatch(isErrorResponseAction(false)), TIMEOUT_SHOW_ERROR)
-);
