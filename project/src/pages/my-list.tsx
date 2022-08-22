@@ -10,7 +10,6 @@ import { getFavoriteFilms, getIsErrorResponse } from '../store/data-api-process/
 
 function MyList () {
   const favoriteFilms = useAppSelector(getFavoriteFilms);
-  console.log(favoriteFilms)
   const isErrorResponse = useAppSelector(getIsErrorResponse);
   const dispatch = useAppDispatch();
   useEffect(()=>{

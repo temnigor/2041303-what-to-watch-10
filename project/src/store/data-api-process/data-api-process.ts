@@ -87,7 +87,7 @@ export const dataAPIProcess = createSlice({
         state.isLoadingFilms = false;
       })
       .addCase(postFavoriteFilmAction.fulfilled, (state, action) => {
-        const{isFavorite, favoriteFilms}=action.payload;
+        const{isFavorite, favoriteFilms} = action.payload;
         state.favoriteFilms = favoriteFilms;
         if(state.openedFilm !== undefined){
           state.openedFilm.isFavorite = isFavorite;

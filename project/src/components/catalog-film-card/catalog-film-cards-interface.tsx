@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 import { CatalogFilm, FilterMainNavMenu, GenresFilter } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getAllFilms, getFavoriteFilms, getSimilarFilms } from '../../store/data-api-process/selectors';
-import { filmFilterCountAction } from '../../store/main-genre-filter-process/main-genre-filter-process';
-import { getFilmFilterCount, getFilter } from '../../store/main-genre-filter-process/selectors';
+import { filmFilterCountAction } from '../../store/filter-process/filter-process';
+import { getFilmFilterCount, getFilter } from '../../store/filter-process/selectors';
 import { Film } from '../../types/film';
 import { CatalogFilmCards } from './catalog-film-cards';
 const FILM_CARD_COUNT = 4;
@@ -22,7 +22,6 @@ export function CatalogFilmCardsInterface ({catalogFilter: CatalogFilter, sliceE
 
   const dispatch = useAppDispatch();
   let filmsFiltered = allFilms;
-  let filmsFavoriteFiltered = allFilms;
   useEffect(()=>{
     if(filmsFiltered.length !== filmFilterCount){
       dispatch(filmFilterCountAction(filmsFiltered.length));

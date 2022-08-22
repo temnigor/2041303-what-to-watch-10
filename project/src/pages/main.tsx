@@ -1,9 +1,7 @@
 import ArtBoard from '../components/art-board/art-board';
 import Logo from '../components/logo/logo';
-
 import { useEffect, useState } from 'react';
 import { BigFilmCard } from '../components/big-film-card/big-film-card';
-
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { LoadingScreen } from '../components/loading-screen/loading-screen';
 import { CatalogFilmCardsInterface } from '../components/catalog-film-card/catalog-film-cards-interface';
@@ -22,11 +20,13 @@ function Main ():JSX.Element {
   const openedFilm = useAppSelector(getOpenedFilms);
   const errorResponse = useAppSelector(getIsErrorResponse);
   const dispatch = useAppDispatch();
+
   useEffect(()=>{
     if(openedFilm === undefined || openedFilm.id !== allFilms[0].id){
       dispatch(loadOpenFilm(allFilms[0]));
     }
   }, [dispatch, openedFilm, allFilms]);
+
   if(openedFilm === undefined || openedFilm.id !== allFilms[0].id){
     if(errorResponse){
       return <Navigate to={AppRoute.Error}/>;
@@ -37,9 +37,11 @@ function Main ():JSX.Element {
     <div>
       <ArtBoard/>
       <section className="film-card">
-        {<BigFilmCard
-          film={openedFilm}
-        />}
+        {
+          <BigFilmCard
+            film={openedFilm}
+          />
+        }
       </section>
       <div className="page-content">
         <section className="catalog">

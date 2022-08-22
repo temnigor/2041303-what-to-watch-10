@@ -44,9 +44,10 @@ export type DataAPIProcess = {
   sentReview:Review[],
 }
 
-export type MainGenreFilterProcess = {
+export type FilterProcess = {
   filter:string,
   filmFilterCount:number,
+  tabsMeaning:string
 }
 
 export type State = ReturnType<typeof store.getState>;

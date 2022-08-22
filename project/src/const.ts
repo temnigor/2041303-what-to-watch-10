@@ -76,5 +76,5 @@ export enum CatalogFilm {
 export enum NameSpace {
   DATA = 'DATA',
   USER = 'USER',
-  MAIN = 'MAIN'
+  FILTER = 'FILTER'
 }
