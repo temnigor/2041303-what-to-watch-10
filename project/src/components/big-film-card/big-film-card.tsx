@@ -3,15 +3,15 @@ import Logo from '../logo/logo';
 import { UserSign } from '../user-sign/user-sign';
 import { Link} from 'react-router-dom';
 import { AppRoute } from '../../const';
-import { AddFavoriteButton } from '../add-favorite-button/add-favorite-button';
+import { MyListLink } from '../my-list-link/my-list-link';
+import { memo } from 'react';
 
 type BigFilmCardProps = {
   film:Film
-  allFilms:Film[]
 }
 
-function BigFilmCard ({film, allFilms}:BigFilmCardProps):JSX.Element {
-  const{id, filmName, genre, yearCreation, bigPoster, poster, isFavorite} = film;
+function BigFilmCardComponents ({film}:BigFilmCardProps):JSX.Element {
+  const{id, filmName, genre, yearCreation, bigPoster, poster} = film;
 
   return (
     <>
@@ -45,14 +45,7 @@ function BigFilmCard ({film, allFilms}:BigFilmCardProps):JSX.Element {
                 </svg>
                 <span>Play</span>
               </Link>
-              <Link to={AppRoute.MyList} className ="btn btn--list film-card__button" type="button">
-                <AddFavoriteButton
-                  isFavorite={isFavorite}
-                  id={id}
-                />
-                <span>My list</span>
-                <span className="film-card__count">{allFilms.filter((films)=>films.isFavorite).length}</span>
-              </Link>
+              <MyListLink/>
             </div>
           </div>
         </div>
@@ -61,4 +54,4 @@ function BigFilmCard ({film, allFilms}:BigFilmCardProps):JSX.Element {
   );
 }
 
-export{BigFilmCard};
+export const BigFilmCard = memo(BigFilmCardComponents, (prevProps, nextProps)=> prevProps.film.id === nextProps.film.id);

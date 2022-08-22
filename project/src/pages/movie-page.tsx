@@ -11,7 +11,7 @@ import { LoadingScreen } from '../components/loading-screen/loading-screen';
 import { CatalogFilmCardsInterface } from '../components/catalog-film-card/catalog-film-cards-interface';
 import { getAllFilms, getIsErrorResponse, getOpenedFilms, getReviews } from '../store/data-api-process/selectors';
 import { getAuthorizationStatus } from '../store/user-process/selectors';
-import { AddFavoriteButton } from '../components/add-favorite-button/add-favorite-button';
+import { MyListLink } from '../components/my-list-link/my-list-link';
 
 const MoviePage = ():JSX.Element=>{
   const dispatch = useAppDispatch();
@@ -79,14 +79,7 @@ const MoviePage = ():JSX.Element=>{
                   </svg>
                   <span>Play</span>
                 </Link>
-                <Link to={AppRoute.MyList} className="btn btn--list film-card__button" type="button">
-                  <AddFavoriteButton
-                    isFavorite={isFavorite}
-                    id={id}
-                  />
-                  <span>My list</span>
-                  <span className="film-card__count">{myListFilmCount}</span>
-                </Link>
+                <MyListLink/>
                 {
                   authorizationStatus === AuthorizationStatus.Auth
                     ? <Link to={AppRoute.AddReview.replace(':id', `${id}`)} className="btn film-card__button">Add review</Link>

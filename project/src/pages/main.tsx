@@ -37,10 +37,9 @@ function Main ():JSX.Element {
     <div>
       <ArtBoard/>
       <section className="film-card">
-        <BigFilmCard
+        {<BigFilmCard
           film={openedFilm}
-          allFilms = {allFilms}
-        />
+        />}
       </section>
       <div className="page-content">
         <section className="catalog">

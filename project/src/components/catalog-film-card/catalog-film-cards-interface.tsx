@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { CatalogFilm, FilterMainNavMenu, GenresFilter } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getAllFilms, getSimilarFilms } from '../../store/data-api-process/selectors';
+import { getAllFilms, getFavoriteFilms, getSimilarFilms } from '../../store/data-api-process/selectors';
 import { filmFilterCountAction } from '../../store/main-genre-filter-process/main-genre-filter-process';
 import { getFilmFilterCount, getFilter } from '../../store/main-genre-filter-process/selectors';
 import { Film } from '../../types/film';
@@ -18,6 +18,7 @@ export function CatalogFilmCardsInterface ({catalogFilter: CatalogFilter, sliceE
   const allFilms = useAppSelector(getAllFilms);
   const similarFilms = useAppSelector(getSimilarFilms);
   const filmFilterCount = useAppSelector(getFilmFilterCount);
+  const favoriteFilms = useAppSelector(getFavoriteFilms);
 
   const dispatch = useAppDispatch();
   let filmsFiltered = allFilms;
@@ -46,8 +47,7 @@ export function CatalogFilmCardsInterface ({catalogFilter: CatalogFilter, sliceE
       return <CatalogFilmCards films={similarFilms} sliceEnd={FILM_CARD_COUNT} />;
 
     case CatalogFilm.FAVORITE_FILTER:
-      filmsFavoriteFiltered = filmsFavoriteFiltered.filter((film)=>film.isFavorite);
-      return <CatalogFilmCards films={filmsFavoriteFiltered} sliceEnd={filmsFavoriteFiltered.length} />;
+      return <CatalogFilmCards films={favoriteFilms} sliceEnd={favoriteFilms.length} />;
   }
   return <p>No film </p>;
 }

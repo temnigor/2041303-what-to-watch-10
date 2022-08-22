@@ -87,10 +87,11 @@ export const dataAPIProcess = createSlice({
         state.isLoadingFilms = false;
       })
       .addCase(postFavoriteFilmAction.fulfilled, (state, action) => {
-        const{film, films, favoriteFilms} = action.payload;
-        state.openedFilm = film;
-        state.allFilms = films;
+        const{isFavorite, favoriteFilms}=action.payload;
         state.favoriteFilms = favoriteFilms;
+        if(state.openedFilm !== undefined){
+          state.openedFilm.isFavorite = isFavorite;
+        }
       });
   }
 });
