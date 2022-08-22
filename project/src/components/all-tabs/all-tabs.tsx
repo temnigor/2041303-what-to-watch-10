@@ -5,14 +5,16 @@ import { OverviewTab } from './overview-tab';
 import { DetailsTab } from './details-tab';
 import { ReviewsTab } from './reviews-tab';
 import { Review } from '../../types/review';
+import { useAppSelector } from '../../hooks';
+import { getTabsMeaning } from '../../store/filter-process/selectors';
 
 type AllTabsProps = {
   filmForPage:Film,
-  nameButton:string,
   reviews:Review[]
 }
 
-function AllTabs ({filmForPage, nameButton, reviews}:AllTabsProps):JSX.Element{
+function AllTabs ({filmForPage, reviews}:AllTabsProps):JSX.Element{
+  const tabsMeaning = useAppSelector(getTabsMeaning);
   const {
     rating,
     ratingCount,
@@ -23,7 +25,7 @@ function AllTabs ({filmForPage, nameButton, reviews}:AllTabsProps):JSX.Element{
     genre,
     yearCreation
   } = filmForPage;
-  switch (nameButton){
+  switch (tabsMeaning){
     case NavMenuMoviePage.OVERVIEW:
       return (
         <OverviewTab

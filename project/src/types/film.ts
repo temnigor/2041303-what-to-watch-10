@@ -12,6 +12,7 @@ export type ServerFilm = {
     director:string,
     starring: string[],
     runTime: number,
+    videoLink:string,
     previewVideoLink:string,
     isFavorite:boolean,
     backgroundColor:string
@@ -31,6 +32,7 @@ export type Film = {
   director: string,
   starring: string[],
   runTime: number,
+  videoLinkPlayer:string,
   videoLink:string,
   isFavorite:boolean,
   backgroundColor:string

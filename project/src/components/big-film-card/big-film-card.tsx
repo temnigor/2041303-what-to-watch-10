@@ -1,16 +1,20 @@
-import { Film } from '../types/film';
-import { useAppSelector } from '../hooks';
-import Logo from './logo/logo';
-import { UserSign } from './user-sign';
-import { Link } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../const';
+import { Film } from '../../types/film';
+import Logo from '../logo/logo';
+import { UserSign } from '../user-sign/user-sign';
+import { Link} from 'react-router-dom';
+import { AppRoute } from '../../const';
+import { MyListLink } from '../my-list-link/my-list-link';
+import { memo } from 'react';
 
-function BigFilmCard ():JSX.Element {
-  const {allFilms, authorizationStatus} = useAppSelector((state)=>state);
-  const filmForPoster : Film | undefined = allFilms[0];
-  const{id, filmName, genre, yearCreation, bigPoster, poster} = filmForPoster;
+type BigFilmCardProps = {
+  film:Film
+}
+
+function BigFilmCardComponents ({film}:BigFilmCardProps):JSX.Element {
+  const{id, filmName, genre, yearCreation, bigPoster, poster} = film;
+
   return (
-    <section className="film-card">
+    <>
       <div className="film-card__bg">
         <img src={bigPoster} alt={filmName} />
       </div>
@@ -41,22 +45,13 @@ function BigFilmCard ():JSX.Element {
                 </svg>
                 <span>Play</span>
               </Link>
-              { authorizationStatus === AuthorizationStatus.Auth
-                ?
-                <Link to={AppRoute.MyList} className ="btn btn--list film-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                  <span className="film-card__count">{allFilms.filter((films)=>films.isFavorite).length}</span>
-                </Link>
-                : null}
+              <MyListLink/>
             </div>
           </div>
         </div>
       </div>
-    </section>
+    </>
   );
 }
 
-export{BigFilmCard};
+export const BigFilmCard = memo(BigFilmCardComponents, (prevProps, nextProps)=> prevProps.film.id === nextProps.film.id);

@@ -1,11 +1,12 @@
 import { Rating } from './const';
 
-const ONE_HOUR = 60;
+const ONE_TIME_LIMIT = 60;
+const ONE_HOUR = 3600;
 
 const getRunTimeToString = (time:number) => {
-  if(time > ONE_HOUR) {
-    const hour = Math.floor(time / ONE_HOUR);
-    const minute = time - hour * ONE_HOUR;
+  if(time > ONE_TIME_LIMIT) {
+    const hour = Math.floor(time / ONE_TIME_LIMIT);
+    const minute = time - hour * ONE_TIME_LIMIT;
     return `${hour}h ${minute}m`;
   }
   return `${time}m`;
@@ -38,4 +39,25 @@ const getRating = (num:number) => {
   }
 };
 
-export {getDataTime, getRating, getCommentTime, getRunTimeToString};
+const getFilmTime = (timeEnd:number, currentTime:number) => {
+  const tameToEnd = timeEnd - currentTime;
+
+  if(tameToEnd >= ONE_HOUR){
+    const hour = Math.floor(tameToEnd / (ONE_HOUR));
+    const min = Math.floor((tameToEnd - (hour * ONE_HOUR)) / ONE_TIME_LIMIT);
+    const seconds = Math.floor(tameToEnd - ((hour * ONE_HOUR) + (min * ONE_TIME_LIMIT)));
+    return `${hour}:${min}:${seconds}`;
+  }
+
+  if(tameToEnd >= ONE_TIME_LIMIT) {
+    const min = Math.floor(tameToEnd / ONE_TIME_LIMIT);
+    const seconds = tameToEnd - min * ONE_TIME_LIMIT;
+    return `${min}:${seconds}`;
+  }
+
+  return `00:${Math.floor(tameToEnd)}`;
+};
+
+const filmTogglePlayer = (finish:number, start:number) => (start / finish) * 100;
+
+export {getDataTime, getRating, getCommentTime, getRunTimeToString, getFilmTime, filmTogglePlayer};

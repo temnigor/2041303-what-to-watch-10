@@ -1,13 +1,13 @@
-
 import { MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
-import { AuthorizationStatus } from '../const';
-import { AppRoute } from '../const';
-import { useAppDispatch, useAppSelector } from '../hooks';
-import { logoutAction } from '../store/api-action';
+import { AppRoute, AuthorizationStatus } from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { logoutAction } from '../../store/api-action';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
+
 
 function UserSign ():JSX.Element {
-  const{authorizationStatus} = useAppSelector((state)=>state);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const dispatch = useAppDispatch();
   if(authorizationStatus === AuthorizationStatus.Auth ) {
     return(
