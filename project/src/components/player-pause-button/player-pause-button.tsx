@@ -1,7 +1,7 @@
-type PlayPauseProps = {
+type PlayPauseButtonProps = {
   isGoingPlay:boolean
 }
-export function PlayPauseButton ({isGoingPlay}:PlayPauseProps):JSX.Element {
+export function PlayPauseButton ({isGoingPlay}:PlayPauseButtonProps):JSX.Element {
   return(isGoingPlay)
     ?
     <>

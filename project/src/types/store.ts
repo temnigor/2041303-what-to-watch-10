@@ -12,7 +12,7 @@ name: string
 token: string
 };
 
-export type favoriteDataPost = {
+export type FavoriteDataPost = {
   filmId:number,
   status:boolean
 }

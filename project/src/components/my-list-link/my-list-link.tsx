@@ -22,6 +22,8 @@ export function MyListLink ():JSX.Element {
   const {id, isFavorite} = openedFilm;
   const changFavoriteHandler = (evt:MouseEvent<HTMLElement>)=>{
     evt.preventDefault();
+    console.log("a");
+
     dispatch(postFavoriteFilmAction({filmId:id, status:!isFavorite}));
   };
   return(
@@ -38,7 +40,7 @@ export function MyListLink ():JSX.Element {
           </svg>}
       </span>
       <span>My list</span>
-      <span className="film-card__count">{favoriteFilms.length}</span>
+      <span onClick={(evt:MouseEvent<HTMLElement>)=>{evt.preventDefault();}} className="film-card__count">{favoriteFilms.length}</span>
     </Link>
   );
 }
