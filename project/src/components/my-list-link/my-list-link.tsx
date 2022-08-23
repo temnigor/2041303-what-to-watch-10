@@ -22,8 +22,6 @@ export function MyListLink ():JSX.Element {
   const {id, isFavorite} = openedFilm;
   const changFavoriteHandler = (evt:MouseEvent<HTMLElement>)=>{
     evt.preventDefault();
-    console.log("a");
-
     dispatch(postFavoriteFilmAction({filmId:id, status:!isFavorite}));
   };
   return(
