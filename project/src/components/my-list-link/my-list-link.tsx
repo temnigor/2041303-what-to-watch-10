@@ -1,6 +1,4 @@
 import { MouseEvent, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchFavoriteFilmAction, postFavoriteFilmAction } from '../../store/api-action';
 import { getFavoriteFilms, getOpenedFilms, getIsErrorResponse } from '../../store/data-api-process/selectors';
@@ -25,20 +23,18 @@ export function MyListLink ():JSX.Element {
     dispatch(postFavoriteFilmAction({filmId:id, status:!isFavorite}));
   };
   return(
-    <Link to={AppRoute.MyList} className ="btn btn--list film-card__button" type="button">
-      <span onClick={changFavoriteHandler}>
-        {isFavorite
-          ?
-          <svg viewBox="0 0 18 14" width="18" height="14">
-            <use xlinkHref="#in-list"></use>
-          </svg>
-          :
-          <svg viewBox="0 0 19 20" width="19" height="20">
-            <use xlinkHref="#add"></use>
-          </svg>}
-      </span>
+    <button onClick={changFavoriteHandler} className ="btn btn--list film-card__button" type="button">
+      {isFavorite
+        ?
+        <svg viewBox="0 0 18 14" width="18" height="14">
+          <use xlinkHref="#in-list"></use>
+        </svg>
+        :
+        <svg viewBox="0 0 19 20" width="19" height="20">
+          <use xlinkHref="#add"></use>
+        </svg>}
       <span>My list</span>
-      <span onClick={(evt:MouseEvent<HTMLElement>)=>{evt.preventDefault();}} className="film-card__count">{favoriteFilms.length}</span>
-    </Link>
+      <span className="film-card__count">{favoriteFilms.length}</span>
+    </button>
   );
 }
