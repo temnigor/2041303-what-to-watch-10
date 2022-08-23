@@ -1,7 +1,7 @@
 import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { APIRoute} from '../const';
-import { AppDispatch, AuthData, favoriteDataPost, State, ToPostReviveData, UserData } from '../types/store';
+import { AppDispatch, AuthData, FavoriteDataPost, State, ToPostReviveData, UserData } from '../types/store';
 import { Film, ServerFilm } from '../types/film';
 import { removeToken, saveToken } from '../services/token';
 import { Review } from '../types/review';
@@ -91,10 +91,10 @@ export const fetchFavoriteFilmAction = createAsyncThunk<Film[], undefined, {disp
         }
       );
 
-export const postFavoriteFilmAction = createAsyncThunk<{favoriteFilms:Film[]; isFavorite:boolean }, favoriteDataPost, { dispatch:AppDispatch,
+export const postFavoriteFilmAction = createAsyncThunk<{favoriteFilms:Film[]; isFavorite:boolean }, FavoriteDataPost, { dispatch:AppDispatch,
     state:State, extra:AxiosInstance}>(
       'film/postFavorite',
-      async ({filmId, status}:favoriteDataPost, {dispatch, extra:api} ) => {
+      async ({filmId, status}:FavoriteDataPost, {dispatch, extra:api} ) => {
         const route = APIRoute.PostFavorite.replace('{filmId}/{status}', `${filmId}/${Number(status)}`);
         const {data:{isFavorite}} = await api.post(route);
         const favorite = await api.get<ServerFilm[]>(APIRoute.FavoriteFilms);

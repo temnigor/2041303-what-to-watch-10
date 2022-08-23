@@ -38,7 +38,7 @@ export function MyListLink ():JSX.Element {
           </svg>}
       </span>
       <span>My list</span>
-      <span className="film-card__count">{favoriteFilms.length}</span>
+      <span onClick={(evt:MouseEvent<HTMLElement>)=>{evt.preventDefault();}} className="film-card__count">{favoriteFilms.length}</span>
     </Link>
   );
 }
