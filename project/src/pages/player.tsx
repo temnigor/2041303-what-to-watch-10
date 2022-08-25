@@ -12,7 +12,7 @@ function Player () {
   const {id:idParam} = useParams();
   const allFilms = useAppSelector(getAllFilms);
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const [isGoingPlay, setIsGoingPlay] = useState(true);
+  const [isGoingPlay, setIsGoingPlay] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [timeFilmEnd, setTimeFilmEnd] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
