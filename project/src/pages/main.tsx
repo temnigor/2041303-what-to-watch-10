@@ -1,37 +1,27 @@
 import ArtBoard from '../components/art-board/art-board';
 import Logo from '../components/logo/logo';
-import { useEffect, useState } from 'react';
-import { BigFilmCard } from '../components/big-film-card/big-film-card';
-import { useAppDispatch, useAppSelector } from '../hooks';
-import { LoadingScreen } from '../components/loading-screen/loading-screen';
-import { CatalogFilmCardsInterface } from '../components/catalog-film-card/catalog-film-cards-interface';
+import { useState } from 'react';
+import { useAppSelector } from '../hooks';
+import { CollectionFilmCardCatalog } from '../components/catalog-film-card/catalog-film-cards-interface';
 import { AppRoute, CatalogFilm } from '../const';
-import { getAllFilms, getIsErrorResponse, getOpenedFilms } from '../store/data-api-process/selectors';
-import { loadOpenFilm } from '../store/data-api-process/data-api-process';
+import { getIsErrorResponse, getPromoFilm } from '../store/data-api-process/selectors';
 import { MainGenreMenu } from '../components/main-components/main-genre-menu';
 import { MainShowMoreButton } from '../components/main-components/main-show-more-button';
 import { Navigate } from 'react-router-dom';
+import { LoadingScreen } from '../components/loading-screen/loading-screen';
+import { BigFilmCard } from '../components/big-film-card/big-film-card-components';
 
 const FILM_CARD_COUNT = 8;
 
 function Main ():JSX.Element {
   const [sliceEnd, setSliceEnd] = useState(FILM_CARD_COUNT);
-  const allFilms = useAppSelector(getAllFilms);
-  const openedFilm = useAppSelector(getOpenedFilms);
+  const promoFilm = useAppSelector(getPromoFilm);
   const errorResponse = useAppSelector(getIsErrorResponse);
-  const dispatch = useAppDispatch();
-
-  useEffect(()=>{
-    if(openedFilm === undefined || openedFilm.id !== allFilms[0].id){
-      dispatch(loadOpenFilm(allFilms[0]));
-    }
-  }, [dispatch, openedFilm, allFilms]);
-
-  if(openedFilm === undefined || openedFilm.id !== allFilms[0].id){
-    if(errorResponse){
-      return <Navigate to={AppRoute.Error}/>;
-    }
-    return <LoadingScreen/>;
+  if(errorResponse && promoFilm === undefined){
+    return <Navigate to={AppRoute.Error}/>;
+  }
+  if(promoFilm === undefined){
+    return<LoadingScreen/>;
   }
   return (
     <div>
@@ -39,16 +29,18 @@ function Main ():JSX.Element {
       <section className="film-card">
         {
           <BigFilmCard
-            film={openedFilm}
+            film={promoFilm}
           />
         }
       </section>
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
-          <MainGenreMenu/>
-          <CatalogFilmCardsInterface
-            catalogFilter={CatalogFilm.GENRE_FILTER}
+          <MainGenreMenu
+            setSlice={(slice:number)=>setSliceEnd(slice)}
+          />
+          <CollectionFilmCardCatalog
+            catalogFilter={CatalogFilm.GenreFilter}
             sliceEnd={sliceEnd}
           />
           <MainShowMoreButton

@@ -9,26 +9,26 @@ export function MovieNavMenu (){
   const tabsMeaning = useAppSelector(getTabsMeaning);
   return(
     <>
-      <li className={`film-nav__item ${tabsMeaning === NavMenuMoviePage.OVERVIEW ? 'film-nav__item--active' : ''}`}
+      <li className={`film-nav__item ${tabsMeaning === NavMenuMoviePage.Overview ? 'film-nav__item--active' : ''}`}
         onClick={(event:MouseEvent<HTMLElement>) => {
           event.preventDefault();
-          dispatch(tabsMeaningAction(NavMenuMoviePage.OVERVIEW));
+          dispatch(tabsMeaningAction(NavMenuMoviePage.Overview));
         }}
       >
         <a href="#top" className="film-nav__link">Overview</a>
       </li>
-      <li className={`film-nav__item ${tabsMeaning === NavMenuMoviePage.DETAILS ? 'film-nav__item--active' : ''}`}
+      <li className={`film-nav__item ${tabsMeaning === NavMenuMoviePage.Details ? 'film-nav__item--active' : ''}`}
         onClick ={(event:MouseEvent<HTMLElement>) => {
           event.preventDefault();
-          dispatch(tabsMeaningAction(NavMenuMoviePage.DETAILS));
+          dispatch(tabsMeaningAction(NavMenuMoviePage.Details));
         }}
       >
         <a href="#top" className="film-nav__link">Details</a>
       </li>
-      <li className={`film-nav__item ${tabsMeaning === NavMenuMoviePage.REVIEWS ? 'film-nav__item--active' : ''}`}
+      <li className={`film-nav__item ${tabsMeaning === NavMenuMoviePage.Reviews ? 'film-nav__item--active' : ''}`}
         onClick={(event:MouseEvent<HTMLElement>) => {
           event.preventDefault();
-          dispatch(tabsMeaningAction(NavMenuMoviePage.REVIEWS));
+          dispatch(tabsMeaningAction(NavMenuMoviePage.Reviews));
         }}
       >
         <a href="#top" className="film-nav__link" >Reviews</a>

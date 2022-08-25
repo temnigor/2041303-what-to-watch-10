@@ -6,11 +6,11 @@ import { AppRoute } from '../../const';
 import { MyListLink } from '../my-list-link/my-list-link';
 import { memo } from 'react';
 
-type BigFilmCardProps = {
+type BigFilmCardComponentsProps = {
   film:Film
 }
 
-function BigFilmCardComponents ({film}:BigFilmCardProps):JSX.Element {
+function BigFilmCardComponents ({film}:BigFilmCardComponentsProps):JSX.Element {
   const{id, filmName, genre, yearCreation, bigPoster, poster} = film;
 
   return (
@@ -45,7 +45,9 @@ function BigFilmCardComponents ({film}:BigFilmCardProps):JSX.Element {
                 </svg>
                 <span>Play</span>
               </Link>
-              <MyListLink/>
+              <MyListLink
+                isPromoFilm
+              />
             </div>
           </div>
         </div>

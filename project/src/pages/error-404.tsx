@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../const';
 import Logo from '../components/logo/logo';
 
+
 function Error404 ():JSX.Element {
   return (
     <div>
@@ -12,18 +13,8 @@ function Error404 ():JSX.Element {
           <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
         </div>
         <h1 className="visually-hidden">WTW</h1>
+        <Logo/>
         <header className="page-header film-card__head">
-          <Logo/>
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-              </div>
-            </li>
-            <li className="user-block__item">
-              <a className="user-block__link" href= "#top">Sign out</a>
-            </li>
-          </ul>
         </header>
         <div className="film-card__wrap">
           <div className="film-card__info">

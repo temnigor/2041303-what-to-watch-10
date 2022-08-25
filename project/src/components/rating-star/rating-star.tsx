@@ -1,10 +1,10 @@
 import React from 'react';
 
 type RatingStarProps = {
-  ratingFilm : number
+  ratingFilm: number
+  setUserRating: (rating:number)=>void
 }
-function RatingStar ({ratingFilm}:RatingStarProps):JSX.Element {
-  const ratingValue = Math.floor(ratingFilm);
+function RatingStar ({ratingFilm, setUserRating}:RatingStarProps):JSX.Element {
   return (
     <div className="rating" >
       <div className="rating__stars">
@@ -18,8 +18,9 @@ function RatingStar ({ratingFilm}:RatingStarProps):JSX.Element {
                 type="radio"
                 name="rating"
                 value={String(index)}
-                checked={ratingValue === index}
+                checked={ratingFilm === index}
                 readOnly
+                onClick={()=>{setUserRating(index);}}
               />
               <label className="rating__label" htmlFor={star}> Rating {index} </label>
             </React.Fragment>

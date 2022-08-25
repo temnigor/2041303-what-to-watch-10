@@ -4,25 +4,27 @@ import { DataAPIProcess } from '../../types/store';
 import {
   fetchFavoriteFilmAction,
   fetchFilmsActions,
+  fetchPromoFilmAction,
   getDataOpenFilmAction,
   getDataReviewsOpenFilm,
   getDataSimilarFilmsAction,
   postFavoriteFilmAction,
   postReviveAction } from '../api-action';
 
+
 const initialState:DataAPIProcess = {
   allFilms:[],
   similarFilms:[],
   favoriteFilms:[],
   openedFilm: undefined,
+  promoFilm:undefined,
   isErrorResponse:false,
   isLoadingFilms:true,
   reviews:[],
-  sentReview:[]
 };
 
 export const dataAPIProcess = createSlice({
-  name:NameSpace.DATA,
+  name:NameSpace.Data,
   initialState,
   reducers:{
     loadOpenFilm(state, action) {
@@ -47,6 +49,17 @@ export const dataAPIProcess = createSlice({
         state.isLoadingFilms = false;
         state.isErrorResponse = true;
       })
+      .addCase(fetchPromoFilmAction.pending, (state)=>{
+        state.isLoadingFilms = true;
+      })
+      .addCase(fetchPromoFilmAction.fulfilled, (state, action) => {
+        state.isLoadingFilms = false;
+        state.promoFilm = action.payload;
+      })
+      .addCase(fetchPromoFilmAction.rejected, (state)=>{
+        state.isLoadingFilms = false;
+        state.isErrorResponse = true;
+      })
       .addCase(getDataOpenFilmAction.pending, (state) => {
         state.isLoadingFilms = true;
       })
@@ -68,11 +81,12 @@ export const dataAPIProcess = createSlice({
         state.reviews = action.payload;
       })
       .addCase(postReviveAction.fulfilled, (state, action) => {
-        state.sentReview = action.payload;
+        state.reviews = action.payload.review;
         state.isErrorResponse = false;
       })
       .addCase(postReviveAction.rejected, (state) => {
         state.isErrorResponse = true;
+        state.isLoadingFilms = false;
       })
       .addCase(fetchFavoriteFilmAction.pending, (state) => {
         state.isLoadingFilms = true;
@@ -83,14 +97,16 @@ export const dataAPIProcess = createSlice({
         state.isLoadingFilms = false;
       })
       .addCase(fetchFavoriteFilmAction.rejected, (state) => {
-        state.isErrorResponse = true;
         state.isLoadingFilms = false;
       })
       .addCase(postFavoriteFilmAction.fulfilled, (state, action) => {
-        const{isFavorite, favoriteFilms} = action.payload;
+        const{isFavorite, favoriteFilms, isPromoFilm} = action.payload;
         state.favoriteFilms = favoriteFilms;
-        if(state.openedFilm !== undefined){
+        if(state.openedFilm !== undefined && !isPromoFilm){
           state.openedFilm.isFavorite = isFavorite;
+        }
+        if(isPromoFilm && state.promoFilm !== undefined){
+          state.promoFilm.isFavorite = isFavorite;
         }
       });
   }

@@ -1,5 +1,4 @@
 import { Link, Navigate} from 'react-router-dom';
-import { AddReviewDetails } from '../components/add-review-detail/add-review-detail';
 import { AddReviewForm } from '../components/add-review-form/add-review-form';
 import ArtBoard from '../components/art-board/art-board';
 import Logo from '../components/logo/logo';
@@ -15,7 +14,7 @@ function AddReview ():JSX.Element {
     return <Navigate to={AppRoute.Error}/>;
   }
 
-  const {bigPoster, id, poster, filmName, rating} = openedFilm;
+  const {bigPoster, id, poster, filmName} = openedFilm;
 
   return (
     <div>
@@ -45,10 +44,7 @@ function AddReview ():JSX.Element {
           </div>
         </div>
         <div className="add-review">
-          <AddReviewForm id={id} rating={rating}/>
-          <div>
-            <AddReviewDetails/>
-          </div>
+          <AddReviewForm id={id}/>
         </div>
       </section>
     </div>

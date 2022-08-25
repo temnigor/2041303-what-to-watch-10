@@ -1,10 +1,11 @@
 import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { APIRoute} from '../const';
-import { AppDispatch, AuthData, favoriteDataPost, State, ToPostReviveData, UserData } from '../types/store';
+import { AppDispatch, AuthData, FavoriteDataPost, FavoriteDataPostArg, State, ToPostReviveData, UserData } from '../types/store';
 import { Film, ServerFilm } from '../types/film';
 import { removeToken, saveToken } from '../services/token';
 import { Review } from '../types/review';
+import { redirectRouteTo } from './action';
 
 const serverToFilms = (serverFilm:ServerFilm) =>{
   const film = {
@@ -37,6 +38,15 @@ export const fetchFilmsActions = createAsyncThunk<Film[], undefined, { dispatch:
       const films:Film[] = await data.map((film:ServerFilm)=>serverToFilms(film));
       return films;
     });
+export const fetchPromoFilmAction = createAsyncThunk<Film|undefined, undefined, { dispatch: AppDispatch,
+state: State, extra:AxiosInstance}>(
+  'data/fetchPromoFilm',
+  async (_arg, {dispatch, extra:api}) => {
+    const {data} = await api.get<ServerFilm>(APIRoute.PromoFilm);
+    const promoFilm = await serverToFilms(data);
+    return promoFilm;
+  }
+);
 
 export const getDataOpenFilmAction = createAsyncThunk<Film|undefined, number, {dispatch:AppDispatch,
   state: State, extra:AxiosInstance}>(
@@ -70,14 +80,14 @@ export const getDataReviewsOpenFilm = createAsyncThunk<Review[], number, {dispat
     }
   );
 
-export const postReviveAction = createAsyncThunk<Review[], ToPostReviveData, {dispatch:AppDispatch,
+export const postReviveAction = createAsyncThunk<{review:Review[]; filmId: string;}, ToPostReviveData, {dispatch:AppDispatch,
     state: State, extra:AxiosInstance}> (
       'film/postRevive',
       async ({comment, rating, id}, {dispatch, extra:api}) => {
         const route = APIRoute.Comments.replace('{filmId}', `${id}`);
         const {data} = await api.post<Review[]>(route, {'comment':comment, 'rating':rating});
-        dispatch(getDataReviewsOpenFilm(id));
-        return data;
+        dispatch(redirectRouteTo(APIRoute.OneFilm.replace('{filmId}', `${id}`)));
+        return {review:data, filmId:`${id}`};
       }
     );
 
@@ -91,15 +101,15 @@ export const fetchFavoriteFilmAction = createAsyncThunk<Film[], undefined, {disp
         }
       );
 
-export const postFavoriteFilmAction = createAsyncThunk<{favoriteFilms:Film[]; isFavorite:boolean }, favoriteDataPost, { dispatch:AppDispatch,
+export const postFavoriteFilmAction = createAsyncThunk<FavoriteDataPostArg, FavoriteDataPost, { dispatch:AppDispatch,
     state:State, extra:AxiosInstance}>(
       'film/postFavorite',
-      async ({filmId, status}:favoriteDataPost, {dispatch, extra:api} ) => {
+      async ({filmId, status, isPromoFilm}:FavoriteDataPost, {dispatch, extra:api} ) => {
         const route = APIRoute.PostFavorite.replace('{filmId}/{status}', `${filmId}/${Number(status)}`);
         const {data:{isFavorite}} = await api.post(route);
         const favorite = await api.get<ServerFilm[]>(APIRoute.FavoriteFilms);
         const favoriteFilms:Film[] = await favorite.data.map((film:ServerFilm)=>serverToFilms(film));
-        return {favoriteFilms, isFavorite};
+        return {favoriteFilms, isFavorite, isPromoFilm};
       }
     );
 

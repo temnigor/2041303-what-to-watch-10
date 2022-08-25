@@ -6,7 +6,7 @@ import Logo from '../components/logo/logo';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { getDataOpenFilmAction, getDataReviewsOpenFilm, getDataSimilarFilmsAction } from '../store/api-action';
 import { LoadingScreen } from '../components/loading-screen/loading-screen';
-import { CatalogFilmCardsInterface } from '../components/catalog-film-card/catalog-film-cards-interface';
+import { CollectionFilmCardCatalog } from '../components/catalog-film-card/catalog-film-cards-interface';
 import { getIsErrorResponse, getOpenedFilms} from '../store/data-api-process/selectors';
 
 import { MovieInfo } from '../components/movie-info/movie-info';
@@ -18,15 +18,17 @@ function MoviePageComponents ():JSX.Element {
   const {id:idParam} = useParams();
 
   useEffect(() => {
-    if(idParam){
-      if(openedFilm === undefined || openedFilm.id !== +idParam){
-        const idForServer = parseInt(idParam, 10);
-        dispatch(getDataOpenFilmAction(idForServer));
-        dispatch(getDataSimilarFilmsAction(idForServer));
-        dispatch(getDataReviewsOpenFilm(idForServer));
-      }}}, [dispatch, idParam, openedFilm]);
+    if( idParam) {
+      if(openedFilm === undefined || openedFilm.id !== +idParam) {
+        if(!isNaN(+idParam) || !isErrorResponse){
+          const idForServer = parseInt(idParam, 10);
+          dispatch(getDataOpenFilmAction(idForServer));
+          dispatch(getDataSimilarFilmsAction(idForServer));
+          dispatch(getDataReviewsOpenFilm(idForServer));
+        }
+      }}}, [dispatch, idParam, openedFilm, isErrorResponse]);
 
-  if(idParam === undefined || isErrorResponse) {
+  if(idParam === undefined || isNaN(+idParam) || isErrorResponse) {
     return < Navigate to={AppRoute.Error}/>;
   }
   if(openedFilm === undefined || openedFilm.id !== +idParam){
@@ -40,8 +42,8 @@ function MoviePageComponents ():JSX.Element {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <CatalogFilmCardsInterface
-            catalogFilter={CatalogFilm.SIMILAR_FILTER}
+          <CollectionFilmCardCatalog
+            catalogFilter={CatalogFilm.SimilarFilter}
           />
         </section>
         <footer className="page-footer">

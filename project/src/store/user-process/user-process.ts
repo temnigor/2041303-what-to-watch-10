@@ -9,7 +9,7 @@ const initialState:UserProcess = {
 };
 
 export const userProcess = createSlice({
-  name: NameSpace.USER,
+  name: NameSpace.User,
   initialState,
   reducers:{},
   extraReducers(builder) {

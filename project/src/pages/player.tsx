@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import ArtBoard from '../components/art-board/art-board';
 import { Spinier } from '../components/spinier/spinier';
-import { PlayPauseButton } from '../components/player/play-pause-button';
+import { PlayPauseButton } from '../components/player-pause-button/player-pause-button';
 import { AppRoute } from '../const';
 import {useAppSelector } from '../hooks';
 import { getAllFilms } from '../store/data-api-process/selectors';
