@@ -1,15 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { FilterMainNavMenu, GenresFilter, NameSpace, NavMenuMoviePage } from '../../const';
+import { ALL_GENRE, NameSpace, NavMenuMoviePage } from '../../const';
 import { FilterProcess } from '../../types/store';
 
 const initialState:FilterProcess = {
-  filter:GenresFilter[FilterMainNavMenu.ALL_GENRES],
+  filter:ALL_GENRE,
   filmFilterCount:0,
-  tabsMeaning:NavMenuMoviePage.OVERVIEW
+  tabsMeaning:NavMenuMoviePage.Overview
 };
 
 export const filterProcess = createSlice({
-  name:NameSpace.FILTER,
+  name:NameSpace.Filter,
   initialState,
   reducers: {
     mainFilterChangAction(state, action) {

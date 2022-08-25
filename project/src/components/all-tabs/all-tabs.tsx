@@ -26,7 +26,7 @@ function AllTabs ({filmForPage, reviews}:AllTabsProps):JSX.Element{
     yearCreation
   } = filmForPage;
   switch (tabsMeaning){
-    case NavMenuMoviePage.OVERVIEW:
+    case NavMenuMoviePage.Overview:
       return (
         <OverviewTab
           rating={rating}
@@ -35,7 +35,7 @@ function AllTabs ({filmForPage, reviews}:AllTabsProps):JSX.Element{
           director={director}
           starring={starring}
         />);
-    case NavMenuMoviePage.DETAILS:
+    case NavMenuMoviePage.Details:
       return (
         <DetailsTab director={director}
           starring={starring}
@@ -43,7 +43,7 @@ function AllTabs ({filmForPage, reviews}:AllTabsProps):JSX.Element{
           genre={genre}
           yearCreation={yearCreation}
         />);
-    case NavMenuMoviePage.REVIEWS:
+    case NavMenuMoviePage.Reviews:
       return <ReviewsTab reviews={reviews} />;
     default:
       return <Navigate to={AppRoute.Error} />;

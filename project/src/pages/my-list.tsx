@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import ArtBoard from '../components/art-board/art-board';
-import { CatalogFilmCardsInterface } from '../components/catalog-film-card/catalog-film-cards-interface';
+import { CollectionFilmCardCatalog } from '../components/catalog-film-card/catalog-film-cards-interface';
 import Logo from '../components/logo/logo';
 import { UserSign } from '../components/user-sign/user-sign';
 import { CatalogFilm } from '../const';
@@ -45,7 +45,7 @@ function MyList () {
               <h3>Loading Error please Reload</h3>
             </div>
             : null }
-          <CatalogFilmCardsInterface catalogFilter={CatalogFilm.FAVORITE_FILTER}/>
+          <CollectionFilmCardCatalog catalogFilter={CatalogFilm.FavoriteFilter}/>
         </section>
         <footer className ="page-footer">
           <Logo footer/>

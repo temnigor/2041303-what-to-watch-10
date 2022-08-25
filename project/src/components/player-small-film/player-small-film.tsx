@@ -1,4 +1,6 @@
 import { MouseEvent, useCallback, useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { AppRoute } from '../../const';
 
 type PlayerSmallFilmProps = {
   previewImage:string,
@@ -11,7 +13,7 @@ function PlayerSmallFilm ({ previewImage, videoLink, id}:PlayerSmallFilmProps):J
   const [isPlaying, setIsPlaying] = useState(false);
   const [isReload, setIsReload] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
-
+  const filmLink = useNavigate();
   useEffect(() => {
     if(videoRef.current === null) {
       return;
@@ -37,6 +39,7 @@ function PlayerSmallFilm ({ previewImage, videoLink, id}:PlayerSmallFilmProps):J
       className = "small-film-card__image"
       onMouseMove={(evt)=>setPlay(evt)}
       onMouseOut={()=>setReload()}
+      onClick = {()=>{filmLink(AppRoute.Film.replace(':id', id));}}
     >
       <video ref = {videoRef} muted src= {videoLink} preload="metadata" poster={previewImage} width="280" height="175">
       </video>

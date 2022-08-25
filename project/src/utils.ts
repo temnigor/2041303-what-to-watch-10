@@ -27,15 +27,15 @@ const getCommentTime = (date:string):string => {
 const getRating = (num:number) => {
   switch(true){
     case num < 3:
-      return Rating.BAD;
+      return Rating.Bad;
     case num < 5:
-      return Rating.NORMAL;
+      return Rating.Normal;
     case num < 8:
-      return Rating.GOOD;
+      return Rating.Good;
     case num < 10:
-      return Rating.VERY;
+      return Rating.Very;
     default:
-      return Rating.AWESOME;
+      return Rating.Awesome;
   }
 };
 
@@ -54,8 +54,10 @@ const getFilmTime = (timeEnd:number, currentTime:number) => {
     const seconds = tameToEnd - min * ONE_TIME_LIMIT;
     return `${min}:${seconds}`;
   }
-
-  return `00:${Math.floor(tameToEnd)}`;
+  if(!isNaN(tameToEnd)){
+    return `00:${Math.floor(tameToEnd)}`;
+  }
+  return '00:00:00';
 };
 
 const filmTogglePlayer = (finish:number, start:number) => (start / finish) * 100;

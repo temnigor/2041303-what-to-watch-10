@@ -1,3 +1,6 @@
+export const SLICE_STEP = 8;
+export const ALL_GENRE = 'All genres';
+
 export enum AppRoute {
   Main = '/',
   SignIn = '/login',
@@ -22,59 +25,33 @@ export enum APIRoute {
 }
 
 export enum AuthorizationStatus {
-  Auth = 'AUTH',
-  NoAuth = 'NO_AUTH',
-  Unknown = 'UNKNOWN',
+  Auth = 'Auth',
+  NoAuth = 'NoAuth',
+  Unknown = 'Unknown',
 }
 
 export enum NavMenuMoviePage {
-  OVERVIEW = 'Overview',
-  DETAILS = 'Details',
-  REVIEWS = 'Reviews'
+  Overview = 'Overview',
+  Details = 'Details',
+  Reviews = 'Reviews'
 }
-
-export enum FilterMainNavMenu {
-  ALL_GENRES = 'All genres',
-  COMEDY = 'Comedies',
-  CRIME = 'Crime',
-  ADVENTURE = 'Adventurers',
-  DRAMA = 'Dramas',
-  HORROR = 'Horror',
-  KIDS = 'Kids & Family',
-  ACTIONS = 'Actions',
-  FANTASY = 'Fantasy',
-  THRILLER = 'Thrillers'
-}
-
-export const GenresFilter = {
-  [FilterMainNavMenu.ALL_GENRES] : 'All genres',
-  [FilterMainNavMenu.COMEDY] : 'Comedy',
-  [FilterMainNavMenu.CRIME] : 'Crime',
-  [FilterMainNavMenu.ADVENTURE] : 'Adventure',
-  [FilterMainNavMenu.DRAMA] : 'Drama',
-  [FilterMainNavMenu.HORROR] : 'Horror',
-  [FilterMainNavMenu.KIDS] : 'Kids & Family',
-  [FilterMainNavMenu.ACTIONS] : 'Action',
-  [FilterMainNavMenu.FANTASY] : 'Fantasy',
-  [FilterMainNavMenu.THRILLER] : 'Thriller'
-};
 
 export enum Rating {
-  BAD = 'Bad',
-  NORMAL = 'Normal',
-  GOOD = 'Good',
-  VERY = 'Very good',
-  AWESOME = 'Awesome'
+  Bad = 'Bad',
+  Normal = 'Normal',
+  Good = 'Good',
+  Very = 'Very good',
+  Awesome = 'Awesome'
 }
 
 export enum CatalogFilm {
-  GENRE_FILTER = 'GenreFilter',
-  SIMILAR_FILTER = 'SimilarFilter',
-  FAVORITE_FILTER = 'FavoriteFilter'
+  GenreFilter = 'GenreFilter',
+  SimilarFilter = 'SimilarFilter',
+  FavoriteFilter = 'FavoriteFilter'
 }
 
 export enum NameSpace {
-  DATA = 'DATA',
-  USER = 'USER',
-  FILTER = 'FILTER'
+  Data = 'Data',
+  User = 'User',
+  Filter = 'Filter'
 }

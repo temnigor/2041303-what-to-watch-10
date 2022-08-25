@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
+import browserHistory from './browser-history';
 import App from './components/app/app';
+import HistoryRouter from './components/history-route/history-route';
 import { store } from './store';
-import { checkAuthAction, fetchFavoriteFilmAction, fetchFilmsActions } from './store/api-action';
+import { checkAuthAction, fetchFilmsActions, fetchPromoFilmAction } from './store/api-action';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -11,12 +13,14 @@ const root = ReactDOM.createRoot(
 
 store.dispatch(checkAuthAction());
 store.dispatch(fetchFilmsActions());
-store.dispatch(fetchFavoriteFilmAction());
+store.dispatch(fetchPromoFilmAction());
 
 root.render(
   <React.StrictMode>
     <Provider store = {store}>
-      <App />
+      <HistoryRouter history={browserHistory}>
+        <App />
+      </HistoryRouter>
     </Provider>
   </React.StrictMode>,
 );

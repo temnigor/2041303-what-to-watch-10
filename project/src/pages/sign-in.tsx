@@ -2,32 +2,43 @@ import ArtBoard from '../components/art-board/art-board';
 import Logo from '../components/logo/logo';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { FormEvent, useRef, useState } from 'react';
-import { AuthData } from '../types/store';
 import { loginAction } from '../store/api-action';
 import { Navigate } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../const';
 import { getAuthorizationStatus } from '../store/user-process/selectors';
 import { UserSignErrorValidateMassage } from '../components/user-sign-error/user-sign-error-validate-massage';
 import { UserSignErrorMassage } from '../components/user-sign-error/user-sign-error-massage';
+import { UserSignErrorValidateMassagePassword } from '../components/user-sign-error/user-sign-error-validate-massage-password';
 
 function SignIn () {
   const auth = useAppSelector(getAuthorizationStatus);
   const dispatch = useAppDispatch();
   const refInputEmail = useRef<HTMLInputElement| null>(null);
   const refInputPassword = useRef<HTMLInputElement| null>(null);
-  const [isValid, setIsValid] = useState(true);
-  const onSubmit = (AuthValue:AuthData):void => {dispatch(loginAction(AuthValue));};
-  const onSubmitHandler = (evt:FormEvent<HTMLFormElement>):void => {
+  const [isValidEmail, setIsValidEmail] = useState(true);
+  const [isValidPassword, setIsValidPassword] = useState(true);
+  const handleFormSubmit = (evt:FormEvent<HTMLFormElement>):void => {
     evt.preventDefault();
     if(refInputEmail.current !== null && refInputPassword.current !== null) {
-      if(refInputEmail.current.value.indexOf('@') === -1) {
-        return setIsValid(false);
+      if(refInputEmail.current.value.indexOf('@') === -1
+        || refInputEmail.current.value.length === 0
+      ) {
+        return setIsValidEmail(false);
       }
-      setIsValid(true);
-      onSubmit({
+      if( refInputPassword.current.value.length === 0
+        || refInputPassword.current.value.search(/[A-Za-z]/) === -1
+        || refInputPassword.current.value.search(/[0-9]/) === -1
+      ){
+        setIsValidEmail(true);
+        return setIsValidPassword(false);
+      }
+
+      setIsValidEmail(true);
+      setIsValidPassword(true);
+      dispatch(loginAction({
         login: refInputEmail.current.value,
         password: refInputPassword.current.value
-      });
+      }));
     }
   };
   return auth !== AuthorizationStatus.Auth ? (
@@ -39,9 +50,10 @@ function SignIn () {
           <h1 className="page-title user-page__title">Sign in</h1>
         </header>
         <div className="sign-in user-page__content">
-          <form action="#" className="sign-in__form" onSubmit={onSubmitHandler} noValidate>
+          <form action="#" className="sign-in__form" onSubmit={handleFormSubmit} noValidate>
             <div className="sign-in__fields">
-              {!isValid && <UserSignErrorValidateMassage/>}
+              {!isValidEmail && <UserSignErrorValidateMassage/>}
+              {!isValidPassword && <UserSignErrorValidateMassagePassword/>}
               <UserSignErrorMassage/>
               <div className="sign-in__field">
                 <input ref= {refInputEmail} className="sign-in__input" type="email" placeholder="Email address" name="user-email" id="user-email" />

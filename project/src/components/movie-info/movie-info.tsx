@@ -25,7 +25,7 @@ function MovieInfoComponents (props:MovieInfoComponentsProps ){
     filmName,
     genre,
     yearCreation,
-    poster
+    poster,
   } = props.openedFilm;
   return(
     <section className="film-card film-card--full" style={{background:backgroundColor}}>
@@ -52,7 +52,9 @@ function MovieInfoComponents (props:MovieInfoComponentsProps ){
                 </svg>
                 <span>Play</span>
               </Link>
-              <MyListLink/>
+              <MyListLink
+                isPromoFilm={false}
+              />
               {
                 authorizationStatus === AuthorizationStatus.Auth
                   ? <Link to={AppRoute.AddReview.replace(':id', `${id}`)} className="btn film-card__button">Add review</Link>

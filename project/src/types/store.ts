@@ -14,7 +14,13 @@ token: string
 
 export type FavoriteDataPost = {
   filmId:number,
-  status:boolean
+  status:boolean,
+  isPromoFilm:boolean
+}
+export type FavoriteDataPostArg = {
+  favoriteFilms:Film[],
+  isFavorite:boolean,
+  isPromoFilm:boolean
 }
 
 export type ToPostReviveData = {
@@ -37,11 +43,11 @@ export type DataAPIProcess = {
   allFilms:Film[],
   favoriteFilms:Film[],
   openedFilm:Film | undefined,
+  promoFilm:Film | undefined,
   isErrorResponse:boolean,
   isLoadingFilms:boolean,
   similarFilms:Film[],
   reviews:Review[],
-  sentReview:Review[],
 }
 
 export type FilterProcess = {
