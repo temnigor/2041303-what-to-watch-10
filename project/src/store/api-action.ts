@@ -119,7 +119,6 @@ export const checkAuthAction = createAsyncThunk<void, undefined, { dispatch:AppD
     async (_arg, {dispatch, extra:api}) => {
       await api.get(APIRoute.Login);
     }
-
   );
 
 export const loginAction = createAsyncThunk<void, AuthData, {
