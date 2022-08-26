@@ -1,15 +1,17 @@
 import { Navigate, useParams } from 'react-router-dom';
 import {memo, useEffect} from 'react';
 import ArtBoard from '../components/art-board/art-board';
-import { AppRoute, CatalogFilm} from '../const';
+import { AppRoute, CatalogFilm, TIME_CLEAR_ERROR} from '../const';
 import Logo from '../components/logo/logo';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { getDataOpenFilmAction, getDataReviewsOpenFilm, getDataSimilarFilmsAction } from '../store/api-action';
 import { LoadingScreen } from '../components/loading-screen/loading-screen';
-import { CollectionFilmCardCatalog } from '../components/catalog-film-card/catalog-film-cards-interface';
+import { CollectionFilmCardCatalog } from '../components/catalog-film-card/collection-catalog-film-card';
 import { getIsErrorResponse, getOpenedFilms} from '../store/data-api-process/selectors';
 
 import { MovieInfo } from '../components/movie-info/movie-info';
+import { setIsErrorResponseAction } from '../store/data-api-process/data-api-process';
+import { ErrorLoading } from '../components/error-loading/error-loading';
 
 function MoviePageComponents ():JSX.Element {
   const dispatch = useAppDispatch();
@@ -26,9 +28,12 @@ function MoviePageComponents ():JSX.Element {
           dispatch(getDataSimilarFilmsAction(idForServer));
           dispatch(getDataReviewsOpenFilm(idForServer));
         }
+        if(isErrorResponse){
+          setTimeout(()=>dispatch(setIsErrorResponseAction(false)), TIME_CLEAR_ERROR);
+        }
       }}}, [dispatch, idParam, openedFilm, isErrorResponse]);
 
-  if(idParam === undefined || isNaN(+idParam) || isErrorResponse) {
+  if(idParam === undefined || isNaN(+idParam)) {
     return < Navigate to={AppRoute.Error}/>;
   }
   if(openedFilm === undefined || openedFilm.id !== +idParam){
@@ -38,6 +43,7 @@ function MoviePageComponents ():JSX.Element {
   return (
     <>
       <ArtBoard/>
+      {isErrorResponse && <ErrorLoading/>}
       {<MovieInfo openedFilm={openedFilm}/>}
       <div className="page-content">
         <section className="catalog catalog--like-this">

@@ -14,7 +14,7 @@ import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { MoviePage } from '../../pages/movie-page';
 import { useEffect } from 'react';
 import { fetchFavoriteFilmAction } from '../../store/api-action';
-import { isErrorResponseAction } from '../../store/data-api-process/data-api-process';
+import { setIsErrorResponseAction } from '../../store/data-api-process/data-api-process';
 
 
 function App(): JSX.Element {
@@ -24,7 +24,7 @@ function App(): JSX.Element {
   const dispatch = useAppDispatch();
   const location = useLocation();
   useEffect(()=>{
-    dispatch(isErrorResponseAction(false));
+    dispatch(setIsErrorResponseAction(false));
     if(authorizationStatus === AuthorizationStatus.Auth){
       dispatch(fetchFavoriteFilmAction());
     }

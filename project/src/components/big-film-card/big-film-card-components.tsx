@@ -30,7 +30,6 @@ function BigFilmCardComponents ({film}:BigFilmCardComponentsProps):JSX.Element {
           <div className="film-card__poster">
             <img src={poster} alt={filmName} width="218" height="327" />
           </div>
-
           <div className="film-card__desc">
             <h2 className="film-card__title">{filmName}</h2>
             <p className="film-card__meta">

@@ -1,22 +1,14 @@
-import { useEffect } from 'react';
 import ArtBoard from '../components/art-board/art-board';
-import { CollectionFilmCardCatalog } from '../components/catalog-film-card/catalog-film-cards-interface';
+import { CollectionFilmCardCatalog } from '../components/catalog-film-card/collection-catalog-film-card';
 import Logo from '../components/logo/logo';
 import { UserSign } from '../components/user-sign/user-sign';
 import { CatalogFilm } from '../const';
-import { useAppDispatch, useAppSelector } from '../hooks';
-import { fetchFavoriteFilmAction } from '../store/api-action';
+import { useAppSelector } from '../hooks';
 import { getFavoriteFilms, getIsErrorResponse } from '../store/data-api-process/selectors';
 
 function MyList () {
   const favoriteFilms = useAppSelector(getFavoriteFilms);
   const isErrorResponse = useAppSelector(getIsErrorResponse);
-  const dispatch = useAppDispatch();
-  useEffect(()=>{
-    if(favoriteFilms === undefined && isErrorResponse === false){
-      dispatch(fetchFavoriteFilmAction());
-    }
-  }, [dispatch, favoriteFilms, isErrorResponse]);
 
   return (
     <div>

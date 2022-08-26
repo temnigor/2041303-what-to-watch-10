@@ -30,7 +30,7 @@ export const dataAPIProcess = createSlice({
     loadOpenFilm(state, action) {
       state.openedFilm = action.payload;
     },
-    isErrorResponseAction(state, action) {
+    setIsErrorResponseAction(state, action) {
       state.isErrorResponse = action.payload;
     }
   },
@@ -86,7 +86,6 @@ export const dataAPIProcess = createSlice({
       })
       .addCase(postReviveAction.rejected, (state) => {
         state.isErrorResponse = true;
-        state.isLoadingFilms = false;
       })
       .addCase(fetchFavoriteFilmAction.pending, (state) => {
         state.isLoadingFilms = true;
@@ -112,4 +111,4 @@ export const dataAPIProcess = createSlice({
   }
 });
 
-export const {loadOpenFilm, isErrorResponseAction} = dataAPIProcess.actions;
+export const {loadOpenFilm, setIsErrorResponseAction} = dataAPIProcess.actions;

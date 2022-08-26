@@ -1,5 +1,9 @@
+
 export const SLICE_STEP = 8;
+
 export const ALL_GENRE = 'All genres';
+
+export const TIME_CLEAR_ERROR = 3000;
 
 export enum AppRoute {
   Main = '/',

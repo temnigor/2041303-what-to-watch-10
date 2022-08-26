@@ -30,11 +30,10 @@ function SignIn () {
         || refInputPassword.current.value.search(/[0-9]/) === -1
       ){
         setIsValidEmail(true);
-        return setIsValidPassword(false);
+        setIsValidPassword(false);
+        return;
       }
 
-      setIsValidEmail(true);
-      setIsValidPassword(true);
       dispatch(loginAction({
         login: refInputEmail.current.value,
         password: refInputPassword.current.value

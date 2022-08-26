@@ -1,10 +1,11 @@
 import React from 'react';
 
 type RatingStarProps = {
-  ratingFilm: number
+  isLoading: boolean,
+  ratingFilm: number,
   setUserRating: (rating:number)=>void
 }
-function RatingStar ({ratingFilm, setUserRating}:RatingStarProps):JSX.Element {
+function RatingStar ({isLoading, ratingFilm, setUserRating}:RatingStarProps):JSX.Element {
   return (
     <div className="rating" >
       <div className="rating__stars">
@@ -21,6 +22,7 @@ function RatingStar ({ratingFilm, setUserRating}:RatingStarProps):JSX.Element {
                 checked={ratingFilm === index}
                 readOnly
                 onClick={()=>{setUserRating(index);}}
+                disabled={isLoading}
               />
               <label className="rating__label" htmlFor={star}> Rating {index} </label>
             </React.Fragment>

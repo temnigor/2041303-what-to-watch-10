@@ -20,14 +20,14 @@ export function MyListLink ({isPromoFilm}:MyListLinkProps):JSX.Element {
   }
   const {id, isFavorite} = film;
 
-  const handleFavoriteChang = (evt:MouseEvent<HTMLElement>)=>{
+  const handleFavoriteChange = (evt:MouseEvent<HTMLElement>)=>{
     evt.preventDefault();
     if(authorizationStatus === AuthorizationStatus.Auth){
       dispatch(postFavoriteFilmAction({filmId:id, status:!isFavorite, isPromoFilm: isPromoFilm}));
     }
   };
   return(
-    <button onClick={handleFavoriteChang} className ="btn btn--list film-card__button" type="button">
+    <button onClick={handleFavoriteChange} className ="btn btn--list film-card__button" type="button">
       {isFavorite
         ?
         <svg viewBox="0 0 18 14" width="18" height="14">
