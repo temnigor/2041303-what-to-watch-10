@@ -25,9 +25,9 @@ function App(): JSX.Element {
   const dispatch = useAppDispatch();
   const location = useLocation();
   useEffect(()=>{
-    if(location.pathname === AppRoute.Error){
-      dispatch(setIsErrorResponseAction(false));
-    }
+
+    dispatch(setIsErrorResponseAction(false));
+
     if(authorizationStatus === AuthorizationStatus.Auth && !isErrorResponse){
       dispatch(fetchFavoriteFilmAction());
     }

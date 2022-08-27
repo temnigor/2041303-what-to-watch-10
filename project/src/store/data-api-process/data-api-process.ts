@@ -67,7 +67,6 @@ export const dataAPIProcess = createSlice({
       })
       .addCase(getDataOpenFilmAction.rejected, (state) => {
         state.openedFilm = undefined;
-        state.isErrorResponse = true;
         state.isLoadingFilms = false;
       })
       .addCase(getDataSimilarFilmsAction.fulfilled, (state, action) => {

@@ -1,6 +1,6 @@
 import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { APIRoute} from '../const';
+import { APIRoute, AppRoute} from '../const';
 import { AppDispatch, AuthData, FavoriteDataPost, FavoriteDataPostArg, State, ToPostReviveData, UserData } from '../types/store';
 import { Film, ServerFilm } from '../types/film';
 import { removeToken, saveToken } from '../services/token';
@@ -52,10 +52,14 @@ export const getDataOpenFilmAction = createAsyncThunk<Film|undefined, number, {d
   state: State, extra:AxiosInstance}>(
     'film/fetchOpenFilm',
     async (id:number, {dispatch, extra:api}) => {
-      const routeOnePage = APIRoute.OneFilm.replace('{filmId}', `${id}`);
-      const oneServerFilm = await api.get<ServerFilm>(routeOnePage);
-      const openFilm:Film = serverToFilms(oneServerFilm.data);
-      return openFilm;
+      try{
+        const routeOnePage = APIRoute.OneFilm.replace('{filmId}', `${id}`);
+        const oneServerFilm = await api.get<ServerFilm>(routeOnePage);
+        const openFilm:Film = serverToFilms(oneServerFilm.data);
+        return openFilm;
+      } catch {
+        dispatch(redirectRouteTo(AppRoute.Error));
+      }
     }
   );
 
