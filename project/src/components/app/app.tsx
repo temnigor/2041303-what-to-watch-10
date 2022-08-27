@@ -9,7 +9,7 @@ import PrivateRoute from '../private-route/private-route';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { LoadingScreen } from '../loading-screen/loading-screen';
-import { getIsErrorResponse, getIsLoadingFilms, getPromoFilm } from '../../store/data-api-process/selectors';
+import { getIsErrorResponse, getIsLoadingFilms } from '../../store/data-api-process/selectors';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { MoviePage } from '../../pages/movie-page';
 import { useEffect } from 'react';
@@ -20,7 +20,6 @@ import { setIsErrorResponseAction } from '../../store/data-api-process/data-api-
 function App(): JSX.Element {
   const isLoadingFilms = useAppSelector(getIsLoadingFilms);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
-  const promoFilm = useAppSelector(getPromoFilm);
   const isErrorResponse = useAppSelector(getIsErrorResponse);
   const dispatch = useAppDispatch();
   const location = useLocation();
@@ -33,7 +32,7 @@ function App(): JSX.Element {
     }
   },[dispatch, authorizationStatus, location, isErrorResponse]);
 
-  if(isLoadingFilms || authorizationStatus === AuthorizationStatus.Unknown || promoFilm === undefined) {
+  if(isLoadingFilms || authorizationStatus === AuthorizationStatus.Unknown) {
     return <LoadingScreen/>;
   }
   return (

@@ -35,7 +35,10 @@ function MoviePageComponents ():JSX.Element {
     return < Navigate to={AppRoute.Error}/>;
   }
 
-  if(openedFilm === undefined || openedFilm.id !== +idParam ){
+  if(openedFilm === undefined ){
+    if(openedFilm === undefined && isErrorResponse){
+      return <ErrorLoading/>;
+    }
     return <LoadingScreen/>;
   }
   return (

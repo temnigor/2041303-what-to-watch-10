@@ -7,7 +7,6 @@ import { CatalogFilm, TIME_CLEAR_ERROR } from '../const';
 import { getIsErrorResponse, getPromoFilm } from '../store/data-api-process/selectors';
 import { MainGenreMenu } from '../components/main-components/main-genre-menu';
 import { MainShowMoreButton } from '../components/main-components/main-show-more-button';
-import { LoadingScreen } from '../components/loading-screen/loading-screen';
 import { BigFilmCard } from '../components/big-film-card/big-film-card-components';
 import { setIsErrorResponseAction } from '../store/data-api-process/data-api-process';
 import { ErrorLoading } from '../components/error-loading/error-loading';
@@ -25,7 +24,7 @@ function Main ():JSX.Element {
     }
   });
   if(promoFilm === undefined){
-    return<LoadingScreen/>;
+    return <ErrorLoading/>;
   }
   return (
     <div>
