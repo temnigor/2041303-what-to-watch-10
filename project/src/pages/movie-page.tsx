@@ -32,14 +32,15 @@ function MoviePageComponents ():JSX.Element {
           setTimeout(()=>dispatch(setIsErrorResponseAction(false)), TIME_CLEAR_ERROR);
         }
       }}}, [dispatch, idParam, openedFilm, isErrorResponse]);
-
-  if(idParam === undefined || isNaN(+idParam)) {
+  if(idParam === undefined){
     return < Navigate to={AppRoute.Error}/>;
   }
-  if(openedFilm === undefined || openedFilm.id !== +idParam){
+  if((openedFilm === undefined && isErrorResponse) || isNaN(+idParam)) {
+    return < Navigate to={AppRoute.Error}/>;
+  }
+  if(openedFilm === undefined || openedFilm.id !== +idParam ){
     return <LoadingScreen/>;
   }
-
   return (
     <>
       <ArtBoard/>

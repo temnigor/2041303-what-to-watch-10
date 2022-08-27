@@ -27,9 +27,6 @@ export const dataAPIProcess = createSlice({
   name:NameSpace.Data,
   initialState,
   reducers:{
-    loadOpenFilm(state, action) {
-      state.openedFilm = action.payload;
-    },
     setIsErrorResponseAction(state, action) {
       state.isErrorResponse = action.payload;
     }
@@ -111,4 +108,4 @@ export const dataAPIProcess = createSlice({
   }
 });
 
-export const {loadOpenFilm, setIsErrorResponseAction} = dataAPIProcess.actions;
+export const {setIsErrorResponseAction} = dataAPIProcess.actions;

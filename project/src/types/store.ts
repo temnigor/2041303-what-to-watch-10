@@ -36,6 +36,7 @@ export type AuthData = {
 
 export type UserProcess = {
   authorizationStatus: string,
+  avatarUrl:string,
   isErrorAuth:boolean,
 }
 

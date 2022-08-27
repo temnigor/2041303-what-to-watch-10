@@ -1,4 +1,4 @@
-import { getRating } from '../../utils';
+import { getRating } from '../../utils/utils';
 
 const MAX_STARRING = 5;
 

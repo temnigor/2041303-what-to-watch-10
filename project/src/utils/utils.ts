@@ -1,4 +1,4 @@
-import { Rating } from './const';
+import { Rating } from '../const';
 
 const ONE_TIME_LIMIT = 60;
 const ONE_HOUR = 3600;
@@ -46,18 +46,18 @@ const getFilmTime = (timeEnd:number, currentTime:number) => {
     const hour = Math.floor(tameToEnd / (ONE_HOUR));
     const min = Math.floor((tameToEnd - (hour * ONE_HOUR)) / ONE_TIME_LIMIT);
     const seconds = Math.floor(tameToEnd - ((hour * ONE_HOUR) + (min * ONE_TIME_LIMIT)));
-    return `${hour}:${min}:${seconds}`;
+    return `-${hour}:${min}:${seconds}`;
   }
 
   if(tameToEnd >= ONE_TIME_LIMIT) {
     const min = Math.floor(tameToEnd / ONE_TIME_LIMIT);
     const seconds = tameToEnd - min * ONE_TIME_LIMIT;
-    return `${min}:${seconds}`;
+    return `-${min}:${seconds}`;
   }
   if(!isNaN(tameToEnd)){
-    return `00:${Math.floor(tameToEnd)}`;
+    return `-00:${Math.floor(tameToEnd)}`;
   }
-  return '00:00:00';
+  return '-00:00:00';
 };
 
 const filmTogglePlayer = (finish:number, start:number) => (start / finish) * 100;

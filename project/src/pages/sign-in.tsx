@@ -2,7 +2,7 @@ import ArtBoard from '../components/art-board/art-board';
 import Logo from '../components/logo/logo';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { FormEvent, useRef, useState } from 'react';
-import { loginAction } from '../store/api-action';
+import { fetchPromoFilmAction, loginAction } from '../store/api-action';
 import { Navigate } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../const';
 import { getAuthorizationStatus } from '../store/user-process/selectors';
@@ -38,6 +38,7 @@ function SignIn () {
         login: refInputEmail.current.value,
         password: refInputPassword.current.value
       }));
+      dispatch(fetchPromoFilmAction());
     }
   };
   return auth !== AuthorizationStatus.Auth ? (

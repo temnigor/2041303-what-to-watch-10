@@ -9,7 +9,7 @@ import PrivateRoute from '../private-route/private-route';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { LoadingScreen } from '../loading-screen/loading-screen';
-import { getIsLoadingFilms, getPromoFilm } from '../../store/data-api-process/selectors';
+import { getIsErrorResponse, getIsLoadingFilms, getPromoFilm } from '../../store/data-api-process/selectors';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { MoviePage } from '../../pages/movie-page';
 import { useEffect } from 'react';
@@ -21,14 +21,17 @@ function App(): JSX.Element {
   const isLoadingFilms = useAppSelector(getIsLoadingFilms);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const promoFilm = useAppSelector(getPromoFilm);
+  const isErrorResponse = useAppSelector(getIsErrorResponse);
   const dispatch = useAppDispatch();
   const location = useLocation();
   useEffect(()=>{
-    dispatch(setIsErrorResponseAction(false));
-    if(authorizationStatus === AuthorizationStatus.Auth){
+    if(location.pathname === AppRoute.Error){
+      dispatch(setIsErrorResponseAction(false));
+    }
+    if(authorizationStatus === AuthorizationStatus.Auth && !isErrorResponse){
       dispatch(fetchFavoriteFilmAction());
     }
-  },[dispatch, authorizationStatus, location]);
+  },[dispatch, authorizationStatus, location, isErrorResponse]);
 
   if(isLoadingFilms || authorizationStatus === AuthorizationStatus.Unknown || promoFilm === undefined) {
     return <LoadingScreen/>;

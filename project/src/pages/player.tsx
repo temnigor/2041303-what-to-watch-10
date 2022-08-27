@@ -6,7 +6,7 @@ import { PlayPauseButton } from '../components/player-pause-button/player-pause-
 import { AppRoute } from '../const';
 import {useAppSelector } from '../hooks';
 import { getAllFilms } from '../store/data-api-process/selectors';
-import { filmTogglePlayer, getFilmTime } from '../utils';
+import { filmTogglePlayer, getFilmTime } from '../utils/utils';
 
 function Player () {
   const {id:idParam} = useParams();
@@ -21,13 +21,13 @@ function Player () {
 
   useEffect(
     ()=> {
-
       if(videoRef.current === null) {
         return;
       }
 
       if(!isGoingPlay){
         videoRef.current.play();
+        setIsLoading(false);
         setInterval(()=>{if(videoRef.current !== null){setCurrentTime(videoRef.current.currentTime);}},100);
       }
       if(isGoingPlay){
@@ -57,8 +57,8 @@ function Player () {
       <div className ="player" >
         {isLoading && <Spinier/>}
         <video ref={videoRef} src={videoLinkPlayer}
-          onCanPlay={()=>{if(isLoading === false){setIsLoading(true);}}}
-          onPlaying={()=>{if(isLoading === true){setIsLoading(false);}}}
+          onCanPlay={()=>{setIsLoading(!isLoading);}}
+          onPlaying={()=>{setIsLoading(!isLoading);}}
           onLoadedData={()=>{if(isLoading === true){setIsLoading(false);}}}
           onDoubleClick ={()=>{
             if(document.fullscreenElement !== null){

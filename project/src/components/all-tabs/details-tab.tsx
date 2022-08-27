@@ -1,4 +1,4 @@
-import { getRunTimeToString } from '../../utils';
+import { getRunTimeToString } from '../../utils/utils';
 
 type DetailsProps = {
   director:string,

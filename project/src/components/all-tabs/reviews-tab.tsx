@@ -1,5 +1,5 @@
 import { Review } from '../../types/review';
-import { getCommentTime, getDataTime } from '../../utils';
+import { getCommentTime, getDataTime } from '../../utils/utils';
 
 const getReviewsJsx = (reviews:Review[]) =>
   reviews.map((review, i) => {

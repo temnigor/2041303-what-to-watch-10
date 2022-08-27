@@ -26,9 +26,15 @@ export function MyListLink ({isPromoFilm}:MyListLinkProps):JSX.Element {
       dispatch(postFavoriteFilmAction({filmId:id, status:!isFavorite, isPromoFilm: isPromoFilm}));
     }
   };
+  const getFavoriteFilmNumber = () =>{
+    if(authorizationStatus === AuthorizationStatus.NoAuth){
+      return 0;
+    }
+    return favoriteFilms.length;
+  };
   return(
     <button onClick={handleFavoriteChange} className ="btn btn--list film-card__button" type="button">
-      {isFavorite
+      {isFavorite && authorizationStatus === AuthorizationStatus.Auth
         ?
         <svg viewBox="0 0 18 14" width="18" height="14">
           <use xlinkHref="#in-list"></use>
@@ -38,7 +44,7 @@ export function MyListLink ({isPromoFilm}:MyListLinkProps):JSX.Element {
           <use xlinkHref="#add"></use>
         </svg>}
       <span>My list</span>
-      <span className="film-card__count">{favoriteFilms.length}</span>
+      <span className="film-card__count">{getFavoriteFilmNumber()}</span>
     </button>
   );
 }

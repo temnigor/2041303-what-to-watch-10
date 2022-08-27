@@ -26,14 +26,14 @@ function MyList () {
 
           {!isErrorResponse && favoriteFilms.length === 0
             ?
-            <div className ="page-title user-page__title">
+            <div className ="page-title">
               <h3>No Film in list</h3>
             </div>
             : null }
 
           {isErrorResponse
             ?
-            <div className ="page-title user-page__title">
+            <div className ="page-title">
               <h3>Loading Error please Reload</h3>
             </div>
             : null }
