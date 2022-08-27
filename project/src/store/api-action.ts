@@ -124,7 +124,6 @@ export const checkAuthAction = createAsyncThunk<string, undefined, { dispatch:Ap
       const {data:{avatarUrl}} = await api.get(APIRoute.Login);
       return avatarUrl;
     }
-
   );
 
 export const loginAction = createAsyncThunk<string, AuthData, {
