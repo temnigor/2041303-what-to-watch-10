@@ -8,7 +8,6 @@ import { getDataOpenFilmAction, getDataReviewsOpenFilm, getDataSimilarFilmsActio
 import { LoadingScreen } from '../components/loading-screen/loading-screen';
 import { CollectionFilmCardCatalog } from '../components/catalog-film-card/collection-catalog-film-card';
 import { getIsErrorResponse, getOpenedFilms} from '../store/data-api-process/selectors';
-
 import { MovieInfo } from '../components/movie-info/movie-info';
 import { setIsErrorResponseAction } from '../store/data-api-process/data-api-process';
 import { ErrorLoading } from '../components/error-loading/error-loading';
